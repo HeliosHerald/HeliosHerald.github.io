@@ -791,6 +791,7 @@
     font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 40;
     font-size: 1.0625rem; line-height: 1.6; white-space: pre-line;
   }
+  .eph-poem-body em { font-style: italic; }
   .eph-poem-title {
     font-family: 'Fraunces', Georgia, serif; font-weight: 600;
     font-size: 1rem; margin: 0 0 .5rem; letter-spacing: -.01em;
@@ -858,6 +859,20 @@
   .cs-shot { margin: 0; border: 1px solid var(--hairline); overflow: hidden; background: rgba(241,233,218,.14); }
   .cs-shot img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 1; transition: transform .3s; }
   .cs-shot:hover img { transform: scale(1.04); }
+
+  .eph-section-label {
+    display: flex; align-items: center; gap: .8rem;
+    margin: 0 0 1.1rem; font-size: .6875rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--ember);
+  }
+  .eph-section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--hairline);
+  }
+  .eph-section-label:not(:first-of-type) { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .eph-section-label--dark { color: var(--ember-lt); }
+  .eph-section-label--dark::after { background: rgba(241,233,218,.25); }
+  /* poems read better a touch wider */
+  .eph-wall-poems { columns: 2 20rem; }
 
   /* ── letterboxd strip ───────────────────────── */
 
@@ -962,7 +977,12 @@
     border-bottom: 1px solid var(--hairline); padding-bottom: 2px;
     transition: color .2s, border-color .2s;
   }
+  .contact-lines a {
+    display: inline-flex; align-items: center; gap: .6rem;
+  }
   .contact-lines a:hover { color: var(--ember); border-bottom-color: var(--ember); }
+  .ci { flex: none; display: inline-flex; }
+  .ci svg { width: 20px; height: 20px; display: block; }
 
   @media (prefers-reduced-motion: reduce) {
     .panel > *, .tab .flame { animation: none; }
@@ -1321,7 +1341,7 @@
             <p>The other copper artifact is the coin. Admittedly, the design is a little rough, but I stand by the idea. Since Rove 54 is accessed through an NFC tag, access to the webpage can be discreetly hidden in a coin. The coin becomes a peer sponsorship mechanism: a rover completes the hunt, gets a coin, and gives that coin to a friend to challenge them to the rove.</p>
             <p>I beta tested Rove 54 and those who participated enjoyed the experience. I got valuable feedback and was able to tighten all the loose screws on the project.</p>
         </div>
-          <ul class="outcomes"><li>Six NFC-linked seals</li><li>Custom sigil &amp; copper artifacts</li><li>Beta tested with feedback</li><li>Participant-authored proverbs</li></ul>
+          <ul class="outcomes"><li>A working site at rove54.quest</li><li>NFC technology</li><li>Copper artifacts</li><li>Hidden cache</li><li>Community-sourced proverbs</li><li>Six hidden clues</li><li>The roundtable, renewed</li></ul>
           <span class="status">Working prototype. To run as intended it needs monthly gatherings and community maintenance&mdash;bandwidth I don&rsquo;t have as a graduate student. But Rove 54 can exist at any time, anywhere. One day I&rsquo;ll have the means; it might just look a little different.</span>
           <a class="entry-link" href="https://rove54.quest" target="_blank" rel="noopener">rove54.quest &rarr;</a>
       <div class="cs-gallery">
@@ -1530,14 +1550,18 @@
     </div>
 
     <div class="eph-note">
-      <span>A different handful each visit.</span>
+      <span>A different handful each visit&mdash;a few poems, a few photographs.</span>
       <button class="eph-shuffle" id="eph-shuffle" type="button">
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h3l6 8h3M2 12h3l2-2.7M11 4h3M11 4l1.6-1.6M11 4l1.6 1.6M14 12l-1.6-1.6M14 12l-1.6 1.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Shuffle
       </button>
     </div>
 
-    <div class="eph-wall" id="eph-wall"></div>
+    <div class="eph-section-label"><span>Verse</span></div>
+    <div class="eph-wall eph-wall-poems" id="eph-wall-poems"></div>
+
+    <div class="eph-section-label"><span>Image</span></div>
+    <div class="eph-wall" id="eph-wall-photos"></div>
 
     <button class="eph-all-btn" id="eph-all" type="button">
       See the whole woodpile
@@ -1560,7 +1584,10 @@
         <h3>The whole woodpile</h3>
         <button class="eph-modal-close" id="eph-modal-close" type="button">Close &times;</button>
       </div>
-      <div class="eph-wall" id="eph-wall-all"></div>
+      <div class="eph-section-label eph-section-label--dark"><span>Verse</span></div>
+      <div class="eph-wall eph-wall-poems" id="eph-wall-all-poems"></div>
+      <div class="eph-section-label eph-section-label--dark"><span>Image</span></div>
+      <div class="eph-wall" id="eph-wall-all-photos"></div>
     </div>
   </div>
 </div>
@@ -1571,7 +1598,7 @@
     <div class="sec-head">
       <div class="ghosts" aria-hidden="true"><span>CONTACT</span><span>CONTACT</span><span>CONTACT</span></div>
       <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>Say hello</p>
-      <h2><span class="fill">[Section title — e.g. "Let's talk"]</span></h2>
+      <h2>Nice to meet you</h2>
     </div>
 
     <div class="contact-cols">
@@ -1589,27 +1616,35 @@
       </div>
 
       <div>
-        <p class="lede" style="margin:0 0 2rem;"><span class="fill">[One or two sentences. Who you most want to hear from, and what a useful conversation would be. Specific beats polite.]</span></p>
+        <p class="lede" style="margin:0 0 2rem;">It&rsquo;s always a bright moment when I meet someone who cares about art, community, and the spaces where they meet. Practitioners, organizers, funders, teachers, arts administrators&mdash;I&rsquo;d love to hear from you all. Reach out if you&rsquo;d like to compare notes, trade references, ponder a collaboration, or think out loud. I&rsquo;m especially keen to connect with people in the DMV and across the Southeast.</p>
 
         <div class="contact-block">
           <span class="label">Reach me</span>
           <ul class="contact-lines">
-            <li><a href="mailto:krammeltristan@gmail.com">krammeltristan@gmail.com</a></li>
+            <li><a href="mailto:krammeltristan@gmail.com">
+              <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              krammeltristan@gmail.com</a></li>
           </ul>
         </div>
 
         <div class="contact-block">
           <span class="label">Elsewhere</span>
           <ul class="contact-lines">
-            <li><a href="https://instagram.com/tristan.misten" target="_blank" rel="noopener">@tristan.misten</a></li>
-            <li><a href="https://www.linkedin.com/in/tristan-krammel-b85906293/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://letterboxd.com/Tristan_Misten/" target="_blank" rel="noopener">Letterboxd</a></li>
+            <li><a href="https://instagram.com/tristan.misten" target="_blank" rel="noopener">
+              <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></span>
+              @tristan.misten</a></li>
+            <li><a href="https://www.linkedin.com/in/tristan-krammel-b85906293/" target="_blank" rel="noopener">
+              <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              LinkedIn</a></li>
+            <li><a href="https://letterboxd.com/Tristan_Misten/" target="_blank" rel="noopener">
+              <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="7" cy="12" r="3.4" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="12" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
+              Letterboxd</a></li>
           </ul>
         </div>
 
         <div class="contact-block" style="margin-bottom:0;">
           <span class="label">Where I am</span>
-          <p style="margin:0;">Washington, DC — Adams Morgan.</p>
+          <p style="margin:0;">Washington, DC &mdash; Adams Morgan.</p>
         </div>
       </div>
 
@@ -1953,6 +1988,9 @@
    ══════════════════════════════════════════════════════════════ */
 const ephemera = [
   { type:'poem', title:'', text:'I glimpsed it.\nA toiled cord, threaded finally.\nToday: one more hair.' },
+  { type:'poem', title:'High Tide', text:'For some, for many, or all,\nWe dwell under an immensity.\n\nPour for pleasure\nAnd let the rain fall\nWaves inducing waves\nThe roiling surface crawls.\n\nLunar reciprocity\nA celestial event.\nThe affectation of two bodies\nBrings its relent.\n\nThe seas recede\nAnd we see our souls.\nDraw the curtains\nYank the blanket\nStare and scroll.\n\nThrall to the tide\nThe ocean abides.' },
+  { type:'poem', title:'The Meteor', text:'Newborn papers,\nCarbon and ink\nSlipping from the printer,\ndown drifting down\nEntropy surrounds\nDestined for the ground.\n\nI am shelved.\nSuspended.\nTucked into a neat folder with\na chair and screen.\nOur ruin cannot be seen.\n\nDust advances\ndappled motes\non screen and shelf.\n\nExcruciating void of time and self.\n\nMany pale boxes,\none hundred,\none thousand,\nprobably more.\nLinear feet of everything adored.\n\nEntropy, yielding.\nPages cradled.\nFolders in their heaven.\nElysium in a cardboard box.\n\nI am very glad that our words will live forever\nBut pulp and cardboard\ndoes not insist on destroying itself.' },
+  { type:'poem', title:'Pale waters bloom', text:'He was made to be adrift.\nSoft fingers laced with lapping shores.\n\nFrom below burbled colossal whispers:\n\n*Go. Seek something.*\n\nHis eyes met stirring water.\n\n*Look farther*\n\nHe saw\nA sip of the orange future crowning\nAnd he decided.' },
 
   { type:'image', src:'assets/ephemera/000067960006.jpg', alt:'' },
   { type:'image', src:'assets/ephemera/000067960021.jpg', alt:'' },
@@ -1985,14 +2023,15 @@ const ephemera = [
   // add poems, quotes, or new media types here ↓
 ];
 
-const SHOW = 5;   // how many appear on the shuffled wall
+const SHOW_POEMS = 2;    // poems shown on the wall each load
+const SHOW_PHOTOS = 4;   // photos shown on the wall each load
 
 const RENDERERS = {
   poem(it) {
     return `<article class="eph-card eph-poem">
       <span class="eph-kind">Poem</span>
       ${it.title ? `<p class="eph-poem-title">${esc(it.title)}</p>` : ''}
-      <div class="eph-poem-body">${esc(it.text)}</div>
+      <div class="eph-poem-body">${emphasize(esc(it.text))}</div>
     </article>`;
   },
   image(it) {
@@ -2013,17 +2052,20 @@ const RENDERERS = {
 };
 
 function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+function emphasize(t){ return t.replace(/\*([^*]+)\*/g, '<em>$1</em>'); }
 function render(it){ return (RENDERERS[it.type]||(()=> ''))(it); }
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; }
 
+function byType(t){ return ephemera.filter(x => x.type === t); }
+function fill(id, items){ const el = document.getElementById(id); if (el) el.innerHTML = items.map(render).join(''); }
+
 function paintWall() {
-  const wall = document.getElementById('eph-wall');
-  if (!wall) return;
-  wall.innerHTML = shuffle(ephemera).slice(0, SHOW).map(render).join('');
+  fill('eph-wall-poems',  shuffle(byType('poem')).slice(0, SHOW_POEMS));
+  fill('eph-wall-photos', shuffle(byType('image')).slice(0, SHOW_PHOTOS));
 }
 function paintAll() {
-  const all = document.getElementById('eph-wall-all');
-  if (all) all.innerHTML = ephemera.map(render).join('');
+  fill('eph-wall-all-poems',  byType('poem'));
+  fill('eph-wall-all-photos', byType('image'));
 }
 
 (function(){
