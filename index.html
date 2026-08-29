@@ -739,6 +739,126 @@
     font-size: .8125rem; font-style: italic; color: var(--lichen);
   }
 
+  /* ── ephemera: shuffled mixed-media wall ────── */
+
+  .eph-note {
+    display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: .9375rem; color: var(--lichen); font-style: italic;
+  }
+  .eph-shuffle {
+    appearance: none; border: 1px solid var(--hairline); background: none;
+    font: inherit; font-style: normal; cursor: pointer; color: var(--loam);
+    font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    padding: .4rem .85rem; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: .45rem;
+    transition: color .2s, border-color .2s;
+  }
+  .eph-shuffle:hover { color: var(--ember); border-color: var(--ember); }
+  .eph-shuffle svg { width: 13px; height: 13px; }
+  .eph-shuffle:hover svg { animation: spin .6s ease; }
+  @keyframes spin { to { transform: rotate(180deg); } }
+
+  .eph-wall {
+    columns: 3 16rem; column-gap: clamp(1rem, 2.5vw, 1.5rem);
+  }
+  .eph-card {
+    break-inside: avoid; margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid var(--hairline); background: rgba(241,233,218,.14);
+    position: relative; overflow: hidden;
+    animation: rise .5s cubic-bezier(.2,.7,.3,1) both;
+  }
+  .eph-card:nth-child(2){animation-delay:.05s}.eph-card:nth-child(3){animation-delay:.1s}
+  .eph-card:nth-child(4){animation-delay:.15s}.eph-card:nth-child(5){animation-delay:.2s}
+  .eph-card:nth-child(6){animation-delay:.25s}
+
+  /* image item */
+  .eph-image img { width: 100%; height: auto; display: block; }
+  .eph-cap {
+    padding: .7rem .9rem; font-size: .8125rem; color: var(--lichen);
+    display: flex; justify-content: space-between; gap: .75rem;
+  }
+  .eph-kind {
+    font-size: .625rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ember); flex: none; padding-top: .1rem;
+  }
+
+  /* poem item */
+  .eph-poem { padding: clamp(1.4rem, 3vw, 2rem) clamp(1.2rem, 2.5vw, 1.6rem); }
+  .eph-poem .eph-kind { margin-bottom: .8rem; display: block; }
+  .eph-poem-body {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 40;
+    font-size: 1.0625rem; line-height: 1.6; white-space: pre-line;
+  }
+  .eph-poem-title {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600;
+    font-size: 1rem; margin: 0 0 .5rem; letter-spacing: -.01em;
+  }
+
+  /* quote item (a future type, already supported) */
+  .eph-quote { padding: clamp(1.4rem, 3vw, 2rem) clamp(1.2rem, 2.5vw, 1.6rem); }
+  .eph-quote .eph-kind { display:block; margin-bottom:.8rem; }
+  .eph-quote-body {
+    font-family: 'Fraunces', Georgia, serif; font-style: italic;
+    font-size: 1.15rem; line-height: 1.5;
+  }
+  .eph-quote-src { margin-top: .7rem; font-size: .8125rem; color: var(--lichen); font-style: normal; }
+
+  .eph-all-btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    margin-top: clamp(2rem, 5vw, 3rem);
+    appearance: none; border: 0; cursor: pointer; font: inherit;
+    background: var(--ember); color: #FCF4E7;
+    padding: .7rem 1.35rem; border-radius: 999px;
+    font-size: .8125rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    transition: background .2s;
+  }
+  .eph-all-btn:hover { background: var(--loam); color: var(--limewash); }
+
+  /* full-collection overlay */
+  .eph-modal[hidden] { display: none; }
+  .eph-modal {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(28,26,21,.86); backdrop-filter: blur(3px);
+    display: grid; place-items: start center; overflow-y: auto;
+    padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+    animation: fade .3s ease both;
+  }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .eph-modal-inner { max-width: 60rem; width: 100%; }
+  .eph-modal-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; margin-bottom: 2rem; color: var(--cream);
+  }
+  .eph-modal-head h3 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600;
+    font-size: clamp(1.6rem, 4vw, 2.4rem); color: #F1E9DA;
+  }
+  .eph-modal-close {
+    appearance: none; border: 1px solid rgba(241,233,218,.4); background: none;
+    color: #F1E9DA; cursor: pointer; font: inherit;
+    font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    padding: .5rem 1rem; border-radius: 999px; flex: none;
+    transition: background .2s;
+  }
+  .eph-modal-close:hover { background: rgba(241,233,218,.14); }
+  .eph-modal .eph-wall { columns: 3 15rem; }
+  .eph-modal .eph-card { background: #F1E9DA; border-color: transparent; }
+  .eph-modal .eph-poem-body, .eph-modal .eph-quote-body,
+  .eph-modal .eph-poem-title { color: #201C16; }
+  .eph-modal .eph-cap { color: #6E6455; }
+
+  /* ── case-study photo gallery ───────────────── */
+  .cs-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: .75rem; margin-top: 1.6rem;
+  }
+  .cs-shot { margin: 0; border: 1px solid var(--hairline); overflow: hidden; background: rgba(241,233,218,.14); }
+  .cs-shot img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 1; transition: transform .3s; }
+  .cs-shot:hover img { transform: scale(1.04); }
+
   /* ── letterboxd strip ───────────────────────── */
 
   .lbx { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
@@ -1057,7 +1177,7 @@
       <div class="stack"><div class="framed">
         <div class="portrait">
           <img src="assets/portrait/portrait.jpg" alt="Tristan Krammel"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+               onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='assets/portrait/portrait.jpg.JPG';}else{this.style.display='none';this.nextElementSibling.style.display='grid';}">
           <span class="label" style="display:none">[ Drop portrait.jpg in assets/portrait/ ]</span>
         </div>
         <svg class="sprig ivy sprig-bl" viewBox="-26 -18 100 88" fill="none" aria-hidden="true" focusable="false"><use href="#ivy-sprig"/></svg>
@@ -1129,7 +1249,8 @@
 
       <button class="pcard" role="listitem" aria-expanded="false" aria-controls="detail-2" data-open="2">
         <div class="pcard-art">
-          <div class="plain-frame pf-badge" aria-hidden="true"><span class="pf-mark">HD</span></div>
+          <div class="plain-frame" aria-hidden="true"></div>
+          <img src="assets/logos/High%20Dive-logo.png" alt="The High Dive logo">
         </div>
         <span class="pcard-label">The High Dive</span>
         <span class="pcard-cue">Take the plunge
@@ -1164,6 +1285,13 @@
             <p>The project is a replicable framework. It is now established at my alma mater, the University of Florida, under a club I used to lead: The English Society. Students can send and retrieve letters straight from the university library.</p>
         </div>
           <ul class="outcomes"><li>80+ sign-ups</li><li>Two ongoing programs</li><li>Dozens of letters delivered</li><li>A replicable matching framework</li></ul>
+      <div class="cs-gallery">
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/DCACPPP%20FLYER.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3137.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3138.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3139.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/letter%20boxes.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+      </div>
       </div>
     </article>
     </div>
@@ -1196,6 +1324,16 @@
           <ul class="outcomes"><li>Six NFC-linked seals</li><li>Custom sigil &amp; copper artifacts</li><li>Beta tested with feedback</li><li>Participant-authored proverbs</li></ul>
           <span class="status">Working prototype. To run as intended it needs monthly gatherings and community maintenance&mdash;bandwidth I don&rsquo;t have as a graduate student. But Rove 54 can exist at any time, anywhere. One day I&rsquo;ll have the means; it might just look a little different.</span>
           <a class="entry-link" href="https://rove54.quest" target="_blank" rel="noopener">rove54.quest &rarr;</a>
+      <div class="cs-gallery">
+        <figure class="cs-shot"><img src="assets/projects/rove-54/Rove%2054%20Flyer.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/emblemfront.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/emblem%20back.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/coin.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/seal%20example.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/printout%20message.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/main%20webpage.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/rovetrove.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+      </div>
       </div>
     </article>
     </div>
@@ -1219,6 +1357,10 @@
         <div class="entry-body">
             <p><span class="fill">[Write The High Dive here &mdash; where the idea came from, how the carbon-copy interview works, what the strangers give you.]</span></p>
         </div>
+      <div class="cs-gallery">
+        <figure class="cs-shot"><img src="assets/projects/high-dive/gina%20spread%20working%20draft.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/high-dive/keepsake%20green%20printout.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+      </div>
       </div>
     </article>
     </div>
@@ -1232,7 +1374,7 @@
       <div class="ghosts" aria-hidden="true"><span>RESUME</span><span>RESUME</span><span>RESUME</span></div>
       <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>The board</p>
       <h2>Experience</h2>
-      <a class="download" href="assets/documents/Tristan_Krammel_Resume.pdf" download>Download PDF resume</a>
+      <a class="download" href="assets/documents/Tristan%20Krammel%20Resume%20August%202026%20-2.pdf" download>Download PDF resume</a>
     </div>
 
     <div class="cv-block">
@@ -1383,108 +1525,45 @@
     <div class="sec-head">
       <div class="ghosts" aria-hidden="true"><span>EPHEMERA</span><span>EPHEMERA</span><span>EPHEMERA</span></div>
       <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>The woodpile</p>
-      <h2><span class="fill">[Section title — e.g. "Everything else"]</span></h2>
-      <p style="max-width:var(--measure); margin:1rem 0 0; color:var(--lichen);"><span class="fill">[One or two sentences. This is the catch-all — say what holds it together, even loosely.]</span></p>
+      <h2>Ephemera</h2>
+      <p style="max-width:var(--measure); margin:1rem 0 0; color:var(--lichen);">Poems, photographs, and other small things. This wall reshuffles every time you load the page&mdash;you&rsquo;ll rarely see the same handful twice.</p>
     </div>
 
+    <div class="eph-note">
+      <span>A different handful each visit.</span>
+      <button class="eph-shuffle" id="eph-shuffle" type="button">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4h3l6 8h3M2 12h3l2-2.7M11 4h3M11 4l1.6-1.6M11 4l1.6 1.6M14 12l-1.6-1.6M14 12l-1.6 1.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Shuffle
+      </button>
+    </div>
 
-    <section class="lbx">
+    <div class="eph-wall" id="eph-wall"></div>
+
+    <button class="eph-all-btn" id="eph-all" type="button">
+      See the whole woodpile
+      <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="lbx" style="margin-top:clamp(3rem,7vw,5rem)">
       <div class="lbx-head">
         <p class="label" style="margin:0;"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>Lately watching</p>
         <a class="lbx-link" href="https://letterboxd.com/Tristan_Misten/" target="_blank" rel="noopener">Letterboxd &rarr;</a>
       </div>
       <div id="letterboxd-embed-wrapper-tc" class="lbx-embed"><p class="lbx-note">Loading recent films&hellip;</p></div>
-    </section>
+    </div>
+  </div>
 
-    <div class="grid">
-      <figure class="work">
-        <div class="framed">
-          <div class="plate">
-            <img src="assets/ephemera/item-1.jpg" alt=""
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-            <span class="label" style="display:none">[ item-1.jpg ]</span>
-          </div>
-          <div class="tendril tendril-bottom" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.0%;top:-14.7px;--r:-31deg;--d:0.04s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-5"/></svg><svg class="tl ivy" style="left:18.0%;top:-5.2px;--r:215deg;--d:0.13s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:30.0%;top:-10.2px;--r:-25deg;--d:0.21s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:42.0%;top:-4.8px;--r:217deg;--d:0.29s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:54.0%;top:-16.1px;--r:-33deg;--d:0.38s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:66.0%;top:-8.1px;--r:207deg;--d:0.46s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:77.7%;top:-7.5px;--r:-27deg;--d:0.54s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:87.5%;top:-15.4px;--r:217deg;--d:0.61s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:96.0%;top:-7.3px;--r:-23deg;--d:0.67s;width:18.7px;height:18.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        </div>
-        <figcaption>
-          <h3><span class="fill">[Title]</span></h3>
-          <p><span class="fill">[Medium · year]</span></p>
-        </figcaption>
-      </figure>
-      <figure class="work">
-        <div class="framed">
-          <div class="plate">
-            <img src="assets/ephemera/item-2.jpg" alt=""
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-            <span class="label" style="display:none">[ item-2.jpg ]</span>
-          </div>
-          <div class="tendril tendril-bottom" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.0%;top:-14.7px;--r:-31deg;--d:0.04s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-5"/></svg><svg class="tl ivy" style="left:18.0%;top:-5.2px;--r:215deg;--d:0.13s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:30.0%;top:-10.2px;--r:-25deg;--d:0.21s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:42.0%;top:-4.8px;--r:217deg;--d:0.29s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:54.0%;top:-16.1px;--r:-33deg;--d:0.38s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:66.0%;top:-8.1px;--r:207deg;--d:0.46s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:77.7%;top:-7.5px;--r:-27deg;--d:0.54s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:87.5%;top:-15.4px;--r:217deg;--d:0.61s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:96.0%;top:-7.3px;--r:-23deg;--d:0.67s;width:18.7px;height:18.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        </div>
-        <figcaption>
-          <h3><span class="fill">[Title]</span></h3>
-          <p><span class="fill">[Medium · year]</span></p>
-        </figcaption>
-      </figure>
-      <figure class="work">
-        <div class="framed">
-          <div class="plate">
-            <img src="assets/ephemera/item-3.jpg" alt=""
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-            <span class="label" style="display:none">[ item-3.jpg ]</span>
-          </div>
-          <div class="tendril tendril-bottom" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.0%;top:-14.7px;--r:-31deg;--d:0.04s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-5"/></svg><svg class="tl ivy" style="left:18.0%;top:-5.2px;--r:215deg;--d:0.13s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:30.0%;top:-10.2px;--r:-25deg;--d:0.21s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:42.0%;top:-4.8px;--r:217deg;--d:0.29s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:54.0%;top:-16.1px;--r:-33deg;--d:0.38s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:66.0%;top:-8.1px;--r:207deg;--d:0.46s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:77.7%;top:-7.5px;--r:-27deg;--d:0.54s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:87.5%;top:-15.4px;--r:217deg;--d:0.61s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:96.0%;top:-7.3px;--r:-23deg;--d:0.67s;width:18.7px;height:18.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        </div>
-        <figcaption>
-          <h3><span class="fill">[Title]</span></h3>
-          <p><span class="fill">[Medium · year]</span></p>
-        </figcaption>
-      </figure>
-      <figure class="work">
-        <div class="framed">
-          <div class="plate">
-            <img src="assets/ephemera/item-4.jpg" alt=""
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-            <span class="label" style="display:none">[ item-4.jpg ]</span>
-          </div>
-          <div class="tendril tendril-bottom" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.0%;top:-14.7px;--r:-31deg;--d:0.04s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-5"/></svg><svg class="tl ivy" style="left:18.0%;top:-5.2px;--r:215deg;--d:0.13s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:30.0%;top:-10.2px;--r:-25deg;--d:0.21s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:42.0%;top:-4.8px;--r:217deg;--d:0.29s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:54.0%;top:-16.1px;--r:-33deg;--d:0.38s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:66.0%;top:-8.1px;--r:207deg;--d:0.46s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:77.7%;top:-7.5px;--r:-27deg;--d:0.54s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:87.5%;top:-15.4px;--r:217deg;--d:0.61s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:96.0%;top:-7.3px;--r:-23deg;--d:0.67s;width:18.7px;height:18.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        </div>
-        <figcaption>
-          <h3><span class="fill">[Title]</span></h3>
-          <p><span class="fill">[Medium · year]</span></p>
-        </figcaption>
-      </figure>
-      <figure class="work">
-        <div class="framed">
-          <div class="plate">
-            <img src="assets/ephemera/item-5.jpg" alt=""
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-            <span class="label" style="display:none">[ item-5.jpg ]</span>
-          </div>
-          <div class="tendril tendril-bottom" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.0%;top:-14.7px;--r:-31deg;--d:0.04s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-5"/></svg><svg class="tl ivy" style="left:18.0%;top:-5.2px;--r:215deg;--d:0.13s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:30.0%;top:-10.2px;--r:-25deg;--d:0.21s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:42.0%;top:-4.8px;--r:217deg;--d:0.29s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:54.0%;top:-16.1px;--r:-33deg;--d:0.38s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:66.0%;top:-8.1px;--r:207deg;--d:0.46s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:77.7%;top:-7.5px;--r:-27deg;--d:0.54s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:87.5%;top:-15.4px;--r:217deg;--d:0.61s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:96.0%;top:-7.3px;--r:-23deg;--d:0.67s;width:18.7px;height:18.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        </div>
-        <figcaption>
-          <h3><span class="fill">[Title]</span></h3>
-          <p><span class="fill">[Medium · year]</span></p>
-        </figcaption>
-      </figure>
-      <figure class="work">
-        <div class="framed">
-          <div class="plate">
-            <img src="assets/ephemera/item-6.jpg" alt=""
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-            <span class="label" style="display:none">[ item-6.jpg ]</span>
-          </div>
-          <div class="tendril tendril-bottom" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.0%;top:-14.7px;--r:-31deg;--d:0.04s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-5"/></svg><svg class="tl ivy" style="left:18.0%;top:-5.2px;--r:215deg;--d:0.13s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:30.0%;top:-10.2px;--r:-25deg;--d:0.21s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:42.0%;top:-4.8px;--r:217deg;--d:0.29s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:54.0%;top:-16.1px;--r:-33deg;--d:0.38s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:66.0%;top:-8.1px;--r:207deg;--d:0.46s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:77.7%;top:-7.5px;--r:-27deg;--d:0.54s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:87.5%;top:-15.4px;--r:217deg;--d:0.61s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:96.0%;top:-7.3px;--r:-23deg;--d:0.67s;width:18.7px;height:18.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        </div>
-        <figcaption>
-          <h3><span class="fill">[Title]</span></h3>
-          <p><span class="fill">[Medium · year]</span></p>
-        </figcaption>
-      </figure>
+  <!-- full-collection overlay -->
+  <div class="eph-modal" id="eph-modal" hidden role="dialog" aria-modal="true" aria-label="The complete woodpile">
+    <div class="eph-modal-inner">
+      <div class="eph-modal-head">
+        <h3>The whole woodpile</h3>
+        <button class="eph-modal-close" id="eph-modal-close" type="button">Close &times;</button>
+      </div>
+      <div class="eph-wall" id="eph-wall-all"></div>
     </div>
   </div>
 </div>
-
 
 <!-- ═══ CONTACT ════════════════════════════════ -->
 <div class="panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" hidden>
@@ -1857,6 +1936,110 @@
       document.querySelector('.project-picker').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   });
+})();
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   EPHEMERA — a shuffled wall of mixed media.
+
+   TO ADD SOMETHING: add one entry to the `ephemera` array below.
+   The wall picks a few at random each load; the modal shows them all.
+
+   Supported types (add more by writing a new renderer in RENDERERS):
+     { type:'poem',  title:'', text:'line\nline\nline' }
+     { type:'image', src:'assets/ephemera/x.jpg', alt:'', caption:'' }
+     { type:'quote', text:'', source:'' }
+   ══════════════════════════════════════════════════════════════ */
+const ephemera = [
+  { type:'poem', title:'', text:'I glimpsed it.\nA toiled cord, threaded finally.\nToday: one more hair.' },
+
+  { type:'image', src:'assets/ephemera/000067960006.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/000067960021.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/000067960032.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/000067960034.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/000067960035.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/250616000046710020.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/250616000046710031.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/250616000046710032.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/250616000046710033.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/250616000046720003.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_0004.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_0465.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_1309.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_1355.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_1414.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_2142.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_2763.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_3988.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_9022.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_9178.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/IMG_9324EDITED.jpg', alt:'' },
+  { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115458.png', alt:'' },
+  { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115536.png', alt:'' },
+  { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115553.png', alt:'' },
+  { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115606.png', alt:'' },
+  { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115618.png', alt:'' },
+  { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115631.png', alt:'' },
+
+  // add poems, quotes, or new media types here ↓
+];
+
+const SHOW = 5;   // how many appear on the shuffled wall
+
+const RENDERERS = {
+  poem(it) {
+    return `<article class="eph-card eph-poem">
+      <span class="eph-kind">Poem</span>
+      ${it.title ? `<p class="eph-poem-title">${esc(it.title)}</p>` : ''}
+      <div class="eph-poem-body">${esc(it.text)}</div>
+    </article>`;
+  },
+  image(it) {
+    return `<article class="eph-card eph-image">
+      <img src="${it.src}" alt="${esc(it.alt||'')}" loading="lazy"
+           onerror="this.closest('.eph-card').remove()">
+      ${(it.caption||it.kind) ? `<div class="eph-cap"><span>${esc(it.caption||'')}</span><span class="eph-kind">Image</span></div>`
+        : `<div class="eph-cap"><span></span><span class="eph-kind">Image</span></div>`}
+    </article>`;
+  },
+  quote(it) {
+    return `<article class="eph-card eph-quote">
+      <span class="eph-kind">Found</span>
+      <div class="eph-quote-body">${esc(it.text)}</div>
+      ${it.source ? `<div class="eph-quote-src">${esc(it.source)}</div>` : ''}
+    </article>`;
+  }
+};
+
+function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+function render(it){ return (RENDERERS[it.type]||(()=> ''))(it); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function paintWall() {
+  const wall = document.getElementById('eph-wall');
+  if (!wall) return;
+  wall.innerHTML = shuffle(ephemera).slice(0, SHOW).map(render).join('');
+}
+function paintAll() {
+  const all = document.getElementById('eph-wall-all');
+  if (all) all.innerHTML = ephemera.map(render).join('');
+}
+
+(function(){
+  paintWall();
+  const sh = document.getElementById('eph-shuffle');
+  if (sh) sh.addEventListener('click', paintWall);
+
+  const modal = document.getElementById('eph-modal');
+  const openB = document.getElementById('eph-all');
+  const closeB = document.getElementById('eph-modal-close');
+  function open(){ paintAll(); modal.hidden=false; document.body.style.overflow='hidden'; }
+  function close(){ modal.hidden=true; document.body.style.overflow=''; }
+  if (openB) openB.addEventListener('click', open);
+  if (closeB) closeB.addEventListener('click', close);
+  if (modal) modal.addEventListener('click', e=>{ if(e.target===modal) close(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal && !modal.hidden) close(); });
 })();
 </script>
 </body>
