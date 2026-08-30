@@ -54,6 +54,13 @@
     --ink-block: #F1E9DA; --on-ink: #1F1B16;
     --ember: #F2A65A; --ivy: #A5B78B; --ivy-lt: #CFDCB8;
   }
+  body[data-tab="patio"] {
+    --limewash: #3A4232; --limewash-2: #454e3b;
+    --loam: #EEE8D6; --lichen: #A2AB90; --hairline: #55604528;
+    --ink-block: #F1E9DA; --on-ink: #1F1B16;
+    --ember: #E0A05A; --ivy: #9CB07E; --ivy-lt: #C7D3AC;
+  }
+  body[data-tab="patio"]::before { opacity: .34; }
   body[data-tab="resume"]::before  { opacity: .42; }
   body[data-tab="contact"]::before { opacity: .4; }
   body[data-tab="ephemera"]::before { opacity: .3; }
@@ -250,6 +257,27 @@
   @keyframes tagswing {
     0%{transform:rotate(7deg)} 20%{transform:rotate(-5deg)} 44%{transform:rotate(15deg)}
     64%{transform:rotate(2deg)} 82%{transform:rotate(10deg)} 100%{transform:rotate(7deg)}
+  }
+
+  /* patio — table settles / a little bounce on the top plank */
+    .ico-bench .bench-top { transform-origin: 16px 8.5px; fill: #c98f4e; }
+  .tab[aria-selected="true"] .ico-bench .bench-top { fill: var(--ember); }
+  .tab:hover .ico-bench .bench-top { animation: benchset .5s cubic-bezier(.3,1.5,.5,1); }
+  @keyframes benchset { 0%{transform:translateY(-3px);opacity:.4} 60%{transform:translateY(.5px)} 100%{transform:none;opacity:1} }
+
+  /* patio tab — set apart as the one interactive corner */
+  .tab-patio { position: relative; }
+  .tab-patio::before {
+    content: '';
+    position: absolute; left: .15rem; right: .15rem; top: .35rem; bottom: .55rem;
+    border: 1.5px dashed var(--ember); border-radius: 7px;
+    opacity: .7; pointer-events: none;
+    transition: opacity .25s;
+  }
+  .tab-patio:hover::before,
+  .tab-patio[aria-selected="true"]::before { opacity: 1; }
+  @media (max-width: 46rem) {
+    .tab-patio::before { top: .2rem; bottom: .3rem; }
   }
 
   /* ── panels ─────────────────────────────────── */
@@ -853,6 +881,36 @@
   .eph-modal .eph-poem-title { color: #201C16; }
   .eph-modal .eph-cap { color: #6E6455; }
 
+  /* ── project hook (shown first) + collapsible story ── */
+  .cs-hook { margin: 1.2rem 0 0; }
+  .cs-highlight {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 40;
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem); line-height: 1.5;
+    max-width: 40rem; margin: 0 0 1.4rem;
+  }
+  .cs-hook .cs-gallery { margin-top: 1.4rem; }
+  .cs-hook .outcomes { margin-top: 1.4rem; }
+
+  .story-toggle {
+    appearance: none; cursor: pointer; font: inherit;
+    margin-top: 1.6rem; background: none;
+    border: 1px solid var(--hairline); border-radius: 999px;
+    padding: .55rem 1.15rem; color: var(--loam);
+    font-size: .8125rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: .5rem;
+    transition: color .2s, border-color .2s;
+  }
+  .story-toggle:hover { color: var(--ember); border-color: var(--ember); }
+  .story-toggle svg { width: 12px; height: 12px; transition: transform .3s; }
+  .story-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+  .story-body[hidden] { display: none; }
+  .story-body {
+    margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline);
+    animation: rise .5s cubic-bezier(.2,.7,.3,1) both;
+  }
+  .story-body .catalyst { margin-bottom: 1.6rem; }
+
   /* ── case-study photo gallery ───────────────── */
   .cs-gallery {
     display: grid;
@@ -885,6 +943,22 @@
     transition: border-color .2s, background .2s;
   }
   .wordbank li:hover { border-color: var(--ember); background: rgba(241,233,218,.24); }
+
+  /* ── patio (under construction) ─────────────── */
+  .patio-cs { max-width: 34rem; padding: clamp(1.5rem,4vw,2.5rem) 0; text-align: center; margin: 0 auto; }
+  .patio-bench { width: clamp(8rem, 30vw, 12rem); height: auto; color: var(--lichen); margin: 0 auto clamp(1.5rem,4vw,2.5rem); display:block; }
+  .patio-lede {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 60;
+    font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.3; margin: 0 0 1rem;
+  }
+  .patio-say { color: var(--lichen); max-width: 30rem; margin: 0 auto 1.75rem; }
+  .patio-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: 'Karla', sans-serif; font-size: .6875rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--ember);
+    border: 1px solid var(--ember); border-radius: 999px; padding: .45rem 1rem;
+  }
 
   /* ── letterboxd strip ───────────────────────── */
 
@@ -1192,6 +1266,22 @@
       <span class="tab-name">Contact</span>
     </button>
 
+    <button class="tab tab-patio" role="tab" id="tab-patio" aria-controls="panel-patio" aria-selected="false" tabindex="-1">
+      <!-- picnic table, isometric -->
+      <svg class="ico-bench" viewBox="0 0 32 28" aria-hidden="true">
+        <path d="M14.02 7.74 L19.9 6.2 L25.78 14.46"/>
+        <path d="M14.02 7.74 L14.02 12.34"/>
+        <path d="M25.78 14.46 L25.78 19.06"/>
+        <path d="M2.5 12.4 L15.5 6.4 L17.74 7.68 L4.74 13.68 Z"/>
+        <path d="M6.22 11.34 L12.1 9.8 L17.98 18.06"/>
+        <path d="M6.22 11.34 L6.22 15.94"/>
+        <path d="M17.98 18.06 L17.98 22.66"/>
+        <path d="M14.26 19.12 L27.26 13.12 L29.5 14.4 L16.5 20.4 Z"/>
+        <path class="accent bench-top" d="M6 9.5 L19 3.5 L26 7.5 L13 13.5 Z"/>
+      </svg>
+      <span class="tab-name">Patio</span>
+    </button>
+
   </div>
 </div>
 
@@ -1310,6 +1400,19 @@
       <div>
         <h3>AdMo Pen Pals</h3>
         <p class="entry-tagline">Creating connection through written correspondence.</p>
+        <div class="cs-hook">
+        <p class="cs-highlight">A neighborhood pen pal program I built at the DC Arts Center to bring back the lost art of correspondence. Neighbors sign up, receive a handcrafted welcome letter, and get matched with someone nearby&mdash;80+ people so far, plus a second chapter now running at the University of Florida.</p>
+        <div class="cs-gallery">
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/DCACPPP%20FLYER.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3137.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3138.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3139.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/pen-pals/letter%20boxes.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+      </div>
+        <ul class="outcomes"><li>80+ sign-ups</li><li>Two ongoing programs</li><li>Dozens of letters delivered</li><li>A replicable matching framework</li></ul>
+      </div>
+        <button class="story-toggle" aria-expanded="false" data-story="0">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="story-body" id="story-0" hidden>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I connect with my neighbors through writing?</p>
@@ -1322,16 +1425,8 @@
             <p>Sincere correspondence builds community. The DCAC Pen Pal Project endeavors to create a more connected neighborhood through the shared joy of letter writing.</p>
             <p>The project is a replicable framework. It is now established at my alma mater, the University of Florida, under a club I used to lead: The English Society. Students can send and retrieve letters straight from the university library.</p>
         </div>
-          <ul class="outcomes"><li>80+ sign-ups</li><li>Two ongoing programs</li><li>Dozens of letters delivered</li><li>A replicable matching framework</li></ul>
-      <div class="cs-gallery">
-        <figure class="cs-shot"><img src="assets/projects/pen-pals/DCACPPP%20FLYER.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3137.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3138.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/pen-pals/IMG_3139.JPG" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/pen-pals/letter%20boxes.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
       </div>
-      </div>
-    </article>
+      </div></article>
     </div>
 
     <div class="project-detail" id="detail-1" hidden>
@@ -1346,6 +1441,22 @@
       <div>
         <h3>Rove 54</h3>
         <p class="entry-tagline">Uncover the six seals, become a rover.</p>
+        <div class="cs-hook">
+        <p class="cs-highlight">A guerrilla scavenger hunt across Adams Morgan, powered by hidden NFC stickers and Arthurian myth. Participants follow riddles to six secret seals, collect community-authored proverbs, and earn copper artifacts&mdash;all coordinated through a site I built at rove54.quest.</p>
+        <div class="cs-gallery">
+        <figure class="cs-shot"><img src="assets/projects/rove-54/Rove%2054%20Flyer.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/emblemfront.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/emblem%20back.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/coin.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/seal%20example.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/printout%20message.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/main%20webpage.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/rove-54/rovetrove.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+      </div>
+        <ul class="outcomes"><li>A working site at rove54.quest</li><li>NFC technology</li><li>Copper artifacts</li><li>Hidden cache</li><li>Community-sourced proverbs</li><li>Six hidden clues</li><li>The roundtable, renewed</li></ul>
+      </div>
+        <button class="story-toggle" aria-expanded="false" data-story="1">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="story-body" id="story-1" hidden>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I bring the mythos of the knight&rsquo;s roundtable to my neighborhood?</p>
@@ -1359,21 +1470,8 @@
             <p>The other copper artifact is the coin. Admittedly, the design is a little rough, but I stand by the idea. Since Rove 54 is accessed through an NFC tag, access to the webpage can be discreetly hidden in a coin. The coin becomes a peer sponsorship mechanism: a rover completes the hunt, gets a coin, and gives that coin to a friend to challenge them to the rove.</p>
             <p>I beta tested Rove 54 and those who participated enjoyed the experience. I got valuable feedback and was able to tighten all the loose screws on the project.</p>
         </div>
-          <ul class="outcomes"><li>A working site at rove54.quest</li><li>NFC technology</li><li>Copper artifacts</li><li>Hidden cache</li><li>Community-sourced proverbs</li><li>Six hidden clues</li><li>The roundtable, renewed</li></ul>
-          <span class="status">Working prototype. To run as intended it needs monthly gatherings and community maintenance&mdash;bandwidth I don&rsquo;t have as a graduate student. But Rove 54 can exist at any time, anywhere. One day I&rsquo;ll have the means; it might just look a little different.</span>
-          <a class="entry-link" href="https://rove54.quest" target="_blank" rel="noopener">rove54.quest &rarr;</a>
-      <div class="cs-gallery">
-        <figure class="cs-shot"><img src="assets/projects/rove-54/Rove%2054%20Flyer.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/emblemfront.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/emblem%20back.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/coin.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/seal%20example.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/printout%20message.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/main%20webpage.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/rove-54/rovetrove.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
       </div>
-      </div>
-    </article>
+      </div></article>
     </div>
 
     <div class="project-detail" id="detail-2" hidden>
@@ -1388,6 +1486,15 @@
       <div>
         <h3>The High Dive</h3>
         <p class="entry-tagline">Street interviews on carbon copy paper.</p>
+        <div class="cs-hook">
+        <p class="cs-highlight">A street-interview zine that stops strangers with a single question about an object they&rsquo;re carrying. Each encounter produces both a carbon-copy keepsake for the participant and archival material for the zine.</p>
+        <div class="cs-gallery">
+        <figure class="cs-shot"><img src="assets/projects/high-dive/gina%20spread%20working%20draft.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+        <figure class="cs-shot"><img src="assets/projects/high-dive/keepsake%20green%20printout.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
+      </div>
+      </div>
+        <button class="story-toggle" aria-expanded="false" data-story="2">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="story-body" id="story-2" hidden>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I talk to a total stranger and solicit a worthwhile, brief, and sentimental encounter?</p>
@@ -1395,12 +1502,8 @@
         <div class="entry-body">
             <p><span class="fill">[Write The High Dive here &mdash; where the idea came from, how the carbon-copy interview works, what the strangers give you.]</span></p>
         </div>
-      <div class="cs-gallery">
-        <figure class="cs-shot"><img src="assets/projects/high-dive/gina%20spread%20working%20draft.png" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
-        <figure class="cs-shot"><img src="assets/projects/high-dive/keepsake%20green%20printout.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
       </div>
-      </div>
-    </article>
+      </div></article>
     </div>
   </div>
 </div>
@@ -1472,16 +1575,16 @@
       <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
         <span class="label" style="padding-top:.25rem;">Apr – Jul 2026</span>
         <div>
-          <p class="cv-role">Creator</p>
-          <p class="cv-org">Rove 54 · Washington, DC</p>
+          <p class="cv-role">Rove 54</p>
+          <p class="cv-org">Creator · Washington, DC</p>
           <p class="cv-desc">Designed and beta-tested a group scavenger hunt across Adams Morgan — six hidden sticker seals found by riddle and printed field guide. Built the site at rove54.quest with NFC-linked location pages and analytics, produced copper tags and coins, and curated participant-authored proverbs for each site.</p>
         </div>
       </div>
       <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-7"/></svg></div>
         <span class="label" style="padding-top:.25rem;">In production</span>
         <div>
-          <p class="cv-role">Creator & Editor</p>
-          <p class="cv-org">The High Dive · Washington, DC</p>
+          <p class="cv-role">The High Dive</p>
+          <p class="cv-org">Creator & Editor · Washington, DC</p>
           <p class="cv-desc">A street-interview zine built on a carbon-copy paper format: strangers answer one question about an object they're carrying, and leave with a designed keepsake. Directing all editorial, design, and print decisions.</p>
         </div>
       </div>
@@ -1682,6 +1785,35 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PATIO ══════════════════════════════════ -->
+<div class="panel" id="panel-patio" role="tabpanel" aria-labelledby="tab-patio" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="ghosts" aria-hidden="true"><span>PATIO</span><span>PATIO</span><span>PATIO</span></div>
+      <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>The patio</p>
+      <h2>Pull up a bench</h2>
+    </div>
+
+    <div class="patio-cs">
+      <svg class="patio-bench" viewBox="0 0 32 28" fill="none" aria-hidden="true"
+           stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" stroke-width="0.9">
+        <path d="M14.02 7.74 L19.9 6.2 L25.78 14.46"/>
+        <path d="M14.02 7.74 L14.02 12.34"/>
+        <path d="M25.78 14.46 L25.78 19.06"/>
+        <path d="M2.5 12.4 L15.5 6.4 L17.74 7.68 L4.74 13.68 Z" fill="#3A4232"/>
+        <path d="M6.22 11.34 L12.1 9.8 L17.98 18.06"/>
+        <path d="M6.22 11.34 L6.22 15.94"/>
+        <path d="M17.98 18.06 L17.98 22.66"/>
+        <path d="M14.26 19.12 L27.26 13.12 L29.5 14.4 L16.5 20.4 Z" fill="#3A4232"/>
+        <path d="M6 9.5 L19 3.5 L26 7.5 L13 13.5 Z" fill="#c98f4e" stroke="var(--ember)" stroke-width="1.1"/>
+      </svg>
+      <p class="patio-lede">Something is being built here.</p>
+      <p class="patio-say">A new little corner of the site, on its way. Check back soon.</p>
+      <span class="patio-badge">Under construction</span>
     </div>
   </div>
 </div>
@@ -1998,6 +2130,14 @@
 
   cards.forEach(card => {
     card.addEventListener('click', () => open(card.dataset.open, card));
+  });
+  document.querySelectorAll('[data-story]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = document.getElementById('story-' + btn.dataset.story);
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      if (body) body.hidden = open;
+    });
   });
   document.querySelectorAll('[data-close]').forEach(btn => {
     btn.addEventListener('click', () => {
