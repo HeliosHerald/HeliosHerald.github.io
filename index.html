@@ -70,19 +70,19 @@
   /* clay mosaic behind frosted glass — a vague impression, not wallpaper */
   .clay-bg { display:none; }
   body[data-tab="patio"] .clay-bg {
-    display:block; position:fixed; inset:-40px; z-index:0; pointer-events:none;
+    display:block; position:fixed; inset:-80px; z-index:0; pointer-events:none;
     background-image:url("assets/textures/clay-mosaic.svg");
-    background-size:820px 820px; background-repeat:repeat;
-    filter: blur(7px) saturate(.9) brightness(.95);
-    opacity:.7;
+    background-size:1100px 1100px; background-repeat:repeat;
+    filter: blur(26px) saturate(.85) brightness(.92);
+    opacity:.75;
   }
   /* the frosted pane: milky veil that sits over the blurred tiles */
   body[data-tab="patio"] .clay-bg::after {
     content:''; position:absolute; inset:0;
     background:
-      linear-gradient(180deg, rgba(240,225,205,.10), rgba(111,61,36,.30)),
-      radial-gradient(140% 90% at 50% 0%, rgba(255,240,220,.12), transparent 60%);
-    backdrop-filter: blur(2px);
+      linear-gradient(180deg, rgba(240,225,205,.14), rgba(111,61,36,.42)),
+      radial-gradient(140% 90% at 50% 0%, rgba(255,240,220,.14), transparent 60%);
+    backdrop-filter: blur(6px);
   }
   body[data-tab="patio"]::before { opacity: .30; }
 
@@ -1051,8 +1051,8 @@
   .pa-glow { position:absolute; width:82%; height:82%; left:9%; top:9%; border-radius:50%;
     filter:blur(15px); opacity:.6;
     animation:pa-drift 9s ease-in-out infinite alternate; }
-  .pa-shape { position:absolute; width:50%; height:50%; left:25%; top:25%;
-    filter:blur(1.5px); opacity:.95; z-index:2;
+  .pa-shape { position:absolute; width:58%; height:58%; left:21%; top:21%;
+    filter:blur(0.6px); opacity:.96; z-index:2;
     animation:pa-drift 9s ease-in-out infinite alternate; }
   .pa-frost { position:absolute; inset:0;
     background:linear-gradient(160deg,rgba(240,230,210,.05),rgba(20,12,6,.12)); }
@@ -1230,6 +1230,37 @@
   /* faint quiet ivy in one corner — the charm still present, banked low */
   .manifesto .ivy-mark { position:absolute; right:-10px; bottom:-14px; width:8rem; opacity:.16; z-index:0; }
   @media (max-width: 46rem){ .manifesto .ivy-mark { width:6rem; } }
+
+  /* colophon */
+  .colophon-link {
+    appearance:none; border:0; background:none; cursor:pointer; font:inherit;
+    font-size:.6875rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--lichen); border-bottom:1px solid transparent; padding:0 0 2px; transition:color .2s,border-color .2s;
+  }
+  .colophon-link:hover { color:var(--ember); border-bottom-color:var(--ember); }
+  .colophon-modal[hidden]{ display:none; }
+  .colophon-modal {
+    position:fixed; inset:0; z-index:600; display:grid; place-items:start center;
+    overflow-y:auto; padding:clamp(1.5rem,6vw,5rem) clamp(1rem,4vw,3rem);
+    background:rgba(28,24,20,.9); backdrop-filter:blur(3px);
+    animation:fade .3s ease both;
+  }
+  .colophon-inner {
+    max-width:40rem; width:100%; background:#221F1B; color:#F0E7D6;
+    border:1px solid rgba(228,150,80,.22); border-radius:0; position:relative;
+    padding:clamp(2rem,5vw,3.25rem);
+    box-shadow:0 30px 80px -35px #000;
+  }
+  .colophon-close {
+    position:absolute; top:1rem; right:1rem;
+    appearance:none; border:1px solid rgba(240,231,214,.35); background:none; color:#F0E7D6;
+    cursor:pointer; font:inherit; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    padding:.45rem .85rem; border-radius:999px; transition:background .2s;
+  }
+  .colophon-close:hover { background:rgba(240,231,214,.12); }
+  .colophon-body p { margin:0 0 1.1rem; max-width:34rem; line-height:1.7; }
+  .colophon-body p:last-child { margin-bottom:0; }
+  .colophon-body strong { color:#E8B27E; font-weight:600; }
 
   /* ── letterboxd strip ───────────────────────── */
 
@@ -1586,10 +1617,8 @@
     <div class="bio-full">
       <div class="bio">
         <p class="label" style="margin-bottom:.7rem;">About</p>
-        <p class="lede" style="margin:0 0 1.25rem;">Making ground where strangers become neighbors.</p>
+        <p class="lede" style="margin:0 0 1.25rem;">Transforming art from something we see to something we do.</p>
         <p>I&rsquo;m a second-year MA student in Arts Management at American University, where I am co-president of the Emerging Arts Leaders Society. I&rsquo;m Program Coordinator at the DC Arts Center in Adams Morgan, where I built and run the AdMo Pen Pals Project.</p>
-        <p><span class="fill">[Paragraph: the through-line. What connects everything you make.]</span></p>
-        <p><span class="fill">[Paragraph: where this is going — the ambition, stated plainly.]</span></p>
       </div>
     </div>
 
@@ -1597,7 +1626,7 @@
       <div class="embers" aria-hidden="true"><span class="ember" style="left:61.3%;width:7.0px;height:5.2px;border-radius:60% 56% 40% 54% / 52% 46% 45% 43%;transform:rotate(7deg);--drift:2px;animation-duration:5.7s;animation-delay:-1.8s"></span><span class="ember" style="left:56.8%;width:4.1px;height:2.5px;border-radius:48% 45% 52% 45% / 47% 49% 54% 44%;transform:rotate(-24deg);--drift:-16px;animation-duration:3.8s;animation-delay:-6.5s"></span><span class="ember" style="left:23.8%;width:7.9px;height:6.1px;border-radius:49% 50% 46% 57% / 51% 50% 46% 52%;transform:rotate(-2deg);--drift:24px;animation-duration:3.9s;animation-delay:-3.1s"></span><span class="ember" style="left:28.3%;width:5.3px;height:4.0px;border-radius:58% 40% 59% 50% / 47% 54% 51% 49%;transform:rotate(21deg);--drift:-2px;animation-duration:6.6s;animation-delay:-1.4s"></span><span class="ember" style="left:20.2%;width:5.0px;height:3.9px;border-radius:51% 52% 40% 57% / 58% 56% 52% 40%;transform:rotate(17deg);--drift:25px;animation-duration:4.0s;animation-delay:-1.4s"></span><span class="ember" style="left:22.1%;width:7.0px;height:5.5px;border-radius:54% 51% 56% 51% / 53% 59% 43% 51%;transform:rotate(-3deg);--drift:-23px;animation-duration:3.9s;animation-delay:-7.1s"></span><span class="ember" style="left:35.3%;width:6.4px;height:5.0px;border-radius:50% 48% 57% 42% / 54% 55% 49% 45%;transform:rotate(-30deg);--drift:-11px;animation-duration:6.3s;animation-delay:-5.4s"></span><span class="ember" style="left:48.5%;width:6.9px;height:3.9px;border-radius:59% 57% 52% 41% / 52% 56% 48% 54%;transform:rotate(13deg);--drift:8px;animation-duration:4.4s;animation-delay:-7.3s"></span><span class="ember" style="left:77.8%;width:5.3px;height:3.2px;border-radius:58% 44% 60% 53% / 48% 50% 53% 51%;transform:rotate(-21deg);--drift:-20px;animation-duration:4.0s;animation-delay:-3.2s"></span><span class="ember" style="left:88.8%;width:6.5px;height:3.9px;border-radius:56% 54% 55% 50% / 60% 53% 49% 55%;transform:rotate(11deg);--drift:18px;animation-duration:7.4s;animation-delay:-0.8s"></span><span class="ember" style="left:52.9%;width:4.7px;height:3.7px;border-radius:50% 45% 42% 55% / 53% 56% 42% 51%;transform:rotate(35deg);--drift:-8px;animation-duration:6.5s;animation-delay:-5.7s"></span><span class="ember" style="left:68.8%;width:5.1px;height:3.4px;border-radius:49% 50% 60% 45% / 45% 60% 48% 50%;transform:rotate(-5deg);--drift:8px;animation-duration:5.7s;animation-delay:-6.1s"></span><span class="ember" style="left:77.4%;width:5.4px;height:3.8px;border-radius:53% 51% 45% 54% / 56% 55% 44% 45%;transform:rotate(-15deg);--drift:-1px;animation-duration:7.1s;animation-delay:-7.0s"></span><span class="ember" style="left:67.6%;width:6.9px;height:5.1px;border-radius:45% 59% 58% 56% / 58% 54% 48% 40%;transform:rotate(-15deg);--drift:8px;animation-duration:4.4s;animation-delay:-3.3s"></span><span class="ember" style="left:24.2%;width:6.7px;height:4.7px;border-radius:41% 55% 47% 45% / 46% 49% 43% 50%;transform:rotate(-17deg);--drift:-5px;animation-duration:5.7s;animation-delay:-4.1s"></span><span class="ember" style="left:36.3%;width:6.7px;height:3.8px;border-radius:46% 47% 51% 40% / 56% 57% 48% 53%;transform:rotate(-26deg);--drift:26px;animation-duration:6.6s;animation-delay:-4.1s"></span></div>
       <p class="label">What I believe</p>
       <div class="manifesto-body">
-        <p>I believe that one day, when our brighter future comes to pass, most Americans will be proud artists. We will show new friends elaborate photo albums; we will mourn our pets through poetry and song. We will paint, staple, sew, and sing so that we might know a more harmonious country.</p>
+        <p>I believe that one day, when our brighter future comes to pass, most Americans will be proud artists. We will show new friends elaborate photo albums; we will mourn our pets through written poetry and song. We will paint, staple, sew, and sing so that we might know a more harmonious country.</p>
         <p>Today, fewer than one in five Americans practice art in some meaningful way. I want to make that number higher. The barrier to artistic creation has never been lower, the benefits of arts engagement have never been more proven, human authorship of art has never been more endangered.</p>
         <p>Literacy was once a rare skill possessed by only the rich and privileged&mdash;until it was deemed critical social and civic infrastructure. Art must follow a similar trajectory. We must demand art education be a public good, not a private luxury.</p>
         <p class="manifesto-creed">All humans deserve a space to learn, make, and share art.</p>
@@ -1786,8 +1815,13 @@
           <p>How can I talk to a total stranger and solicit a worthwhile, brief, and sentimental encounter?</p>
         </div>
         <div class="entry-body">
-            <p><span class="fill">[Write The High Dive here &mdash; where the idea came from, how the carbon-copy interview works, what the strangers give you.]</span></p>
-        </div>
+            <p>For a long time I wanted to make a zine, but I wasn&rsquo;t interested in producing something that only platformed my voice. I sat on this for a while before a different idea came to me: a system for performing memorable street interviews with strangers. The product of those interviews would become the foundation for the zine, and various fictional voices&mdash;written by me&mdash;would become the other half of each spread.</p>
+            <p>The process is straightforward but unique: I approach a stranger and ask them if they&rsquo;d be interested in a one-question interview for the High Dive. If they say yes, I begin by asking them to choose an object from the bag to be the object of their interview. Sometimes I help them decide what object to talk about.</p>
+            <p>We begin with an informal conversation about the object and its meaning to the speaker. Then, I hand them a sheet of paper with a prompt: if this object was on display in a museum, how would you label it?</p>
+            <p>They write their response and then hand it back to me. Then, I reveal the surprise: through the power of carbon copy paper, they get a stylized copy of their response to take home.</p>
+            <p>I take the drab original copy home to scan and include in the High Dive. At first I intended for the High Dive to be almost entirely composed of these interviews, but I felt like they needed a reason to exist&mdash;something more. Most editorial techniques would distract or diminish from the original interviews, but I had an idea: what if my written contributions were characters of their own, and what if they responded to the interview in their own way? From there, everything fell into place.</p>
+            <p>I hope to publish the first issue in late 2026 / early 2027!</p>
+          </div>
       </div>
       </div></article>
     </div>
@@ -1882,7 +1916,7 @@
         <span class="label" style="padding-top:.25rem;">2025 – present</span>
         <div>
           <p class="cv-role">Co-President</p>
-          <p class="cv-org">Emerging Arts Leaders Symposium, American University</p>
+          <p class="cv-org">Emerging Arts Leaders Society, American University</p>
           <p class="cv-desc">Helped restructure the organization following a leadership transition.</p>
         </div>
       </div>
@@ -2117,9 +2151,31 @@
 <div class="wrap">
   <footer>
     <span class="label">Tristan Krammel</span>
+    <button class="colophon-link" id="colophon-open" type="button">Colophon</button>
     <span class="label">2026 · Washington, DC</span>
   </footer>
 </div>
+
+<div class="colophon-modal" id="colophon-modal" hidden role="dialog" aria-modal="true" aria-label="Colophon">
+  <div class="colophon-inner">
+    <button class="colophon-close" id="colophon-close" type="button">Close &times;</button>
+    <p class="label" style="color:var(--ember);margin-bottom:.4rem;">Colophon</p>
+    <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.5rem,4vw,2.1rem);margin-bottom:1.25rem;">How this site was made</h2>
+
+    <div class="colophon-body">
+      <p>This is the personal site of Tristan Krammel, an arts management student and cultural animator in Washington, DC.</p>
+
+      <p><strong>Design &amp; writing.</strong> Every word, every design decision, and every idea here is my own &mdash; the concept, the structure, the illustrations and textures, the writing, and the game on the Patio.</p>
+
+      <p><strong>Built with.</strong> HTML, CSS, and JavaScript hosted on GitHub Pages. Type is set in <em>Fraunces</em> and <em>Karla</em>. The ivy, the tab icons, and the clay-tile and contour textures were drawn for this site by AI.</p>
+
+      <p><strong>A note on AI.</strong> I built this site in close collaboration with an AI assistant (Clayde), which wrote the code. The vision, the words, and the design direction are mine. I am emphatically against the use of generative AI for art and expression; all use of AI to produce this website was considered and measured in accordance with my values.</p>
+
+      <p><strong>Thanks.</strong> The Rove 54 sigil was designed by @minivan.studio.</p>
+    </div>
+  </div>
+</div>
+
 
 <script>
 (function () {
@@ -2599,8 +2655,7 @@ function paintAll() {
       <div class="ghosts" aria-hidden="true"><span>PATIO</span><span>PATIO</span><span>PATIO</span></div>
       <div class="pa-eyebrow">Pull up a bench</div>
       <div class="pa-h">The Patio</div>
-      <p class="pa-intro-lede">[ Intro goes here — a sentence or two on what the patio is: a place to leave a short, made thing for whoever wanders through next. Fill this in. ]</p>
-      <p class="pa-say">[ Optional second line — how it works, in a breath. Or a line of invitation. ]</p>
+      <p class="pa-intro-lede">The Patio is a brief adventure into shortform sentimental writing. You&rsquo;ll pick items and make decisions&mdash;all to create a message that will persist on the patio.</p>
       <div class="pa-corkboard" style="margin-top:1.5rem">
         <div class="pa-board-grid">${cards}</div>
       </div>
@@ -2631,12 +2686,18 @@ function paintAll() {
   }
   function grad(w){ return `radial-gradient(circle at 42% 40%,${w.c1},${w.c2} 78%)`; }
   function shapeSpan(w){
+    // five genuinely distinct silhouettes — bouba (soft/round) to kiki (sharp/angular)
     let f='';
-    if(w.shape==='circle')f='border-radius:50%;';
-    else if(w.shape==='droplet')f='border-radius:60% 60% 66% 66%/72% 72% 52% 52%;transform:rotate(-4deg);';
-    else if(w.shape==='lobe')f='border-radius:64% 36% 55% 45%/58% 52% 48% 42%;transform:rotate(6deg);';
-    else if(w.shape==='spike')f='clip-path:polygon(50% 2%,61% 33%,95% 28%,70% 52%,84% 92%,50% 70%,16% 92%,30% 52%,5% 28%,39% 33%);';
-    else if(w.shape==='shard')f='clip-path:polygon(28% 6%,55% 20%,92% 10%,74% 44%,90% 82%,48% 66%,14% 90%,30% 54%,8% 40%);';
+    if(w.shape==='circle')       // bouba: pure round
+      f='border-radius:50%;';
+    else if(w.shape==='droplet') // bouba: teardrop, point up
+      f='clip-path:path(\'M50 2 C74 26 92 48 92 66 A42 42 0 1 1 8 66 C8 48 26 26 50 2 Z\');';
+    else if(w.shape==='lobe')    // bouba: three-lobed clover-ish blob
+      f='clip-path:polygon(50% 8%,68% 14%,74% 34%,92% 42%,88% 64%,68% 72%,58% 92%,42% 92%,32% 72%,12% 64%,8% 42%,26% 34%,32% 14%);';
+    else if(w.shape==='spike')   // kiki: sharp starburst
+      f='clip-path:polygon(50% 0,58% 30%,80% 12%,68% 40%,100% 42%,70% 56%,86% 88%,56% 68%,50% 100%,44% 68%,14% 88%,30% 56%,0 42%,32% 40%,20% 12%,42% 30%);';
+    else if(w.shape==='shard')   // kiki: jagged crystal shard
+      f='clip-path:polygon(40% 0,52% 22%,78% 8%,64% 40%,96% 46%,66% 60%,82% 96%,50% 70%,22% 98%,36% 60%,6% 50%,34% 40%,18% 12%);';
     return `<span class="pa-shape" style="background:${grad(w)};${f}"></span>`;
   }
   function stepWeather(){
@@ -2779,7 +2840,7 @@ function paintAll() {
         <div class="pa-wfoot"><span>${esc(c.sign)} ${c.mine?'<span style="color:var(--pa-ember-d)">(you)</span>':''}</span>
           <button class="pa-tend ${c.faved?'done':''}">✦ ${c.tends}</button></div>
         <div class="pa-peek" hidden><b>Carried:</b> ${icons} &nbsp; <b>Weathered:</b> ${esc(weath(c.weather).name)}<br>
-          <b>Words in play:</b><br>${c.poolWords.map(w=>`<span class="chip">${esc(typeof w==='string'?w:nounText(w,{cap:true}))}</span>`).join('')}</div>`;
+          <b>Words in play:</b><br>${c.poolWords.map(w=>``).join('')}</div>`;
       div.querySelector('.pa-tend').onclick=(e)=>{e.stopPropagation();
         if(c.faved){c.faved=false;c.tends--;}else{c.faved=true;c.tends++;}stepWall();};
       div.onclick=()=>{const pk=div.querySelector('.pa-peek');pk.hidden=!pk.hidden;};
@@ -2794,6 +2855,21 @@ function paintAll() {
   const tab=document.getElementById('tab-patio');
   if(tab){ tab.addEventListener('click',()=>{ if(chosen.length===0 && !action) stepEnter(); }); }
   boot();
+})();
+</script>
+
+<script>
+(function(){
+  const open=document.getElementById('colophon-open');
+  const modal=document.getElementById('colophon-modal');
+  const close=document.getElementById('colophon-close');
+  if(!open||!modal) return;
+  const show=()=>{modal.hidden=false;document.body.style.overflow='hidden';};
+  const hide=()=>{modal.hidden=true;document.body.style.overflow='';};
+  open.addEventListener('click',show);
+  close.addEventListener('click',hide);
+  modal.addEventListener('click',e=>{if(e.target===modal)hide();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)hide();});
 })();
 </script>
 </body>
