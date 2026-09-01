@@ -1187,8 +1187,10 @@
     content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
     background-image:url("assets/textures/contours.svg");
     background-size:cover; background-position:center;
-    mix-blend-mode:screen; opacity:.16;
+    mix-blend-mode:screen; opacity:.08;
   }
+  .manifesto::marker { }
+  .manifesto-body, .manifesto > .label { position: relative; }
   .manifesto > *:not(.embers) { position: relative; z-index: 1; }
 
   /* rising embers */
@@ -1575,7 +1577,8 @@
         </div>
         <svg class="sprig ivy sprig-bl" viewBox="-26 -18 100 88" fill="none" aria-hidden="true" focusable="false"><use href="#ivy-sprig"/></svg>
       </div></div>
-      <div class="haiku" role="note" aria-label="Artist statement">
+      <div class="haiku" role="note" aria-label="Artist statement: My growing future">
+        <p class="haiku-title">My growing future</p>
         <p><span>I glimpsed it.</span><span>A toiled cord, threaded finally.</span><span>Today: one more hair.</span></p>
       </div>
     </div>
