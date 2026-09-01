@@ -960,6 +960,115 @@
     border: 1px solid var(--ember); border-radius: 999px; padding: .45rem 1rem;
   }
 
+  /* ── the patio experience ───────────────────── */
+  #panel-patio { --pa-ember:#d97b3f; --pa-ember-d:#b5612c; --pa-fate:#b98cc4;
+    --pa-fate-soft:#caa9d1; --pa-free:#63b3a6; --pa-free-lt:#8fd4c8;
+    --pa-line:#55604528; --pa-card:#f0e6d2; --pa-dim:#9a8f7c; }
+  .patio-stage { max-width: 40rem; margin: 0 auto; }
+  .pa-ticks { display:flex; gap:.4rem; margin-bottom:1.75rem; }
+  .pa-tick { height:3px; flex:1; background:var(--hairline); border-radius:2px; transition:background .4s; }
+  .pa-tick.on { background:var(--pa-ember); }
+  .pa-eyebrow { font-size:.68rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--pa-ember); margin-bottom:.7rem; }
+  .pa-h { font-family:'Fraunces',Georgia,serif; font-variation-settings:'SOFT' 30,'WONK' 1,'opsz' 90;
+    font-weight:600; line-height:1.06; letter-spacing:-.02em; font-size:clamp(1.6rem,4.5vw,2.4rem); margin-bottom:.3rem; }
+  .pa-say { color:var(--lichen); margin-top:.6rem; max-width:32rem; }
+  .pa-btn { appearance:none; cursor:pointer; font-family:'Karla',sans-serif; font-weight:600;
+    letter-spacing:.06em; font-size:.82rem; border:0; border-radius:999px; padding:.72rem 1.5rem;
+    background:var(--pa-ember); color:#241a12; transition:background .2s,transform .1s; }
+  .pa-btn:hover { background:var(--pa-ember-d); } .pa-btn:active { transform:translateY(1px); }
+  .pa-btn:disabled { background:var(--hairline); color:var(--pa-dim); cursor:not-allowed; }
+  .pa-ghost { background:none; color:var(--lichen); border:1px solid var(--hairline); }
+  .pa-ghost:hover { background:rgba(255,255,255,.05); color:var(--loam); }
+  .pa-bar { display:flex; gap:.75rem; align-items:center; margin-top:2rem; flex-wrap:wrap; }
+  .pa-bar .sp { flex:1; } .pa-count { font-size:.8rem; color:var(--pa-dim); }
+  .pa-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(8rem,1fr)); gap:.7rem; margin-top:1.5rem; }
+  .pa-pick { appearance:none; cursor:pointer; text-align:left; background:rgba(0,0,0,.15);
+    border:1px solid var(--hairline); border-radius:6px; padding:.9rem 1rem; color:var(--loam);
+    font-family:inherit; transition:border-color .15s,background .15s; position:relative; }
+  .pa-pick:hover { border-color:var(--lichen); }
+  .pa-pick[aria-pressed="true"] { border-color:var(--pa-ember); background:rgba(217,123,63,.14); }
+  .pa-pick[aria-pressed="true"]::after { content:'✓'; position:absolute; top:.5rem; right:.6rem; color:var(--pa-ember); font-weight:700; font-size:.85rem; }
+  .pa-pick .ico { font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .pa-pick .nm { font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:1rem; }
+  .pa-pick:disabled { opacity:.4; cursor:not-allowed; }
+  .pa-acts { display:grid; gap:.6rem; margin-top:1.5rem; }
+  .pa-act { appearance:none; cursor:pointer; text-align:left; background:rgba(0,0,0,.15); border:1px solid var(--hairline);
+    border-radius:6px; padding:1.05rem 1.2rem; color:var(--loam); font-family:'Fraunces',Georgia,serif;
+    font-weight:600; font-size:1.15rem; transition:border-color .15s,background .15s; }
+  .pa-act:hover { border-color:var(--lichen); }
+  .pa-act[aria-pressed="true"] { border-color:var(--pa-ember); background:rgba(217,123,63,.14); }
+  .pa-shrouds { display:grid; grid-template-columns:repeat(auto-fit,minmax(5.5rem,1fr)); gap:.8rem; margin-top:1.6rem; }
+  .pa-shroud { appearance:none; cursor:pointer; aspect-ratio:3/4; border:1px solid var(--hairline);
+    border-radius:8px; position:relative; overflow:hidden; transition:transform .18s,border-color .18s; background:rgba(0,0,0,.2); }
+  .pa-shroud:hover { transform:translateY(-4px); border-color:var(--pa-fate-soft); }
+  .pa-blob { position:absolute; filter:blur(11px); opacity:.85; mix-blend-mode:screen;
+    animation:pa-drift 9s ease-in-out infinite alternate; }
+  .pa-frost { position:absolute; inset:0; backdrop-filter:blur(6px);
+    background:linear-gradient(160deg,rgba(240,230,210,.04),rgba(240,230,210,.10)); }
+  .pa-qm { position:absolute; inset:0; display:grid; place-items:center; font-family:'Fraunces',serif;
+    font-size:1.8rem; color:rgba(240,230,210,.22); }
+  .pa-hint { position:absolute; bottom:.5rem; left:0; right:0; text-align:center; font-size:.56rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--pa-dim); }
+  @keyframes pa-drift { 0%{transform:translate(-8%,6%) rotate(-8deg) scale(1.05)} 100%{transform:translate(10%,-6%) rotate(10deg) scale(1.15)} }
+  .pa-fate { margin-top:1.5rem; padding:1.3rem 1.5rem; border:1px solid var(--pa-fate); border-radius:8px; background:rgba(185,140,196,.08); }
+  .pa-fate-nm { font-family:'Fraunces',serif; font-weight:600; font-size:1.6rem; color:var(--pa-fate-soft); }
+  .pa-fate-sub { font-size:.85rem; color:var(--pa-dim); margin-top:.15rem; font-style:italic; }
+  .pa-resp-note { margin-top:1.3rem; font-size:.85rem; color:var(--lichen); }
+  .pa-resp-row { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; }
+  .pa-resp { appearance:none; cursor:pointer; font-family:inherit; background:rgba(0,0,0,.15); border:1px solid var(--hairline);
+    border-radius:999px; padding:.45rem 1rem; color:var(--loam); font-size:.95rem; transition:border-color .15s,background .15s; }
+  .pa-resp:hover { border-color:var(--pa-fate); }
+  .pa-resp[aria-pressed="true"] { border-color:var(--pa-fate); background:rgba(185,140,196,.18); }
+  .pa-sk { font-family:'Fraunces',serif; font-size:1.2rem; line-height:2.1; margin-top:1.5rem; }
+  .pa-slot { display:inline-block; min-width:5rem; border-bottom:2px solid var(--pa-ember); padding:.05rem .5rem;
+    margin:0 .12rem; text-align:center; color:var(--pa-ember); font-weight:500; cursor:pointer; background:rgba(217,123,63,.1); }
+  .pa-slot.empty { color:var(--pa-dim); border-bottom-color:var(--hairline); font-style:italic; }
+  .pa-slot.vb { color:var(--pa-fate-soft); border-bottom-color:var(--pa-fate); background:rgba(185,140,196,.12); cursor:default; }
+  .pa-slot.fr { color:var(--pa-free-lt); border-bottom-color:var(--pa-free); background:rgba(99,179,166,.12); }
+  .pa-pool { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--hairline); }
+  .pa-pool-note { width:100%; font-size:.75rem; color:var(--pa-dim); margin-bottom:-.25rem; }
+  .pa-word { appearance:none; cursor:pointer; font-family:inherit; background:rgba(0,0,0,.15); border:1px solid var(--hairline);
+    border-radius:999px; padding:.4rem .9rem; color:var(--loam); font-size:.92rem; transition:border-color .15s; }
+  .pa-word:hover { border-color:var(--pa-ember); }
+  .pa-free-zone { margin-top:1.5rem; padding-top:1.25rem; border-top:1px dashed var(--pa-free); }
+  .pa-free-label { display:block; font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem; color:var(--pa-free-lt); margin-bottom:.6rem; }
+  .pa-field { width:100%; background:rgba(0,0,0,.2); border:1px solid var(--hairline); border-radius:6px;
+    padding:.8rem 1rem; color:var(--loam); font-family:inherit; font-size:1rem; }
+  .pa-field-free { border-color:var(--pa-free); color:var(--pa-free-lt); font-family:'Fraunces',serif; font-size:1.15rem; }
+  .pa-field-free:focus { outline:2px solid var(--pa-free); border-color:var(--pa-free); }
+  .pa-free-hint { display:block; font-size:.72rem; color:var(--pa-dim); margin-top:.5rem; font-style:italic; }
+  .pa-reveal-wrap { perspective:1200px; margin-top:1rem; }
+  .pa-rcard { background:var(--pa-card); color:#241a12; border-radius:8px; padding:1.9rem 1.7rem 1.4rem;
+    position:relative; box-shadow:0 24px 60px -22px rgba(0,0,0,.6); }
+  .pa-rcard.dealing { animation:pa-deal .75s cubic-bezier(.2,.8,.3,1.05) both; }
+  @keyframes pa-deal { from{opacity:0;transform:rotateX(32deg) translateY(28px) scale(.92)} to{opacity:1;transform:none} }
+  .pa-stamp { position:absolute; top:-.8rem; right:1.1rem; display:flex; gap:.3rem; }
+  .pa-stamp span { width:2rem; height:2rem; border-radius:50%; background:#38322a; color:var(--pa-card);
+    display:grid; place-items:center; font-size:1rem; border:2px solid var(--pa-card); }
+  .pa-rbody { font-family:'Fraunces',serif; font-size:1.2rem; line-height:1.7; }
+  .pa-rbody.paint, .pa-wbody.paint { white-space:pre-line; }
+  .pa-rbody .w,.pa-wbody .w { color:var(--pa-ember-d); font-weight:600; }
+  .pa-rbody .v,.pa-wbody .v { color:#9a5aa6; font-weight:600; }
+  .pa-rbody .f,.pa-wbody .f { color:#2f8377; font-weight:700; }
+  .pa-rsign { margin-top:1.2rem; padding-top:.8rem; border-top:1px solid #d8ccb4; font-family:'Karla',sans-serif;
+    font-size:.9rem; display:flex; justify-content:space-between; align-items:center; }
+  .pa-rsign .tags { font-size:.68rem; color:#8a8067; letter-spacing:.08em; text-transform:uppercase; }
+  .pa-wall { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:1rem; margin-top:1.5rem; }
+  .pa-wc { background:var(--pa-card); color:#241a12; border-radius:8px; padding:1.1rem 1.1rem .9rem; position:relative;
+    cursor:pointer; border:2px solid transparent; transition:transform .15s,border-color .15s; }
+  .pa-wc:hover { transform:translateY(-3px); } .pa-wc.faved { border-color:var(--pa-ember); }
+  .pa-wbody { font-family:'Fraunces',serif; font-size:.98rem; line-height:1.5; }
+  .pa-wfoot { margin-top:.8rem; padding-top:.6rem; border-top:1px solid #d8ccb4; display:flex; justify-content:space-between;
+    align-items:center; font-family:'Karla',sans-serif; font-size:.8rem; }
+  .pa-tend { appearance:none; cursor:pointer; border:0; background:none; font-family:'Karla',sans-serif; font-size:.78rem;
+    color:#8a8067; display:inline-flex; align-items:center; gap:.3rem; }
+  .pa-tend:hover { color:var(--pa-ember-d); } .pa-tend.done { color:var(--pa-ember-d); }
+  .pa-peek { margin-top:.7rem; padding:.7rem .8rem; background:#e5dbc4; border-radius:5px; font-size:.8rem; color:#3a3324; }
+  .pa-peek[hidden] { display:none; }
+  .pa-peek .chip { display:inline-block; background:#38322a; color:var(--pa-card); border-radius:999px; padding:.1rem .55rem; margin:.12rem .15rem 0; font-size:.72rem; }
+  .pa-note { font-size:.72rem; color:var(--pa-dim); margin-top:1.5rem; font-style:italic; }
+
   /* ── letterboxd strip ───────────────────────── */
 
   .lbx { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
@@ -1798,23 +1907,7 @@
       <h2>Pull up a bench</h2>
     </div>
 
-    <div class="patio-cs">
-      <svg class="patio-bench" viewBox="0 0 32 28" fill="none" aria-hidden="true"
-           stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" stroke-width="0.9">
-        <path d="M14.02 7.74 L19.9 6.2 L25.78 14.46"/>
-        <path d="M14.02 7.74 L14.02 12.34"/>
-        <path d="M25.78 14.46 L25.78 19.06"/>
-        <path d="M2.5 12.4 L15.5 6.4 L17.74 7.68 L4.74 13.68 Z" fill="#3A4232"/>
-        <path d="M6.22 11.34 L12.1 9.8 L17.98 18.06"/>
-        <path d="M6.22 11.34 L6.22 15.94"/>
-        <path d="M17.98 18.06 L17.98 22.66"/>
-        <path d="M14.26 19.12 L27.26 13.12 L29.5 14.4 L16.5 20.4 Z" fill="#3A4232"/>
-        <path d="M6 9.5 L19 3.5 L26 7.5 L13 13.5 Z" fill="#c98f4e" stroke="var(--ember)" stroke-width="1.1"/>
-      </svg>
-      <p class="patio-lede">Something is being built here.</p>
-      <p class="patio-say">A new little corner of the site, on its way. Check back soon.</p>
-      <span class="patio-badge">Under construction</span>
-    </div>
+    <div class="patio-stage" id="patio-stage"></div>
   </div>
 </div>
 
@@ -2256,6 +2349,256 @@ function paintAll() {
   if (closeB) closeB.addEventListener('click', close);
   if (modal) modal.addEventListener('click', e=>{ if(e.target===modal) close(); });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal && !modal.hidden) close(); });
+})();
+</script>
+
+<script>
+/* ═══ THE PATIO — interactive (local only; backend later) ═══ */
+(function(){
+  const stage=document.getElementById('patio-stage');
+  if(!stage) return;
+
+  const W=(text,article='')=>({text,article});
+  const ITEMS=[
+    {id:'lighter', ico:'🔥',name:'Lighter',     words:[W('embers'),W('kindling'),W('warmth'),W('familiar face','a'),W('more time')]},
+    {id:'backpack',ico:'🎒',name:'Backpack',    words:[W('footprints left behind'),W('dignity'),W('continuity'),W('peanut butter')]},
+    {id:'encyc',   ico:'📖',name:'Encyclopedia',words:[W('lineage'),W('ancestry'),W('weight of knowing','the'),W('swarm of words','a')]},
+    {id:'bugnet',  ico:'🦋',name:'Bug net',     words:[W('curiosity'),W('foliage'),W('waiting'),W('study')]},
+    {id:'frisbee', ico:'🥏',name:'Frisbee',     words:[W('flight'),W('joy'),W('excitement'),W('readiness'),W('play')]},
+    {id:'camera',  ico:'📷',name:'Camera',      words:[W('instant','an'),W('moment','a'),W('memory','a'),W('blooming color','a'),W('held moment','a')]},
+  ];
+  const WEATHER=[
+    {id:'blister', name:'Blister',       sub:'it happened on the walk in',          verbs:['kneel','take it easy','walk'],           shape:'lobe',   c1:'#d99a5f',c2:'#caa06a'},
+    {id:'bugbite', name:'Bug bite',      sub:'something got you',                   verbs:['explore','examine','crave vengeance'],   shape:'spike',  c1:'#c46b57',c2:'#8a9a6b'},
+    {id:'squabble',name:'Trail squabble',sub:'words were had',                      verbs:['take action','seek understanding','roar'],shape:'shard', c1:'#b0566b',c2:'#8c5a9a'},
+    {id:'wetsocks',name:'Wet socks',     sub:'the creek ran deeper than it looked', verbs:['stomp furiously','hydrate','contemplate'],shape:'droplet',c1:'#5f8fa6',c2:'#7a9ab0'},
+    {id:'spoiled', name:'Spoiled lunch', sub:'the pail let you down',               verbs:['stay hungry','search for more','forage'],shape:'circle', c1:'#b08a4a',c2:'#9a8f5a'},
+  ];
+  const FREE_PROMPT='Your word — whatever you want to leave here.';
+  const ACTIONS=[
+    {id:'camp',name:'Make Camp',
+     skel:['Finally, I arrived. I ',{v:1},' before the fire. I felt ',{i:1,art:true},' in my bones. Tomorrow I will discover ',{f:1},'.']},
+    {id:'hike',name:'Go for a hike',
+     skel:['Under the sun, I ',{v:1},', watched by the trees. Finally, in the mix of greens, I found ',{i:1,art:true},'. Now, everything is ',{f:1},'.']},
+    {id:'game',name:'Play a game',
+     skel:['We were each dealt ',{i:1,art:true},'. I ',{v:1},', hoping to conjure luck. I decide to ',{f:1},'.']},
+    {id:'paint',name:'Paint the landscape',paint:true,
+     skel:['Title: ',{f:1},'\n\nI meet the rolling hills and ',{v:1},'.\n\nMy shoes dipped in the land’s green mane, I granted ',{i:1,art:true},', a reward for its sprawling.']},
+    {id:'fish',name:'Go fishing',
+     skel:['The lake is still. In the reflective blue you ',{v:1},'. You reach, reach, reach — grasping fingers finding ',{i:1,art:true},'. You turn it over in your wet palms. It is called ',{f:1},'.']},
+  ];
+  let WALL=[
+    {action:'camp',body:['Finally, I arrived. I ',{v:'walk'},' before the fire. I felt ',{w:'continuity'},' in my bones. Tomorrow I will discover ',{f:'rest'},'.'],
+     sign:'— R.',items:['backpack','lighter'],weather:'blister',tends:5,poolWords:[W('embers'),W('warmth'),W('footprints left behind'),W('dignity'),W('continuity')]},
+    {action:'fish',body:['The lake is still. In the reflective blue you ',{v:'contemplate'},'. You reach, reach, reach — grasping fingers finding ',{w:'a held moment'},'. You turn it over in your wet palms. It is called ',{f:'stillness'},'.'],
+     sign:'— m.',items:['camera','bugnet'],weather:'wetsocks',tends:8,poolWords:[W('instant','an'),W('memory','a'),W('held moment','a'),W('curiosity'),W('waiting')]},
+  ];
+
+  const MAX=2,MIN=2;
+  let chosen=[],pool=[],noun=null,weather=null,response=null,action=null,freeWord='';
+  const item=id=>ITEMS.find(i=>i.id===id), weath=id=>WEATHER.find(w=>w.id===id), act=id=>ACTIONS.find(a=>a.id===id);
+  const ticks=n=>`<div class="pa-ticks">${[0,1,2,3,4,5,6].map(i=>`<div class="pa-tick ${i<n?'on':''}"></div>`).join('')}</div>`;
+  const esc=t=>{const d=document.createElement('div');d.textContent=t;return d.innerHTML;};
+  function nounText(w,{article=false,cap=false}={}){
+    if(!w) return '';
+    let base=w.text; const has=/^(a|an|the)\s/i.test(base);
+    let out=(article&&w.article&&!has)?(w.article+' '+base):base;
+    if(cap) out=out.charAt(0).toUpperCase()+out.slice(1);
+    return out;
+  }
+
+  function stepEnter(){
+    stage.innerHTML=`${ticks(0)}<div class="pa-eyebrow">Pull up a bench</div>
+      <div class="pa-h">Leave something for the next visitor</div>
+      <p class="pa-say">Gather what you carry, reckon with what the day brought, and sign it with a word of your own.</p>
+      <div class="pa-bar"><button class="pa-btn" id="pgo">Step onto the patio →</button></div>`;
+    document.getElementById('pgo').onclick=stepItems;
+  }
+  function stepItems(){
+    stage.innerHTML=`${ticks(1)}<div class="pa-eyebrow">What you carry — choose ${MIN}</div>
+      <div class="pa-h">Your kit</div><p class="pa-say">Each thing gives you a few words. You'll build your message from these.</p>
+      <div class="pa-grid" id="pgrid"></div>
+      <div class="pa-bar"><span class="pa-count" id="pcnt"></span><span class="sp"></span>
+        <button class="pa-btn" id="pnext" disabled>Face the day →</button></div>`;
+    const g=document.getElementById('pgrid');
+    ITEMS.forEach(it=>{const b=document.createElement('button');b.className='pa-pick';
+      b.setAttribute('aria-pressed',chosen.includes(it.id));
+      b.innerHTML=`<span class="ico">${it.ico}</span><span class="nm">${it.name}</span>`;
+      b.onclick=()=>{const i=chosen.indexOf(it.id);if(i>=0)chosen.splice(i,1);
+        else{if(chosen.length>=MAX)return;chosen.push(it.id);}refreshItems();};
+      g.appendChild(b);});
+    refreshItems();
+    document.getElementById('pnext').onclick=()=>{pool=chosen.flatMap(id=>item(id).words);stepWeather();};
+  }
+  function refreshItems(){
+    [...stage.querySelectorAll('#pgrid .pa-pick')].forEach((b,idx)=>{const it=ITEMS[idx],on=chosen.includes(it.id);
+      b.setAttribute('aria-pressed',on);b.disabled=!on&&chosen.length>=MAX;});
+    document.getElementById('pcnt').textContent=`${chosen.length} of ${MAX} chosen`;
+    document.getElementById('pnext').disabled=chosen.length<MIN;
+  }
+  function blob(w){
+    let f='';
+    if(w.shape==='circle')f='border-radius:50%;';
+    else if(w.shape==='droplet')f='border-radius:62% 62% 66% 66%/72% 72% 54% 54%;';
+    else if(w.shape==='lobe')f='border-radius:58% 42% 52% 48%/56% 54% 46% 44%;';
+    else if(w.shape==='spike')f='clip-path:polygon(50% 0,60% 34%,100% 28%,70% 55%,86% 100%,50% 74%,14% 100%,30% 55%,0 28%,40% 34%);';
+    else if(w.shape==='shard')f='clip-path:polygon(22% 0,56% 14%,100% 4%,76% 46%,96% 92%,46% 70%,8% 100%,26% 54%,0 40%);';
+    return `<span class="pa-blob" style="width:132%;height:132%;left:-16%;top:-16%;background:radial-gradient(circle at 40% 38%,${w.c1},${w.c2} 72%);${f}"></span>`;
+  }
+  function stepWeather(){
+    weather=null;response=null;
+    const order=[...WEATHER].sort(()=>Math.random()-0.5);
+    stage.innerHTML=`${ticks(2)}<div class="pa-eyebrow">What the day brought — choose one, blind</div>
+      <div class="pa-h">You don't get to pick</div>
+      <p class="pa-say">Something happened out there. You can't see which is which — only a shape, a color, a feeling. Reach for one anyway.</p>
+      <div class="pa-shrouds" id="pshr"></div>
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← Kit</button></div>`;
+    const sg=document.getElementById('pshr');
+    order.forEach((w,idx)=>{const b=document.createElement('button');b.className='pa-shroud';
+      b.innerHTML=`${blob(w)}<span class="pa-frost"></span><span class="pa-qm">?</span><span class="pa-hint">reach</span>`;
+      b.querySelector('.pa-blob').style.animationDelay=`-${idx*1.7}s`;
+      b.onclick=()=>{weather=w;stepResponse();};sg.appendChild(b);});
+    document.getElementById('pback').onclick=stepItems;
+  }
+  function stepResponse(){
+    stage.innerHTML=`${ticks(3)}<div class="pa-eyebrow">What befell you</div><div class="pa-h">And how you meet it</div>
+      <div class="pa-fate"><div class="pa-fate-nm">${esc(weather.name)}</div><div class="pa-fate-sub">${esc(weather.sub)}</div></div>
+      <p class="pa-resp-note">You didn't choose this. You did choose how you met it.</p>
+      <div class="pa-resp-row" id="presp"></div>
+      <div class="pa-bar"><span class="sp"></span><button class="pa-btn" id="pnext" disabled>Choose your telling →</button></div>`;
+    const r=document.getElementById('presp');
+    weather.verbs.forEach(v=>{const b=document.createElement('button');b.className='pa-resp';b.textContent=v;
+      b.onclick=()=>{response=v;[...r.children].forEach(c=>c.setAttribute('aria-pressed','false'));
+        b.setAttribute('aria-pressed','true');document.getElementById('pnext').disabled=false;};
+      r.appendChild(b);});
+    document.getElementById('pnext').onclick=stepAction;
+  }
+  function stepAction(){
+    action=null;
+    stage.innerHTML=`${ticks(4)}<div class="pa-eyebrow">Your telling — choose one</div>
+      <div class="pa-h">How will you say it?</div>
+      <div class="pa-acts" id="pacts"></div>
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← The day</button><span class="sp"></span>
+        <button class="pa-btn" id="pnext" disabled>To the bench →</button></div>`;
+    const a=document.getElementById('pacts');
+    ACTIONS.forEach(ac=>{const b=document.createElement('button');b.className='pa-act';b.textContent=ac.name;
+      b.onclick=()=>{action=ac;[...a.children].forEach(c=>c.setAttribute('aria-pressed','false'));
+        b.setAttribute('aria-pressed','true');document.getElementById('pnext').disabled=false;};
+      a.appendChild(b);});
+    document.getElementById('pback').onclick=stepResponse;
+    document.getElementById('pnext').onclick=()=>{noun=null;freeWord='';stepAssemble();};
+  }
+  function stepAssemble(){
+    stage.innerHTML=`${ticks(5)}<div class="pa-eyebrow">The bench</div><div class="pa-h">Fill it in</div>
+      <p class="pa-say">Your <span style="color:var(--pa-fate-soft)">telling</span> of the day is set. Choose a <span style="color:var(--pa-ember)">word from your kit</span>, and add a word of your own.</p>
+      <div class="pa-sk" id="psk"></div>
+      <div class="pa-pool" id="ppool"></div>
+      <div class="pa-free-zone"><label class="pa-free-label" for="pfree">${esc(FREE_PROMPT)}</label>
+        <input class="pa-field pa-field-free" id="pfree" maxlength="22" autocomplete="off" placeholder="one word" value="${esc(freeWord)}">
+        <span class="pa-free-hint">Anything you like — a feeling, an object, a wish. Your word to leave behind.</span></div>
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← Telling</button><span class="sp"></span>
+        <button class="pa-btn" id="pnext" disabled>Sign it →</button></div>`;
+    renderSkel();renderPool();
+    const fin=document.getElementById('pfree');
+    fin.oninput=()=>{freeWord=fin.value.replace(/\s+/g,' ').trimStart();renderSkel();checkDone();};
+    document.getElementById('pback').onclick=stepAction;
+    document.getElementById('pnext').onclick=()=>{freeWord=freeWord.trim();stepSign();};
+  }
+  function renderSkel(){
+    const sk=document.getElementById('psk');sk.innerHTML='';
+    sk.style.whiteSpace=action.paint?'pre-line':'normal';
+    action.skel.forEach(part=>{
+      if(typeof part==='string'){sk.appendChild(document.createTextNode(part));return;}
+      if(part.v){const el=document.createElement('span');el.className='pa-slot vb';el.textContent=response;sk.appendChild(el);return;}
+      if(part.f){const el=document.createElement('span');el.className='pa-slot fr '+(freeWord?'':'empty');
+        el.textContent=freeWord||'your word';el.onclick=()=>document.getElementById('pfree').focus();sk.appendChild(el);return;}
+      const el=document.createElement('span');el.className='pa-slot '+(noun?'':'empty');
+      el.textContent=noun?nounText(noun,{article:!!part.art}):'tap a kit word';el.onclick=renderPool;sk.appendChild(el);
+    });
+    checkDone();
+  }
+  function renderPool(){
+    const p=document.getElementById('ppool');
+    p.innerHTML='<span class="pa-pool-note">Your kit words — tap one for the orange blank:</span>';
+    pool.forEach(w=>{const b=document.createElement('button');b.className='pa-word';b.textContent=nounText(w,{cap:true});
+      if(noun===w)b.style.borderColor='var(--pa-ember)';
+      b.onclick=()=>{noun=w;renderSkel();renderPool();};p.appendChild(b);});
+  }
+  function checkDone(){const b=document.getElementById('pnext');if(b)b.disabled=!noun||!freeWord.trim();}
+  function stepSign(){
+    stage.innerHTML=`${ticks(6)}<div class="pa-eyebrow">Sign it</div><div class="pa-h">Who's leaving this?</div>
+      <p class="pa-say">A name, an initial, an alias — whatever you'd want the next person to read.</p>
+      <input class="pa-field" id="psign" maxlength="28" placeholder="e.g. R., or a name" autocomplete="off">
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← Bench</button><span class="sp"></span>
+        <button class="pa-btn" id="pnext">Leave it & reveal →</button></div>`;
+    const f=document.getElementById('psign');f.focus();
+    document.getElementById('pback').onclick=stepAssemble;
+    document.getElementById('pnext').onclick=()=>stepReveal(f.value.trim()||'Anonymous');
+  }
+  function buildBody(a,vals){
+    const parts=a.skel,out=[];
+    for(let k=0;k<parts.length;k++){const part=parts[k];
+      if(typeof part==='string'){out.push(part);continue;}
+      let prev='';for(let j=out.length-1;j>=0;j--){if(typeof out[j]==='string'){prev=out[j];break;}}
+      const atStart=prev===''||/[.!?]\s*$|\n\s*$|:\s*$/.test(prev);
+      if(part.v){let t=vals.response;if(atStart)t=t.charAt(0).toUpperCase()+t.slice(1);out.push({v:t});}
+      else if(part.f){let t=vals.freeWord;if(atStart)t=t.charAt(0).toUpperCase()+t.slice(1);out.push({f:t});}
+      else out.push({w:nounText(vals.noun,{article:!!part.art,cap:atStart})});
+    }
+    return out;
+  }
+  function bodyHtml(body){return body.map(p=>{
+    if(typeof p==='string')return esc(p);
+    if(p.v!==undefined)return`<span class="v">${esc(p.v)}</span>`;
+    if(p.f!==undefined)return`<span class="f">${esc(p.f)}</span>`;
+    return`<span class="w">${esc(p.w)}</span>`;}).join('');}
+  function stepReveal(name){
+    const body=buildBody(action,{noun,response,freeWord});
+    const stamps=[...chosen.map(id=>item(id).ico),'🌙'];
+    stage.innerHTML=`${ticks(7)}<div class="pa-eyebrow">Left on the patio</div>
+      <div class="pa-h" id="prevh" style="opacity:0">For whoever's next.</div>
+      <div class="pa-reveal-wrap"><div class="pa-rcard" id="prcard" style="opacity:0"></div></div>
+      <div class="pa-bar" id="prevbar" style="opacity:0"><button class="pa-btn" id="ptowall">Pin it to the wall →</button></div>`;
+    setTimeout(()=>{const c=document.getElementById('prcard');c.style.opacity='';c.classList.add('dealing');
+      c.innerHTML=`<div class="pa-stamp">${stamps.map(i=>`<span>${i}</span>`).join('')}</div>
+        <div class="pa-rbody ${action.paint?'paint':''}">${bodyHtml(body)}</div>
+        <div class="pa-rsign"><span>${esc(name)}</span><span class="tags">${esc(act(action.id).name)} · ${esc(weath(weather.id).name)}</span></div>`;
+      setTimeout(()=>document.getElementById('prevh').style.opacity='',250);
+      setTimeout(()=>document.getElementById('prevbar').style.opacity='',550);
+    },700);
+    document.getElementById('ptowall').onclick=()=>{
+      WALL.unshift({action:action.id,body,sign:'— '+name,items:[...chosen],weather:weather.id,tends:0,poolWords:[...pool],mine:true});
+      chosen=[];pool=[];noun=null;weather=null;response=null;action=null;freeWord='';stepWall();
+    };
+  }
+  function stepWall(){
+    stage.innerHTML=`${ticks(7)}<div class="pa-eyebrow">The wall</div><div class="pa-h">Left on the patio</div>
+      <p class="pa-say">Tap <b>tend</b> on one that stays with you — and glimpse what they carried.</p>
+      <div class="pa-wall" id="pwall"></div>
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pagain">Leave another →</button></div>
+      <p class="pa-note">These live only in your browser for now — the shared wall comes when the patio's fully built.</p>`;
+    const wall=document.getElementById('pwall');
+    WALL.forEach(c=>{const div=document.createElement('div');div.className='pa-wc'+(c.faved?' faved':'');
+      const icons=[...c.items.map(id=>item(id).ico),'🌙'].join(' ');
+      div.innerHTML=`<div class="pa-wbody ${act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div>
+        <div class="pa-wfoot"><span>${esc(c.sign)} ${c.mine?'<span style="color:var(--pa-ember-d)">(you)</span>':''}</span>
+          <button class="pa-tend ${c.faved?'done':''}">✦ ${c.tends}</button></div>
+        <div class="pa-peek" hidden><b>Carried:</b> ${icons} &nbsp; <b>Weathered:</b> ${esc(weath(c.weather).name)}<br>
+          <b>Words in play:</b><br>${c.poolWords.map(w=>`<span class="chip">${esc(typeof w==='string'?w:nounText(w,{cap:true}))}</span>`).join('')}</div>`;
+      div.querySelector('.pa-tend').onclick=(e)=>{e.stopPropagation();
+        if(c.faved){c.faved=false;c.tends--;}else{c.faved=true;c.tends++;}stepWall();};
+      div.onclick=()=>{const pk=div.querySelector('.pa-peek');pk.hidden=!pk.hidden;};
+      wall.appendChild(div);});
+    document.getElementById('pagain').onclick=stepItems;
+  }
+
+  // (re)start the experience whenever the Patio tab is opened, so it's fresh
+  let booted=false;
+  function boot(){ if(!booted){booted=true;} stepEnter(); }
+  // boot now if the panel is visible, and also when its tab is selected
+  const tab=document.getElementById('tab-patio');
+  if(tab){ tab.addEventListener('click',()=>{ if(chosen.length===0 && !action) stepEnter(); }); }
+  boot();
 })();
 </script>
 </body>
