@@ -55,12 +55,45 @@
     --ember: #F2A65A; --ivy: #A5B78B; --ivy-lt: #CFDCB8;
   }
   body[data-tab="patio"] {
-    --limewash: #3A4232; --limewash-2: #454e3b;
-    --loam: #EEE8D6; --lichen: #A2AB90; --hairline: #55604528;
+    --limewash: #6f3d24; --limewash-2: #7c4630;
+    --loam: #f7ecd9; --lichen: #e6cdb2; --hairline: #9a6a4a55;
     --ink-block: #F1E9DA; --on-ink: #1F1B16;
-    --ember: #E0A05A; --ivy: #9CB07E; --ivy-lt: #C7D3AC;
+    --ember: #f2a65a; --ivy: #b9c79a; --ivy-lt: #d6e0bd;
   }
-  body[data-tab="patio"]::before { opacity: .34; }
+  body[data-tab="patio"] {
+    background-color:#6f3d24;
+    background-image:
+      linear-gradient(180deg, rgba(111,61,36,.30), rgba(111,61,36,.55)),
+      radial-gradient(120% 70% at 50% -10%, rgba(242,166,90,.18), transparent 55%),
+      radial-gradient(90% 60% at 50% 110%, rgba(120,60,30,.40), transparent 60%),
+      url("assets/textures/clay-mosaic.svg");
+    background-size: cover, cover, cover, 820px 820px;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-attachment: fixed, fixed, fixed, fixed;
+  }
+  body[data-tab="patio"]::before { opacity: .30; }
+
+  /* patio: ambient string-lights across the WHOLE viewport, behind all content */
+  .patio-lights { display:none; }
+  body[data-tab="patio"] .patio-lights {
+    display:block; position:fixed; inset:0; z-index:1; overflow:hidden; pointer-events:none;
+  }
+  .patio-lights .halo {
+    position:absolute; border-radius:50%; filter:blur(26px); opacity:.55; mix-blend-mode:screen;
+    animation:glowpulse 5s ease-in-out infinite;
+  }
+  @keyframes glowpulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.85;transform:scale(1.1)} }
+  .patio-lights .swag { position:absolute; left:-2%; width:104%; opacity:.4; }
+  .patio-lights .swag path { fill:none; stroke:rgba(20,12,6,.3); stroke-width:1.5; }
+  /* keep app content above the fixed light layer on the patio */
+  body[data-tab="patio"] .wrap, body[data-tab="patio"] .masthead, body[data-tab="patio"] .tabs { position:relative; z-index:2; }
+  body[data-tab="patio"]::after {
+    content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.25;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 7px);
+  }
+  @media (prefers-reduced-motion: reduce){ .patio-lights .halo{ animation:none } }
   body[data-tab="resume"]::before  { opacity: .42; }
   body[data-tab="contact"]::before { opacity: .4; }
   body[data-tab="ephemera"]::before { opacity: .3; }
@@ -1002,10 +1035,14 @@
   .pa-shroud { appearance:none; cursor:pointer; aspect-ratio:3/4; border:1px solid var(--hairline);
     border-radius:8px; position:relative; overflow:hidden; transition:transform .18s,border-color .18s; background:rgba(0,0,0,.2); }
   .pa-shroud:hover { transform:translateY(-4px); border-color:var(--pa-fate-soft); }
-  .pa-blob { position:absolute; filter:blur(11px); opacity:.85; mix-blend-mode:screen;
+  .pa-glow { position:absolute; width:82%; height:82%; left:9%; top:9%; border-radius:50%;
+    filter:blur(15px); opacity:.6;
     animation:pa-drift 9s ease-in-out infinite alternate; }
-  .pa-frost { position:absolute; inset:0; backdrop-filter:blur(6px);
-    background:linear-gradient(160deg,rgba(240,230,210,.04),rgba(240,230,210,.10)); }
+  .pa-shape { position:absolute; width:50%; height:50%; left:25%; top:25%;
+    filter:blur(1.5px); opacity:.95; z-index:2;
+    animation:pa-drift 9s ease-in-out infinite alternate; }
+  .pa-frost { position:absolute; inset:0;
+    background:linear-gradient(160deg,rgba(240,230,210,.05),rgba(20,12,6,.12)); }
   .pa-qm { position:absolute; inset:0; display:grid; place-items:center; font-family:'Fraunces',serif;
     font-size:1.8rem; color:rgba(240,230,210,.22); }
   .pa-hint { position:absolute; bottom:.5rem; left:0; right:0; text-align:center; font-size:.56rem;
@@ -1039,8 +1076,11 @@
   .pa-field-free:focus { outline:2px solid var(--pa-free); border-color:var(--pa-free); }
   .pa-free-hint { display:block; font-size:.72rem; color:var(--pa-dim); margin-top:.5rem; font-style:italic; }
   .pa-reveal-wrap { perspective:1200px; margin-top:1rem; }
-  .pa-rcard { background:var(--pa-card); color:#241a12; border-radius:8px; padding:1.9rem 1.7rem 1.4rem;
+  .pa-rcard { background:var(--pa-card); color:#241a12; border-radius:4px; padding:1.9rem 1.7rem 1.4rem;
     position:relative; box-shadow:0 24px 60px -22px rgba(0,0,0,.6); }
+  .pa-rcard::before{ content:''; position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+    width:17px; height:17px; border-radius:50%;
+    background:radial-gradient(circle at 35% 32%, #f2a65a, #c05a1c 65%, #7c3a0f); box-shadow:0 3px 7px -2px rgba(0,0,0,.6); }
   .pa-rcard.dealing { animation:pa-deal .75s cubic-bezier(.2,.8,.3,1.05) both; }
   @keyframes pa-deal { from{opacity:0;transform:rotateX(32deg) translateY(28px) scale(.92)} to{opacity:1;transform:none} }
   .pa-stamp { position:absolute; top:-.8rem; right:1.1rem; display:flex; gap:.3rem; }
@@ -1054,9 +1094,14 @@
   .pa-rsign { margin-top:1.2rem; padding-top:.8rem; border-top:1px solid #d8ccb4; font-family:'Karla',sans-serif;
     font-size:.9rem; display:flex; justify-content:space-between; align-items:center; }
   .pa-rsign .tags { font-size:.68rem; color:#8a8067; letter-spacing:.08em; text-transform:uppercase; }
-  .pa-wall { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:1rem; margin-top:1.5rem; }
-  .pa-wc { background:var(--pa-card); color:#241a12; border-radius:8px; padding:1.1rem 1.1rem .9rem; position:relative;
-    cursor:pointer; border:2px solid transparent; transition:transform .15s,border-color .15s; }
+  .pa-wall { display:grid; grid-template-columns:repeat(auto-fill,minmax(13rem,1fr)); gap:1.4rem; margin-top:1.5rem;
+    background:linear-gradient(135deg,#c69256,#b07d42); border:1px solid #6f3d24; border-radius:10px;
+    padding:clamp(1.1rem,3vw,2rem); box-shadow:inset 0 2px 14px rgba(0,0,0,.28); }
+  .pa-wc { background:var(--pa-card); color:#241a12; border-radius:4px; padding:1.3rem 1.1rem .9rem; position:relative;
+    cursor:pointer; border:2px solid transparent; transition:transform .15s,border-color .15s; box-shadow:0 8px 18px -10px rgba(0,0,0,.5); }
+  .pa-wc::before{ content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%);
+    width:13px; height:13px; border-radius:50%;
+    background:radial-gradient(circle at 35% 32%, #f2a65a, #c05a1c 65%, #7c3a0f); box-shadow:0 2px 5px -1px rgba(0,0,0,.55); }
   .pa-wc:hover { transform:translateY(-3px); } .pa-wc.faved { border-color:var(--pa-ember); }
   .pa-wbody { font-family:'Fraunces',serif; font-size:.98rem; line-height:1.5; }
   .pa-wfoot { margin-top:.8rem; padding-top:.6rem; border-top:1px solid #d8ccb4; display:flex; justify-content:space-between;
@@ -1068,6 +1113,47 @@
   .pa-peek[hidden] { display:none; }
   .pa-peek .chip { display:inline-block; background:#38322a; color:var(--pa-card); border-radius:999px; padding:.1rem .55rem; margin:.12rem .15rem 0; font-size:.72rem; }
   .pa-note { font-size:.72rem; color:var(--pa-dim); margin-top:1.5rem; font-style:italic; }
+
+  /* corkboard surface for the finished-card feel */
+  .pa-corkboard {
+    background:
+      radial-gradient(circle at 30% 20%, rgba(0,0,0,.05) 0 2px, transparent 3px),
+      radial-gradient(circle at 70% 60%, rgba(0,0,0,.05) 0 2px, transparent 3px),
+      radial-gradient(circle at 45% 80%, rgba(0,0,0,.04) 0 2px, transparent 3px),
+      linear-gradient(135deg, #c69256, #b07d42);
+    border:1px solid #6f3d24; border-radius:10px;
+    padding:clamp(1.25rem,4vw,2.25rem);
+    box-shadow: inset 0 2px 14px rgba(0,0,0,.28);
+  }
+  /* a finished card, pinned */
+  .pa-pinned {
+    background:var(--pa-card,#f0e6d2); color:#241a12; border-radius:4px;
+    padding:1.3rem 1.3rem 1.1rem; position:relative;
+    box-shadow:0 10px 22px -10px rgba(0,0,0,.55);
+    font-family:'Fraunces',Georgia,serif;
+  }
+  .pa-pinned::before { /* the pin */
+    content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    width:15px; height:15px; border-radius:50%;
+    background:radial-gradient(circle at 35% 32%, #f2a65a, #c05a1c 65%, #7c3a0f);
+    box-shadow:0 3px 6px -2px rgba(0,0,0,.6);
+  }
+  .pa-pinned .pin-alt { position:absolute; top:-9px; left:50%; }
+  .pa-pinned-body{ font-size:1.02rem; line-height:1.55; }
+  .pa-pinned-body.paint{ white-space:pre-line; }
+  .pa-pinned-body .w{color:var(--pa-ember-d,#b5612c);font-weight:600}
+  .pa-pinned-body .v{color:#9a5aa6;font-weight:600}
+  .pa-pinned-body .f{color:#2f8377;font-weight:700}
+  .pa-pinned-sign{ margin-top:.9rem; padding-top:.6rem; border-top:1px solid #d8ccb4;
+    font-family:'Karla',sans-serif; font-size:.82rem; color:#6b5847; }
+  /* scatter the pinned cards at slight angles */
+  .pa-board-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(14rem,1fr)); gap:1.4rem; margin-top:.5rem; }
+  .pa-board-grid .pa-pinned:nth-child(3n+1){ transform:rotate(-1.6deg); }
+  .pa-board-grid .pa-pinned:nth-child(3n+2){ transform:rotate(1.2deg); }
+  .pa-board-grid .pa-pinned:nth-child(3n+3){ transform:rotate(-0.6deg); }
+  /* landing intro */
+  .pa-intro-lede{ font-family:'Fraunces',serif; font-variation-settings:'opsz' 40;
+    font-size:clamp(1.15rem,2.4vw,1.5rem); line-height:1.5; max-width:34rem; margin:0 0 1.5rem; }
 
   /* ── letterboxd strip ───────────────────────── */
 
@@ -1207,6 +1293,7 @@
 </style>
 </head>
 <body>
+<div class="patio-lights" aria-hidden="true"><svg class="swag" viewBox="0 0 100 40" preserveAspectRatio="none" style="top:0;height:40vh"><path d="M 2.0,16.0 11.6,17.2 21.2,18.4 30.8,19.2 40.4,19.8 50.0,20.0 59.6,19.8 69.2,19.2 78.8,18.4 88.4,17.2 98.0,16.0" vector-effect="non-scaling-stroke"/></svg><span class="halo" style="left:2.0%;top:16.0vh;width:120px;height:120px;margin-left:-60px;margin-top:-60px;background:radial-gradient(circle,#ffcf87,transparent 66%);animation-delay:-1.6s"></span><span class="halo" style="left:11.6%;top:17.2vh;width:160px;height:160px;margin-left:-80px;margin-top:-80px;background:radial-gradient(circle,#ff9d5c,transparent 66%);animation-delay:-0.8s"></span><span class="halo" style="left:21.2%;top:18.4vh;width:140px;height:140px;margin-left:-70px;margin-top:-70px;background:radial-gradient(circle,#ffe3b0,transparent 66%);animation-delay:-3.3s"></span><span class="halo" style="left:30.8%;top:19.2vh;width:175px;height:175px;margin-left:-87px;margin-top:-87px;background:radial-gradient(circle,#f2843f,transparent 66%);animation-delay:-0.4s"></span><span class="halo" style="left:40.4%;top:19.8vh;width:130px;height:130px;margin-left:-65px;margin-top:-65px;background:radial-gradient(circle,#ffbe7a,transparent 66%);animation-delay:-2.7s"></span><span class="halo" style="left:50.0%;top:20.0vh;width:120px;height:120px;margin-left:-60px;margin-top:-60px;background:radial-gradient(circle,#ffcf87,transparent 66%);animation-delay:-1.8s"></span><span class="halo" style="left:59.6%;top:19.8vh;width:160px;height:160px;margin-left:-80px;margin-top:-80px;background:radial-gradient(circle,#ff9d5c,transparent 66%);animation-delay:-0.3s"></span><span class="halo" style="left:69.2%;top:19.2vh;width:140px;height:140px;margin-left:-70px;margin-top:-70px;background:radial-gradient(circle,#ffe3b0,transparent 66%);animation-delay:-2.5s"></span><span class="halo" style="left:78.8%;top:18.4vh;width:175px;height:175px;margin-left:-87px;margin-top:-87px;background:radial-gradient(circle,#f2843f,transparent 66%);animation-delay:-0.2s"></span><span class="halo" style="left:88.4%;top:17.2vh;width:130px;height:130px;margin-left:-65px;margin-top:-65px;background:radial-gradient(circle,#ffbe7a,transparent 66%);animation-delay:-2.2s"></span><span class="halo" style="left:98.0%;top:16.0vh;width:120px;height:120px;margin-left:-60px;margin-top:-60px;background:radial-gradient(circle,#ffcf87,transparent 66%);animation-delay:-0.3s"></span></div>
 
 <svg class="ivy-defs" aria-hidden="true" focusable="false">
   <defs>
@@ -1901,12 +1988,6 @@
 <!-- ═══ PATIO ══════════════════════════════════ -->
 <div class="panel" id="panel-patio" role="tabpanel" aria-labelledby="tab-patio" hidden>
   <div class="wrap">
-    <div class="sec-head">
-      <div class="ghosts" aria-hidden="true"><span>PATIO</span><span>PATIO</span><span>PATIO</span></div>
-      <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>The patio</p>
-      <h2>Pull up a bench</h2>
-    </div>
-
     <div class="patio-stage" id="patio-stage"></div>
   </div>
 </div>
@@ -2407,16 +2488,38 @@ function paintAll() {
     return out;
   }
 
+  /* EXAMPLE CARDS shown on the landing corkboard.
+     TEMPLATE — Tristan fills these in. Each is a finished message:
+     body = array of strings and {w}/{v}/{f} spans (w=kit noun, v=how-you-met-it, f=your word). */
+  const EXAMPLES=[
+    {action:'camp',
+     body:['Finally, I arrived. I ',{v:'walked'},' before the fire. I felt ',{w:'warmth'},' in my bones. Tomorrow I will discover ',{f:'[a word]'},'.'],
+     sign:'— [name]'},
+    {action:'fish',
+     body:['The lake is still. In the reflective blue you ',{v:'contemplate'},'. You reach, reach, reach — grasping fingers finding ',{w:'a held moment'},'. You turn it over in your wet palms. It is called ',{f:'[a word]'},'.'],
+     sign:'— [name]'},
+    {action:'hike',
+     body:['Under the sun, I ',{v:'explored'},', watched by the trees. Finally, in the mix of greens, I found ',{w:'curiosity'},'. Now, everything is ',{f:'[a word]'},'.'],
+     sign:'— [name]'},
+  ];
+
   function stepEnter(){
-    stage.innerHTML=`${ticks(0)}<div class="pa-eyebrow">Pull up a bench</div>
-      <div class="pa-h">Leave something for the next visitor</div>
-      <p class="pa-say">Gather what you carry, reckon with what the day brought, and sign it with a word of your own.</p>
-      <div class="pa-bar"><button class="pa-btn" id="pgo">Step onto the patio →</button></div>`;
+    const cards=EXAMPLES.map(c=>`<div class="pa-pinned"><div class="pa-pinned-body ${act(c.action)&&act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div><div class="pa-pinned-sign">${esc(c.sign)}</div></div>`).join('');
+    stage.innerHTML=`${ticks(0)}
+      <div class="ghosts" aria-hidden="true"><span>PATIO</span><span>PATIO</span><span>PATIO</span></div>
+      <div class="pa-eyebrow">Pull up a bench</div>
+      <div class="pa-h">The Patio</div>
+      <p class="pa-intro-lede">[ Intro goes here — a sentence or two on what the patio is: a place to leave a short, made thing for whoever wanders through next. Fill this in. ]</p>
+      <p class="pa-say">[ Optional second line — how it works, in a breath. Or a line of invitation. ]</p>
+      <div class="pa-corkboard" style="margin-top:1.5rem">
+        <div class="pa-board-grid">${cards}</div>
+      </div>
+      <div class="pa-bar"><button class="pa-btn" id="pgo">Leave one yourself →</button></div>`;
     document.getElementById('pgo').onclick=stepItems;
   }
   function stepItems(){
     stage.innerHTML=`${ticks(1)}<div class="pa-eyebrow">What you carry — choose ${MIN}</div>
-      <div class="pa-h">Your kit</div><p class="pa-say">Each thing gives you a few words. You'll build your message from these.</p>
+      <div class="pa-h">Your kit</div><p class="pa-say">Each item gives you a few words. You'll build your message from these.</p>
       <div class="pa-grid" id="pgrid"></div>
       <div class="pa-bar"><span class="pa-count" id="pcnt"></span><span class="sp"></span>
         <button class="pa-btn" id="pnext" disabled>Face the day →</button></div>`;
@@ -2436,27 +2539,28 @@ function paintAll() {
     document.getElementById('pcnt').textContent=`${chosen.length} of ${MAX} chosen`;
     document.getElementById('pnext').disabled=chosen.length<MIN;
   }
-  function blob(w){
+  function grad(w){ return `radial-gradient(circle at 42% 40%,${w.c1},${w.c2} 78%)`; }
+  function shapeSpan(w){
     let f='';
     if(w.shape==='circle')f='border-radius:50%;';
-    else if(w.shape==='droplet')f='border-radius:62% 62% 66% 66%/72% 72% 54% 54%;';
-    else if(w.shape==='lobe')f='border-radius:58% 42% 52% 48%/56% 54% 46% 44%;';
-    else if(w.shape==='spike')f='clip-path:polygon(50% 0,60% 34%,100% 28%,70% 55%,86% 100%,50% 74%,14% 100%,30% 55%,0 28%,40% 34%);';
-    else if(w.shape==='shard')f='clip-path:polygon(22% 0,56% 14%,100% 4%,76% 46%,96% 92%,46% 70%,8% 100%,26% 54%,0 40%);';
-    return `<span class="pa-blob" style="width:132%;height:132%;left:-16%;top:-16%;background:radial-gradient(circle at 40% 38%,${w.c1},${w.c2} 72%);${f}"></span>`;
+    else if(w.shape==='droplet')f='border-radius:60% 60% 66% 66%/72% 72% 52% 52%;transform:rotate(-4deg);';
+    else if(w.shape==='lobe')f='border-radius:64% 36% 55% 45%/58% 52% 48% 42%;transform:rotate(6deg);';
+    else if(w.shape==='spike')f='clip-path:polygon(50% 2%,61% 33%,95% 28%,70% 52%,84% 92%,50% 70%,16% 92%,30% 52%,5% 28%,39% 33%);';
+    else if(w.shape==='shard')f='clip-path:polygon(28% 6%,55% 20%,92% 10%,74% 44%,90% 82%,48% 66%,14% 90%,30% 54%,8% 40%);';
+    return `<span class="pa-shape" style="background:${grad(w)};${f}"></span>`;
   }
   function stepWeather(){
     weather=null;response=null;
     const order=[...WEATHER].sort(()=>Math.random()-0.5);
-    stage.innerHTML=`${ticks(2)}<div class="pa-eyebrow">What the day brought — choose one, blind</div>
+    stage.innerHTML=`${ticks(2)}<div class="pa-eyebrow">Your message — reach for one, blind</div>
       <div class="pa-h">You don't get to pick</div>
-      <p class="pa-say">Something happened out there. You can't see which is which — only a shape, a color, a feeling. Reach for one anyway.</p>
+      <p class="pa-say">Something happened out there, and it affects your message. You can't see which is which — only a shape, a color, a feeling. Reach for one anyway.</p>
       <div class="pa-shrouds" id="pshr"></div>
       <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← Kit</button></div>`;
     const sg=document.getElementById('pshr');
     order.forEach((w,idx)=>{const b=document.createElement('button');b.className='pa-shroud';
-      b.innerHTML=`${blob(w)}<span class="pa-frost"></span><span class="pa-qm">?</span><span class="pa-hint">reach</span>`;
-      b.querySelector('.pa-blob').style.animationDelay=`-${idx*1.7}s`;
+      b.innerHTML=`<span class="pa-glow" style="background:${grad(w)}"></span><span class="pa-frost"></span>${shapeSpan(w)}<span class="pa-qm">?</span><span class="pa-hint">reach</span>`;
+      b.querySelectorAll('.pa-glow,.pa-shape').forEach(el=>{el.style.animationDelay=`-${idx*1.7}s`;});
       b.onclick=()=>{weather=w;stepResponse();};sg.appendChild(b);});
     document.getElementById('pback').onclick=stepItems;
   }
@@ -2475,8 +2579,9 @@ function paintAll() {
   }
   function stepAction(){
     action=null;
-    stage.innerHTML=`${ticks(4)}<div class="pa-eyebrow">Your telling — choose one</div>
+    stage.innerHTML=`${ticks(4)}<div class="pa-eyebrow">Your message — choose its shape</div>
       <div class="pa-h">How will you say it?</div>
+      <p class="pa-say" style="margin-top:.3rem">Each one writes your message a different way. Pick the shape that fits your day.</p>
       <div class="pa-acts" id="pacts"></div>
       <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← The day</button><span class="sp"></span>
         <button class="pa-btn" id="pnext" disabled>To the bench →</button></div>`;
@@ -2557,7 +2662,7 @@ function paintAll() {
     const stamps=[...chosen.map(id=>item(id).ico),'🌙'];
     stage.innerHTML=`${ticks(7)}<div class="pa-eyebrow">Left on the patio</div>
       <div class="pa-h" id="prevh" style="opacity:0">For whoever's next.</div>
-      <div class="pa-reveal-wrap"><div class="pa-rcard" id="prcard" style="opacity:0"></div></div>
+      <div class="pa-reveal-wrap"><div class="pa-corkboard"><div class="pa-rcard" id="prcard" style="opacity:0"></div></div></div>
       <div class="pa-bar" id="prevbar" style="opacity:0"><button class="pa-btn" id="ptowall">Pin it to the wall →</button></div>`;
     setTimeout(()=>{const c=document.getElementById('prcard');c.style.opacity='';c.classList.add('dealing');
       c.innerHTML=`<div class="pa-stamp">${stamps.map(i=>`<span>${i}</span>`).join('')}</div>
