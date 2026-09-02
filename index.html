@@ -86,10 +86,12 @@
       linear-gradient(180deg, rgba(120,66,40,.18), rgba(90,48,26,.34));
   }
   body[data-tab="patio"]::before { opacity: .30; }
+  body[data-tab="patio"] .ghosts span { -webkit-text-stroke-color: rgba(240,231,214,.5); opacity: .8; }
 
   body[data-tab="resume"]::before  { opacity: .42; }
   body[data-tab="contact"]::before { opacity: .4; }
   body[data-tab="ephemera"]::before { opacity: .3; }
+  body[data-tab="ephemera"] .ghosts span, body[data-tab="projects"] .ghosts span, body[data-tab="contact"] .ghosts span { -webkit-text-stroke-color: rgba(240,231,214,.42); }
   body[data-tab="projects"]::before { opacity: .38; }
   body[data-tab="ephemera"] {
     --limewash: #1C1A15; --limewash-2: #262319;
@@ -126,7 +128,7 @@
   .label {
     font-size: .6875rem; font-weight: 600;
     letter-spacing: .16em; text-transform: uppercase;
-    color: var(--lichen); margin: 0;
+    color: var(--ember); margin: 0;
   }
 
   h1, h2, h3 {
@@ -574,7 +576,7 @@
     font-variation-settings: 'SOFT' 0, 'WONK' 1, 'opsz' 144;
     font-weight: 700; font-size: clamp(4.2rem, 14vw, 9.5rem);
     letter-spacing: -.05em; white-space: nowrap;
-    color: transparent; -webkit-text-stroke: 1.4px var(--hairline);
+    color: transparent; -webkit-text-stroke: 1.5px var(--hairline); opacity: .7;
   }
   .ghosts span:nth-child(2) { opacity: .5; }
   .ghosts span:nth-child(3) { opacity: .22; }
@@ -1236,7 +1238,9 @@
     text-wrap: balance;
   }
   /* faint quiet ivy in one corner — the charm still present, banked low */
-  .manifesto .ivy-mark { position:absolute; right:-10px; bottom:-14px; width:8rem; opacity:.16; z-index:0; }
+  .manifesto .ivy-mark { position:absolute; right:-8px; bottom:-12px; width:9rem; opacity:.4; z-index:0; }
+  .manifesto .ivy-mark .leaf-outline { stroke:#8aa06a; fill:#8aa06a; fill-opacity:.22; }
+  .manifesto .ivy-mark .leaf-vein, .manifesto .ivy-mark .stem, .manifesto .ivy-mark .petiole { stroke:#9cb07e; }
   @media (max-width: 46rem){ .manifesto .ivy-mark { width:6rem; } }
 
   /* colophon */
@@ -1269,6 +1273,29 @@
   .colophon-body p { margin:0 0 1.1rem; max-width:34rem; line-height:1.7; }
   .colophon-body p:last-child { margin-bottom:0; }
   .colophon-body strong { color:#E8B27E; font-weight:600; }
+
+  /* image lightbox */
+  .lightbox[hidden] { display:none; }
+  .lightbox {
+    position:fixed; inset:0; z-index:800; display:grid; place-items:center;
+    background:rgba(20,14,10,.9); backdrop-filter:blur(4px);
+    padding:clamp(1.5rem,5vw,4rem); cursor:zoom-out;
+    animation:fade .25s ease both;
+  }
+  .lightbox img {
+    max-width:100%; max-height:90vh; width:auto; height:auto; display:block;
+    border:3px solid #F1E9DA; border-radius:2px;
+    box-shadow:0 30px 80px -25px #000; cursor:default;
+  }
+  .lightbox-close {
+    position:absolute; top:1rem; right:1.1rem;
+    appearance:none; border:1px solid rgba(241,233,218,.4); background:none; color:#F1E9DA;
+    cursor:pointer; font:inherit; font-size:.75rem; font-weight:600; letter-spacing:.1em;
+    text-transform:uppercase; padding:.5rem 1rem; border-radius:999px; transition:background .2s;
+  }
+  .lightbox-close:hover { background:rgba(241,233,218,.14); }
+  /* signal clickable images */
+  .eph-image img, .cs-shot img, .work .plate img { cursor:zoom-in; }
 
   /* ── letterboxd strip ───────────────────────── */
 
@@ -3007,6 +3034,28 @@ function paintAll() {
   // tapping the fade nudges the row toward the Patio tab
   fade.addEventListener('click', ()=>{ tabs.scrollBy({left:200, behavior:'smooth'}); });
   update(); setTimeout(update, 400);
+})();
+</script>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightbox-close" type="button">Close &times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+(function(){
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lightbox-img');
+  const lbClose=document.getElementById('lightbox-close');
+  if(!lb) return;
+  function open(src,alt){ lbImg.src=src; lbImg.alt=alt||''; lb.hidden=false; document.body.style.overflow='hidden'; }
+  function close(){ lb.hidden=true; lbImg.src=''; document.body.style.overflow=''; }
+  // event delegation: catch clicks on any enlargeable image, now or added later
+  document.addEventListener('click', e=>{
+    const img=e.target.closest('.eph-image img, .cs-shot img, .work .plate img');
+    if(img && img.getAttribute('src')){ e.stopPropagation(); open(img.src, img.alt); }
+  });
+  lb.addEventListener('click', e=>{ if(e.target!==lbImg) close(); });
+  lbClose.addEventListener('click', close);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
 </body>
