@@ -86,7 +86,10 @@
       linear-gradient(180deg, rgba(120,66,40,.18), rgba(90,48,26,.34));
   }
   body[data-tab="patio"]::before { opacity: .30; }
-  body[data-tab="patio"] .ghosts span { -webkit-text-stroke-color: rgba(240,231,214,.5); opacity: .8; }
+  body[data-tab="patio"] .ghosts span { -webkit-text-stroke-color: rgba(240,231,214,.4); }
+  body[data-tab="patio"] .ghosts span:nth-child(1) { opacity: .45; }
+  body[data-tab="patio"] .ghosts span:nth-child(2) { opacity: .24; }
+  body[data-tab="patio"] .ghosts span:nth-child(3) { opacity: .10; }
 
   body[data-tab="resume"]::before  { opacity: .42; }
   body[data-tab="contact"]::before { opacity: .4; }
@@ -642,6 +645,7 @@
     max-width: 78%; max-height: 78%; object-fit: contain;
     position: relative; z-index: 2;
   }
+  .pcard-art img.big { max-width: 100%; max-height: 100%; }
 
   .pcard-label {
     font-family: 'Fraunces', Georgia, serif;
@@ -694,31 +698,37 @@
       radial-gradient(circle at 30% 25%, rgba(158,76,22,.10), transparent 45%),
       radial-gradient(circle at 75% 70%, rgba(70,84,59,.10), transparent 45%),
       #EFE3CB;
-    border: 1px solid rgba(120,90,50,.4);
-    box-shadow: inset 0 0 22px rgba(120,90,50,.28), 0 6px 18px -10px rgba(31,27,22,.5);
+    box-shadow: inset 0 0 22px rgba(120,90,50,.30), 0 6px 18px -10px rgba(31,27,22,.5);
     transform: rotate(1.5deg);
     transition: transform .3s cubic-bezier(.2,.8,.3,1.1);
-    overflow: hidden;
+    /* tattered / torn treasure-map edge */
+    --tear: 6px;
+    clip-path: polygon(
+      0% 4%, 5% 2%, 11% 5%, 18% 1%, 26% 4%, 34% 1%, 43% 4%, 52% 1%, 61% 4%, 70% 1%, 79% 4%, 88% 1%, 95% 4%, 100% 2%,
+      98% 10%, 100% 18%, 97% 27%, 100% 36%, 98% 45%, 100% 55%, 97% 64%, 100% 73%, 98% 82%, 100% 91%, 96% 97%,
+      90% 99%, 82% 96%, 73% 100%, 64% 97%, 55% 100%, 46% 97%, 37% 100%, 28% 97%, 19% 100%, 10% 97%, 4% 99%,
+      2% 92%, 0% 83%, 3% 74%, 0% 64%, 2% 55%, 0% 45%, 3% 36%, 0% 27%, 2% 18%, 0% 11%
+    );
   }
   .pcard:hover .map-frame { transform: rotate(-1deg) scale(1.02); }
-  /* dashed trail + X */
+  /* dashed trail curving AROUND the logo (behind, at the border ring) */
   .map-frame::before {
-    content: ''; position: absolute; z-index: 3;
-    left: 12%; top: 68%; width: 62%; height: 20%;
-    border-top: 2px dashed rgba(158,76,22,.5);
-    border-right: 2px dashed rgba(158,76,22,.5);
-    border-radius: 0 40% 0 0; transform: rotate(-8deg);
+    content: ''; position: absolute; z-index: 1; inset: 12%;
+    border: 2px dashed rgba(158,76,22,.45); border-radius: 50%;
+    transform: rotate(-6deg);
   }
+  /* X marks the spot, tucked in a corner clear of the logo */
   .map-frame::after {
-    content: '\2715'; position: absolute; z-index: 3;
-    right: 12%; top: 60%; color: var(--ember);
-    font-size: 1rem; font-weight: 700;
+    content: '\2715'; position: absolute; z-index: 1;
+    right: 9%; bottom: 8%; color: var(--ember);
+    font-size: .95rem; font-weight: 700;
   }
 
   /* generic frame for anything without custom art */
   .plain-frame {
     position: absolute; inset: 0; z-index: 1;
-    background: rgba(241,233,218,.5); border: 1px solid var(--hairline);
+    background: #fff; border: 1px solid var(--hairline);
+    box-shadow: 0 6px 18px -10px rgba(31,27,22,.5);
     transform: rotate(-1.5deg);
     transition: transform .3s cubic-bezier(.2,.8,.3,1.1);
   }
@@ -845,7 +855,7 @@
   }
   .eph-card {
     break-inside: avoid; margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-    border: 1px solid #F1E9DA; background: rgba(241,233,218,.14);
+    border: 1px solid #F1E9DA; background: rgba(241,233,218,.10);
     position: relative; overflow: hidden;
     animation: rise .5s cubic-bezier(.2,.7,.3,1) both;
   }
@@ -854,6 +864,7 @@
   .eph-card:nth-child(6){animation-delay:.25s}
 
   /* image item */
+  .eph-image { border: 1px solid #F1E9DA; }
   .eph-image img { width: 100%; height: auto; display: block; object-fit: contain; }
   .eph-image .eph-kind { color: #1F1B16; }
   .eph-cap {
@@ -1164,8 +1175,9 @@
   .pa-pinned-body .w{color:var(--pa-ember-d,#b5612c);font-weight:600}
   .pa-pinned-body .v{color:#9a5aa6;font-weight:600}
   .pa-pinned-body .f{color:#2f8377;font-weight:700}
-  .pa-pinned-sign{ margin-top:.9rem; padding-top:.6rem; border-top:1px solid #d8ccb4;
-    font-family:'Karla',sans-serif; font-size:.82rem; color:#6b5847; }
+  .pa-pinned-foot{ margin-top:.9rem; padding-top:.6rem; border-top:1px solid #d8ccb4;
+    display:flex; justify-content:space-between; align-items:center; }
+  .pa-pinned-sign{ font-family:'Karla',sans-serif; font-size:.82rem; color:#6b5847; }
   /* scatter the pinned cards at slight angles */
   .pa-board-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(14rem,1fr)); gap:1.4rem; margin-top:.5rem; }
   .pa-board-grid .pa-pinned:nth-child(3n+1){ transform:rotate(-1.6deg); }
@@ -1704,7 +1716,7 @@
     <div class="bio-full">
       <div class="bio">
         <p class="label" style="margin-bottom:.7rem;">About</p>
-        <p class="lede" style="margin:0 0 1.25rem;">Transforming art from something we see to something we do.</p>
+        <p class="lede" style="margin:0 0 1.25rem;">Transforming art from something we see to something we&nbsp;do.</p>
         <p>I&rsquo;m a second-year MA student in Arts Management at American University, where I am co-president of the Emerging Arts Leaders Society. I&rsquo;m Program Coordinator at the DC Arts Center in Adams Morgan, where I built and run the AdMo Pen Pals Project.</p>
       </div>
     </div>
@@ -1769,7 +1781,7 @@
       <button class="pcard" role="listitem" aria-expanded="false" aria-controls="detail-1" data-open="1">
         <div class="pcard-art">
           <div class="map-frame" aria-hidden="true"></div>
-          <img src="assets/logos/rove54-logo.png" alt="Rove 54 sigil">
+          <img src="assets/logos/rove54-logo.png" alt="Rove 54 sigil" class="big">
         </div>
         <span class="pcard-label">Rove 54</span>
         <span class="pcard-cue">Follow the map
@@ -1813,21 +1825,21 @@
       </div>
         <ul class="outcomes"><li>80+ sign-ups</li><li>Two ongoing programs</li><li>Dozens of letters delivered</li><li>A replicable matching framework</li></ul>
       </div>
-        <button class="story-toggle" aria-expanded="false" data-story="0">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="story-body" id="story-0" hidden>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I connect with my neighbors through writing?</p>
         </div>
         <div class="entry-body">
-            <p>Sleepless nights tend to poke and prod at our poor weary brains. Usually all that poking is unproductive, just to exhaust the poor organ into dreamy submission. Sometimes, there is an exception. I&rsquo;m not sure how many pokes it took, but eventually an idea shot out from my unconscious and eclipsed all other thoughts: I wanted a pen pal. I desperately wanted to write a letter to someone nearby with the guarantee that they would read it. This used to be easy, now it is hard. I really wanted to make it easy again&mdash;not just for me, but for everyone.</p>
-            <p>The DC Arts Center Pen Pal Project is a local pen pal initiative that seeks to keep the art of correspondence alive by creating and sustaining friendships and dialogue in Adams Morgan. The local aspect is crucial; all participants have a relationship with this neighborhood. Most modes of correspondence today encourage distance&mdash;both personal and physical. The pen pal project closes that distance. Distance is not necessarily bad, but we have enough of it. It&rsquo;s time for something that asks us to be earnest, to be real.</p>
+            <p>The DC Arts Center Pen Pal Project is a local pen pal initiative that seeks to keep the art of correspondence alive by creating and sustaining friendships and dialogue in Adams Morgan. The local aspect is crucial; all participants have a relationship with the neighborhood. Most modes of correspondence today encourage distance&mdash;both personal and physical. The pen pal project closes that distance. Distance is not always bad, but we have enough of it. It&rsquo;s time for something that asks us to be earnest, to be real.</p>
             <p>Writing pen-to-paper encourages people to think differently, to share sincerely, to be intentional. To connect with a stranger and wait patiently for a response&mdash;that is rare too. The benefits of having a pen pal have long been known, but opportunities to participate are infrequent.</p>
             <p>Thanks to the institutional support of DCAC, finding a pen pal is easy. Users sign up with a brief survey and soon after are notified of a welcome letter awaiting them at DCAC. The welcome letter is the key to their correspondence; within it they learn how the system functions and&mdash;most importantly&mdash;who their pen pal is. Every aspect of the experience is accessible: envelopes are provided, and all writing levels are encouraged.</p>
             <p>Sincere correspondence builds community. The DCAC Pen Pal Project endeavors to create a more connected neighborhood through the shared joy of letter writing.</p>
             <p>The project is a replicable framework. It is now established at my alma mater, the University of Florida, under a club I used to lead: The English Society. Students can send and retrieve letters straight from the university library.</p>
         </div>
       </div>
+        <button class="story-toggle" aria-expanded="false" data-story="0">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="story-body" id="story-0" hidden>
+        
       </div></article>
     </div>
 
@@ -1857,22 +1869,24 @@
       </div>
         <ul class="outcomes"><li>A working site at rove54.quest</li><li>NFC technology</li><li>Copper artifacts</li><li>Hidden cache</li><li>Community-sourced proverbs</li><li>Six hidden clues</li><li>The roundtable, renewed</li></ul>
       </div>
-        <button class="story-toggle" aria-expanded="false" data-story="1">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="story-body" id="story-1" hidden>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I bring the mythos of the knight&rsquo;s roundtable to my neighborhood?</p>
         </div>
         <div class="entry-body">
             <p>In a moment of intense hardship, head in my hands, I wondered: how did the knights of yore find their strength? Belief in divinity helped, but there was another thing: fellowship. They shared burdens, wisdom, meals and ordeals. I saw genuine value in that ancient framework, and besides, knights are awesome. I resolved to build a quest that encourages collaboration and connection culminating in a roundtable seminar.</p>
-            <p>I knew that the core model would be that of a scavenger hunt around the neighborhood. I took a walk around AdMo and scouted six locations&mdash;spots where I could hide a sticker. After that, a flurry of iteration and experimentation had begun. I had decided that I wanted NFC technology to be the engine of the hunt&mdash;the same technology behind tap-to-pay. NFC stickers are very cheap, and when tapped with a phone they can transfer a link, just like a QR code. Stickers plus NFC created a discreet way of adhering interactable clues to walls.</p>
+            <p>I knew that the core model would be that of a scavenger hunt around the neighborhood. I took a walk around Adams Morgan and scouted six locations&mdash;spots where I could hide a sticker. After that, a flurry of iteration and experimentation had begun. I had decided that I wanted NFC technology to be the engine of the hunt&mdash;the same technology behind tap-to-pay. NFC stickers are very cheap, and when tapped with a phone they can transfer a link, just like a QR code. Stickers plus NFC created a discreet way of adhering interactable clues to walls.</p>
             <p>Unbeknownst to me, this decision would have ripple effects that demanded a much larger scope. I had to create a website to host all the necessary information and cache clue activations; I had to determine how to best teach users about the NFC functionality. I wanted it to feel like magic, but magic cannot be explained. Striking the balance between mysterious scavenger hunt and accessible public program was an ongoing challenge. I had to wear three hats: public programmer, game designer, and the heavy steel helm of a knight.</p>
             <p>There was a fourth hat too: graphic designer. I wanted Rove 54 to have a distinct aesthetic identity, a style that carried its Arthurian inspiration but was unmistakably contemporary. I commissioned my friend and talented artist @minivan.studio to design the Rove 54 sigil. That design became the keystone for the project&rsquo;s aesthetic identity, and following his contribution I created a flyer and two copper artifacts, rewards for completing the quest.</p>
-            <p>The Pledge maps the six seal locations, but it also does something much more significant: it commemorates previous Rovers. Each Rove 54 clue webpage carries a proverb, a short wisdom written by a previous Rover. Since this was my first experiment, there weren&rsquo;t any previous Rovers yet, so I called on my friends. They may not have completed Rove 54 personally, but they&rsquo;ve each inspired and supported me. They embody the spirit of Rove 54, and that makes them honorary Rovers. The Pledge distills what I believe is the core value of the project: everyone carries lived wisdom, and we all may exist in community and share our challenges with one another.</p>
-            <p>The other copper artifact is the coin. Admittedly, the design is a little rough, but I stand by the idea. Since Rove 54 is accessed through an NFC tag, access to the webpage can be discreetly hidden in a coin. The coin becomes a peer sponsorship mechanism: a rover completes the hunt, gets a coin, and gives that coin to a friend to challenge them to the rove.</p>
-            <p>I beta tested Rove 54 and those who participated enjoyed the experience. I got valuable feedback and was able to tighten all the loose screws on the project.</p>
+            <p>The Pledge connects the six seal locations into a constellation, but it also does something much more significant: it commemorates previous Rovers. Each Rove 54 clue webpage carries a proverb, a short wisdom written by a previous Rover. Since this was my first experiment, there weren&rsquo;t any previous Rovers yet, so I called on my friends. They may not have completed Rove 54 personally, but they&rsquo;ve each inspired and supported me. They embody the spirit of Rove 54, and that makes them honorary Rovers. The Pledge distills what I believe is the core value of the project: everyone carries lived wisdom, and we all may exist in community and share our challenges with one another.</p>
+            <p>The other copper artifact is the coin. Admittedly, the design is rough, but I stand by the idea. Since Rove 54 is accessed through an NFC tag, access to the webpage can be discreetly hidden in a coin. The coin becomes a peer sponsorship mechanism: a rover completes the hunt, gets a coin, and gives that coin to a friend to challenge them to the rove.</p>
+            <p>I beta tested Rove 54 and those who participated enjoyed the experience. I got valuable feedback and was able to tighten all the loose screws on the project. That being said, Rove 54 must remain a working prototype for the foreseeable future. To operate as intended, Rove 54 necessitates monthly gatherings and community maintenance, and I determined that I lacked the bandwidth to properly establish it as a working graduate student.</p>
+            <p>Rove 54 can exist at any time, anywhere. I&rsquo;m confident that one day I&rsquo;ll have the means to bring Rove 54 to life.</p>
         </div>
       </div>
+        <button class="story-toggle" aria-expanded="false" data-story="1">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="story-body" id="story-1" hidden>
+        
       </div></article>
     </div>
 
@@ -1895,23 +1909,24 @@
         <figure class="cs-shot"><img src="assets/projects/high-dive/keepsake%20green%20printout.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
       </div>
       </div>
-        <button class="story-toggle" aria-expanded="false" data-story="2">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="story-body" id="story-2" hidden>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I talk to a total stranger and solicit a worthwhile, brief, and sentimental encounter?</p>
         </div>
         <div class="entry-body">
             <p>For a long time I wanted to make a zine, but I wasn&rsquo;t interested in producing something that only platformed my voice. I sat on this for a while before a different idea came to me: a system for performing memorable street interviews with strangers. The product of those interviews would become the foundation for the zine, and various fictional voices&mdash;written by me&mdash;would become the other half of each spread.</p>
-            <p>The process is straightforward but unique: I approach a stranger and ask them if they&rsquo;d be interested in a one-question interview for the High Dive. If they say yes, I begin by asking them to choose an object from the bag to be the object of their interview. Sometimes I help them decide what object to talk about.</p>
+            <p>The process is straightforward but unique: I approach a stranger and ask them if they&rsquo;d be interested in a one-question interview for the High Dive. If they say yes, I begin by asking them to choose an object from their bag to be the object of the interview. Sometimes I help them decide what object to talk about.</p>
             <p>We begin with an informal conversation about the object and its meaning to the speaker. Then, I hand them a sheet of paper with a prompt: if this object was on display in a museum, how would you label it?</p>
-            <p>They write their response and then hand it back to me. Then, I reveal the surprise: through the power of carbon copy paper, they get a stylized copy of their response to take home.</p>
-            <p>I take the drab original copy home to scan and include in the High Dive. At first I intended for the High Dive to be almost entirely composed of these interviews, but I felt like they needed a reason to exist&mdash;something more. Most editorial techniques would distract or diminish from the original interviews, but I had an idea: what if my written contributions were characters of their own, and what if they responded to the interview in their own way? From there, everything fell into place.</p>
+            <p>They write their response and then hand it back to me. Then, I surprise them: through the power of carbon copy paper, they get a stylized copy of their response to take home.</p>
+            <p>I take the basic original copy home to scan and include in the High Dive. At first I intended for the High Dive to be almost entirely composed of these interviews, but I felt like they needed a reason to exist&mdash;something more. Most editorial techniques would distract or diminish from the original interviews, but I had an idea: what if my written contributions were characters of their own, and what if they responded to the interview in their own way? From there, everything fell into place.</p>
             <p>I hope to publish the first issue in late 2026 / early 2027!</p>
           </div>
           <ul class="outcomes"><li>12 pages</li><li>Stylized keepsake</li><li>Street interviews</li><li>Creative writing</li><li>Created in Photoshop &amp; Affinity</li></ul>
       </div>
-      </div></article>
+      </div>
+        <button class="story-toggle" aria-expanded="false" data-story="2">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="story-body" id="story-2" hidden>
+        </article>
     </div>
   </div>
 </div>
@@ -2321,194 +2336,7 @@
 </script>
 
 
-<!-- ══════════════════════════════════════════════════════════════
-     EDIT MODE — a tiny built-in editor. Press Ctrl/Cmd + E (or click
-     the tab at the bottom-right) to type directly on the page, then
-     save the result. "Save" writes back to a real file if your browser
-     supports it, otherwise it downloads. "Publish-ready" does the same
-     but strips this editor out. "Copy" puts the HTML on your clipboard
-     if anything else fails.
-     ══════════════════════════════════════════════════════════════ -->
-<style id="editor-style">
-  #edit-bar {
-    position: fixed; right: 1rem; bottom: 1rem; z-index: 9999;
-    font-family: 'Karla', system-ui, sans-serif; font-size: .75rem;
-    display: flex; align-items: center; gap: .4rem;
-    background: #1F1B16; color: #E8DCC6;
-    padding: .5rem .6rem; border-radius: 8px;
-    box-shadow: 0 10px 28px -12px rgba(0,0,0,.6);
-  }
-  #edit-bar button {
-    font: inherit; cursor: pointer; border: 1px solid #4A4235;
-    background: #2C2720; color: #E8DCC6;
-    padding: .35rem .6rem; border-radius: 5px;
-    letter-spacing: .04em;
-  }
-  #edit-bar button:hover { background: #3A342A; }
-  #edit-bar button.on { background: #9E4C16; border-color: #9E4C16; color: #FBF3E6; }
-  #edit-bar .eb-hint { opacity: .6; padding-right: .2rem; }
-  body.editing [contenteditable] {
-    outline: 1px dashed rgba(158,76,22,.55); outline-offset: 2px;
-    border-radius: 2px;
-  }
-  body.editing [contenteditable]:focus {
-    outline: 2px solid #9E4C16; background: rgba(255,255,255,.28);
-  }
-  @media print { #edit-bar { display: none; } }
-</style>
-<script id="editor-script">
-(function () {
-  const SEL = '.fill, h1, h2, h3, .nametag-name, .cv-role, .cv-org, .cv-desc, .chip, .lbx-note';
-  let on = false;
 
-  const bar = document.createElement('div');
-  bar.id = 'edit-bar';
-  bar.innerHTML =
-    '<span class="eb-hint">⌘/Ctrl + E</span>' +
-    '<button data-a="toggle">Edit</button>' +
-    '<button data-a="save">Save</button>' +
-    '<button data-a="ship">Publish-ready</button>' +
-    '<button data-a="copy">Copy</button>';
-  document.body.appendChild(bar);
-
-  function fields() {
-    return Array.from(document.querySelectorAll(SEL))
-      .filter(el => !el.querySelector('.fill') || el.classList.contains('fill'));
-  }
-
-  function toggle(force) {
-    on = force === undefined ? !on : force;
-    document.body.classList.toggle('editing', on);
-    bar.querySelector('[data-a="toggle"]').classList.toggle('on', on);
-    fields().forEach(el => {
-      if (on) {
-        el.setAttribute('contenteditable', 'true');
-        el.addEventListener('focus', remember);
-        el.addEventListener('blur', unfill);
-      } else {
-        el.removeAttribute('contenteditable');
-        el.removeEventListener('focus', remember);
-        el.removeEventListener('blur', unfill);
-      }
-    });
-  }
-
-  function remember(e) { e.target.dataset.was = e.target.textContent.trim(); }
-  function unfill(e) {
-    const el = e.target;
-    if (el.dataset.was !== undefined && el.textContent.trim() !== el.dataset.was) {
-      el.classList.remove('fill');
-      el.querySelectorAll('.fill').forEach(c => c.classList.remove('fill'));
-    }
-    delete el.dataset.was;
-  }
-
-  /* alt-click a link while editing to set its href */
-  document.addEventListener('click', e => {
-    if (!on || !e.altKey) return;
-    const a = e.target.closest('a');
-    if (!a) return;
-    e.preventDefault();
-    const v = prompt('Link URL (mailto: and tel: work too)', a.getAttribute('href') || '');
-    if (v !== null) a.setAttribute('href', v);
-  });
-
-  function serialize(strip) {
-    const root = document.documentElement.cloneNode(true);
-    root.querySelectorAll('#edit-bar').forEach(n => n.remove());
-    root.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
-    root.querySelectorAll('[data-was]').forEach(n => n.removeAttribute('data-was'));
-    const b = root.querySelector('body'); if (b) b.classList.remove('editing');
-    const strp = root.querySelector('#letterboxd-embed-wrapper-tc');
-    if (strp) strp.innerHTML = '<p class="lbx-note">Loading recent films\u2026</p>';
-    if (strip) root.querySelectorAll('#editor-script, #editor-style').forEach(n => n.remove());
-    return '<!DOCTYPE html>\n<html lang="en">' + root.innerHTML + '\n</html>';
-  }
-
-  let handle = null;                      // remembered file handle, if supported
-
-  function flash(msg, bad) {
-    const t = bar.querySelector('.eb-hint');
-    const old = t.textContent;
-    t.textContent = msg;
-    t.style.color = bad ? '#E0A25C' : '#9CC98A';
-    setTimeout(() => { t.textContent = old; t.style.color = ''; }, 2600);
-  }
-
-  async function save(strip) {
-    let html;
-    try { html = serialize(strip); }
-    catch (err) { flash('Could not build file', true); console.error(err); return; }
-
-    /* 1 — best: write straight to a real file on disk */
-    if (window.showSaveFilePicker) {
-      try {
-        if (strip || !handle) {
-          handle = await window.showSaveFilePicker({
-            suggestedName: strip ? 'index.html' : 'portfolio-draft.html',
-            types: [{ description: 'HTML', accept: { 'text/html': ['.html'] } }]
-          });
-        }
-        const w = await handle.createWritable();
-        await w.write(html);
-        await w.close();
-        flash('Saved');
-        return;
-      } catch (err) {
-        if (err && err.name === 'AbortError') return;   // user cancelled
-        console.warn('File picker unavailable, falling back', err);
-      }
-    }
-
-    /* 2 — classic blob download (anchor must be in the DOM for Firefox) */
-    try {
-      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = strip ? 'index.html' : 'portfolio-draft.html';
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 3000);
-      flash('Downloaded');
-      return;
-    } catch (err) { console.warn('Download blocked, falling back', err); }
-
-    /* 3 — always works: put it on the clipboard */
-    copy(html);
-  }
-
-  async function copy(html) {
-    try {
-      await navigator.clipboard.writeText(html);
-      flash('Copied \u2014 paste into your file');
-    } catch (err) {
-      const w = window.open('', '_blank');
-      if (w) {
-        w.document.write('<title>Your HTML</title><textarea style="width:100%;height:100vh;font:12px monospace">'
-          + html.replace(/</g, '&lt;') + '</textarea>');
-        w.document.close();
-        flash('Opened in a new tab \u2014 copy it');
-      } else {
-        flash('Blocked \u2014 allow popups', true);
-      }
-    }
-  }
-
-  bar.addEventListener('click', e => {
-    const a = e.target.dataset && e.target.dataset.a;
-    if (a === 'toggle') toggle();
-    if (a === 'save')  save(false);
-    if (a === 'ship')  save(true);
-    if (a === 'copy')  copy(serialize(true));
-  });
-
-  document.addEventListener('keydown', e => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'e') { e.preventDefault(); toggle(); }
-  });
-})();
-</script>
 
 
 <script>
@@ -2734,18 +2562,38 @@ function paintAll() {
      body = array of strings and {w}/{v}/{f} spans (w=kit noun, v=how-you-met-it, f=your word). */
   const EXAMPLES=[
     {action:'camp',
-     body:['Finally, I arrived. I ',{v:'walked'},' before the fire. I felt ',{w:'warmth'},' in my bones. Tomorrow I will discover ',{f:'[a word]'},'.'],
-     sign:'— [name]'},
+     body:['Finally, I arrived. I ',{v:'walked'},' before the fire. I felt ',{w:'warmth'},' in my bones. Tomorrow I will discover ',{f:'quiet'},'.'],
+     sign:'— R.'},
     {action:'fish',
-     body:['The lake is still. In the reflective blue you ',{v:'contemplate'},'. You reach, reach, reach — grasping fingers finding ',{w:'a held moment'},'. You turn it over in your wet palms. It is called ',{f:'[a word]'},'.'],
-     sign:'— [name]'},
+     body:['The lake is still. In the reflective blue you ',{v:'contemplate'},'. You reach, reach, reach — grasping fingers finding ',{w:'a held moment'},'. You turn it over in your wet palms. It is called ',{f:'stillness'},'.'],
+     sign:'— m.'},
     {action:'hike',
-     body:['Under the sun, I ',{v:'explored'},', watched by the trees. Finally, in the mix of greens, I found ',{w:'curiosity'},'. Now, everything is ',{f:'[a word]'},'.'],
-     sign:'— [name]'},
+     body:['Under the sun, I ',{v:'explored'},', watched by the trees. Finally, in the mix of greens, I found ',{w:'curiosity'},'. Now, everything is ',{f:'greener'},'.'],
+     sign:'— a wanderer'},
   ];
 
   function pinnedCardHTML(c){
-    return `<div class="pa-pinned"><div class="pa-pinned-body ${act(c.action)&&act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div><div class="pa-pinned-sign">${esc(c.sign)}</div></div>`;
+    const already = c.id && tendedSet().has(c.id);
+    const tendBtn = c.id!==undefined
+      ? `<button class="pa-tend ${(c.faved||already)?'done':''}" data-tend="${c.id}">✦ <span class="tcount">${c.tends||0}</span></button>`
+      : '';
+    return `<div class="pa-pinned" data-cardid="${c.id||''}">
+      <div class="pa-pinned-body ${act(c.action)&&act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div>
+      <div class="pa-pinned-foot"><span class="pa-pinned-sign">${esc(c.sign)}</span>${tendBtn}</div>
+    </div>`;
+  }
+  function wireLandingTends(){
+    document.querySelectorAll('#pa-landing-board .pa-tend[data-tend]').forEach(btn=>{
+      btn.onclick=async(e)=>{
+        e.stopPropagation();
+        const id=btn.getAttribute('data-tend');
+        if(tendedSet().has(id)) return;
+        const cnt=btn.querySelector('.tcount');
+        cnt.textContent=(parseInt(cnt.textContent||'0',10)+1);
+        btn.classList.add('done'); markTended(id);
+        try{ if(window.PatioDB) await window.PatioDB.tend(id); }catch(err){}
+      };
+    });
   }
   function stepEnter(){
     // start with the seeded examples so the board is never empty while loading
@@ -2772,6 +2620,7 @@ function paintAll() {
         let html=remote.slice(0,9).map(pinnedCardHTML).join('');
         if(remote.length<3) html += EXAMPLES.slice(0, 3-remote.length).map(pinnedCardHTML).join('');
         board.innerHTML=html;
+        wireLandingTends();
       }catch(e){ /* keep the seed examples if load fails */ }
     })();
   }
@@ -2968,8 +2817,8 @@ function paintAll() {
     stage.innerHTML=`${ticks(7)}<div class="pa-eyebrow">The wall</div><div class="pa-h">Left on the patio</div>
       <p class="pa-say">Tap <b>tend</b> on one that stays with you — and glimpse what they carried.</p>
       <div class="pa-wall" id="pwall"><p class="pa-note" style="grid-column:1/-1">Gathering the wall…</p></div>
-      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pagain">Leave another →</button></div>`;
-    document.getElementById('pagain').onclick=stepItems;
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pagain">← Back to the patio</button></div>`;
+    document.getElementById('pagain').onclick=stepEnter;
 
     // merge: this session's freshly-pinned local cards first, then the shared wall
     let cards=[...WALL];
