@@ -750,13 +750,15 @@
     animation: rise .5s cubic-bezier(.2,.7,.3,1) both;
   }
   .detail-close {
-    appearance: none; border: 1px solid var(--hairline); background: none;
+    appearance: none; border: 0; background: none;
     font: inherit; cursor: pointer; color: var(--lichen);
-    font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-    padding: .45rem .9rem; border-radius: 999px; margin-bottom: 1.5rem;
-    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .8125rem; font-weight: 600; letter-spacing: .02em; text-transform: none;
+    padding: 0; margin-bottom: 1.75rem;
+    display: inline-flex; align-items: center; gap: .4rem;
+    border-bottom: 1px solid transparent;
     transition: color .2s, border-color .2s;
   }
+  .detail-close:hover { color: var(--ember); border-bottom-color: var(--ember); }
   .detail-close:hover { color: var(--ember); border-color: var(--ember); }
 
   /* ── haiku ──────────────────────────────────── */
@@ -804,8 +806,8 @@
     color: var(--ember); margin: -.3rem 0 1rem;
   }
   .catalyst {
-    margin: 0 0 1.4rem; padding: .1rem 0 .1rem 1.05rem;
-    border-left: 2px solid var(--hairline);
+    margin: 1.75rem 0 2rem; padding: .15rem 0 .3rem 1.05rem;
+    border-left: 2px solid var(--ember);
     max-width: var(--measure);
   }
   .catalyst .label { display: block; margin-bottom: .3rem; }
@@ -1814,6 +1816,10 @@
       <div>
         <h3>AdMo Pen Pals</h3>
         <p class="entry-tagline">Creating connection through written correspondence.</p>
+        <div class="catalyst">
+          <span class="label">The catalyst question</span>
+          <p>How can I connect with my neighbors through writing?</p>
+        </div>
         <div class="cs-hook">
         <p class="cs-highlight">A neighborhood pen pal program I built at the DC Arts Center to bring back the lost art of correspondence. Neighbors sign up, receive a handcrafted welcome letter, and get matched with someone nearby&mdash;80+ people so far, plus a second chapter now running at the University of Florida.</p>
         <div class="cs-gallery">
@@ -1825,10 +1831,7 @@
       </div>
         <ul class="outcomes"><li>80+ sign-ups</li><li>Two ongoing programs</li><li>Dozens of letters delivered</li><li>A replicable matching framework</li></ul>
       </div>
-        <div class="catalyst">
-          <span class="label">The catalyst question</span>
-          <p>How can I connect with my neighbors through writing?</p>
-        </div>
+        
         
       </div>
         <button class="story-toggle" aria-expanded="false" data-story="0">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1857,6 +1860,10 @@
       <div>
         <h3>Rove 54</h3>
         <p class="entry-tagline">Uncover the six seals, become a rover.</p>
+        <div class="catalyst">
+          <span class="label">The catalyst question</span>
+          <p>How can I bring the mythos of the knight&rsquo;s roundtable to my neighborhood?</p>
+        </div>
         <div class="cs-hook">
         <p class="cs-highlight">A guerrilla scavenger hunt across Adams Morgan, powered by hidden NFC stickers and Arthurian myth. Participants follow riddles to six secret seals, collect community-authored proverbs, and earn copper artifacts&mdash;all coordinated through a site I built at rove54.quest.</p>
         <div class="cs-gallery">
@@ -1871,10 +1878,7 @@
       </div>
         <ul class="outcomes"><li>A working site at rove54.quest</li><li>NFC technology</li><li>Copper artifacts</li><li>Hidden cache</li><li>Community-sourced proverbs</li><li>Six hidden clues</li><li>The roundtable, renewed</li></ul>
       </div>
-        <div class="catalyst">
-          <span class="label">The catalyst question</span>
-          <p>How can I bring the mythos of the knight&rsquo;s roundtable to my neighborhood?</p>
-        </div>
+        
         
       </div>
         <button class="story-toggle" aria-expanded="false" data-story="1">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1906,6 +1910,10 @@
       <div>
         <h3>The High Dive</h3>
         <p class="entry-tagline">Street interviews on carbon copy paper.</p>
+        <div class="catalyst">
+          <span class="label">The catalyst question</span>
+          <p>How can I talk to a total stranger and solicit a worthwhile, brief, and sentimental encounter?</p>
+        </div>
         <div class="cs-hook">
         <p class="cs-highlight">A street-interview zine that stops strangers with a single question about an object they&rsquo;re carrying. Each encounter produces both a carbon-copy keepsake for the participant and archival material for the zine.</p>
         <div class="cs-gallery">
@@ -1913,10 +1921,7 @@
         <figure class="cs-shot"><img src="assets/projects/high-dive/keepsake%20green%20printout.jpg" alt="" loading="lazy" onerror="this.closest('.cs-shot').remove()"></figure>
       </div>
       </div>
-        <div class="catalyst">
-          <span class="label">The catalyst question</span>
-          <p>How can I talk to a total stranger and solicit a worthwhile, brief, and sentimental encounter?</p>
-        </div>
+        
         
           <ul class="outcomes"><li>12 pages</li><li>Stylized keepsake</li><li>Street interviews</li><li>Creative writing</li><li>Created in Photoshop &amp; Affinity</li></ul>
       </div>
