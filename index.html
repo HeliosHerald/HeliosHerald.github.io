@@ -1398,6 +1398,41 @@
     .tab svg { width: 34px; height: 34px; }
   }
 </style>
+<!-- Firebase (Firestore) for the Patio wall -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, increment, query, orderBy, limit, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDX57AHMSpXQj76w0QVaE0SachB-lC6q_8",
+    authDomain: "the-patio-wall.firebaseapp.com",
+    projectId: "the-patio-wall",
+    storageBucket: "the-patio-wall.firebasestorage.app",
+    messagingSenderId: "600675675561",
+    appId: "1:600675675561:web:eac24dc606a6275e8928b8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // expose a tiny API for the patio (non-module) script to use
+  window.PatioDB = {
+    async load() {
+      const q = query(collection(db, "cards"), orderBy("created", "desc"), limit(60));
+      const snap = await getDocs(q);
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    },
+    async pin(card) {
+      const ref = await addDoc(collection(db, "cards"), { ...card, tends: 0, created: serverTimestamp() });
+      return ref.id;
+    },
+    async tend(id) {
+      await updateDoc(doc(db, "cards", id), { tends: increment(1) });
+    }
+  };
+  window.dispatchEvent(new Event("patiodb-ready"));
+</script>
 </head>
 <body>
 <div class="clay-bg" aria-hidden="true"></div>
@@ -2626,6 +2661,13 @@ function paintAll() {
   const item=id=>ITEMS.find(i=>i.id===id), weath=id=>WEATHER.find(w=>w.id===id), act=id=>ACTIONS.find(a=>a.id===id);
   const ticks=n=>`<div class="pa-ticks">${[0,1,2,3,4,5,6].map(i=>`<div class="pa-tick ${i<n?'on':''}"></div>`).join('')}</div>`;
   const esc=t=>{const d=document.createElement('div');d.textContent=t;return d.innerHTML;};
+  const BADWORDS=['fuck','shit','bitch','cunt','nigger','faggot','asshole','dick','pussy','slut','whore','retard','rape','nazi'];
+  function clean(t){
+    if(!t) return t;
+    let out=t;
+    BADWORDS.forEach(b=>{ out = out.replace(new RegExp(b,'ig'), m=>m[0]+'*'.repeat(Math.max(1,m.length-1))); });
+    return out;
+  }
   function nounText(w,{article=false,cap=false}={}){
     if(!w) return '';
     let base=w.text; const has=/^(a|an|the)\s/i.test(base);
@@ -2758,7 +2800,7 @@ function paintAll() {
     const fin=document.getElementById('pfree');
     fin.oninput=()=>{freeWord=fin.value.replace(/\s+/g,' ').trimStart();renderSkel();checkDone();};
     document.getElementById('pback').onclick=stepAction;
-    document.getElementById('pnext').onclick=()=>{freeWord=freeWord.trim();stepSign();};
+    document.getElementById('pnext').onclick=()=>{freeWord=clean(freeWord.trim());stepSign();};
   }
   function renderSkel(){
     const sk=document.getElementById('psk');sk.innerHTML='';
@@ -2789,7 +2831,7 @@ function paintAll() {
         <button class="pa-btn" id="pnext">Leave it & reveal →</button></div>`;
     const f=document.getElementById('psign');f.focus();
     document.getElementById('pback').onclick=stepAssemble;
-    document.getElementById('pnext').onclick=()=>stepReveal(f.value.trim()||'Anonymous');
+    document.getElementById('pnext').onclick=()=>stepReveal(clean(f.value.trim())||'Anonymous');
   }
   function buildBody(a,vals){
     const parts=a.skel,out=[];
@@ -2822,30 +2864,72 @@ function paintAll() {
       setTimeout(()=>document.getElementById('prevh').style.opacity='',250);
       setTimeout(()=>document.getElementById('prevbar').style.opacity='',550);
     },700);
-    document.getElementById('ptowall').onclick=()=>{
-      WALL.unshift({action:action.id,body,sign:'— '+name,items:[...chosen],weather:weather.id,tends:0,poolWords:[...pool],mine:true});
-      chosen=[];pool=[];noun=null;weather=null;response=null;action=null;freeWord='';stepWall();
+    document.getElementById('ptowall').onclick=async ()=>{
+      // build a storable card (poolWords -> plain strings; body spans kept as-is)
+      const card={
+        action:action.id,
+        body,
+        sign:'— '+clean(name),
+        items:[...chosen],
+        weather:weather.id,
+        poolWords: pool.map(w=>nounText(w,{cap:true}))
+      };
+      const local={...card,tends:0,mine:true};
+      // optimistic: show immediately, then persist
+      WALL.unshift(local);
+      chosen=[];pool=[];noun=null;weather=null;response=null;action=null;freeWord='';
+      stepWall();
+      try {
+        if(window.PatioDB){ const id=await window.PatioDB.pin(card); local.id=id; }
+      } catch(e){ /* offline / rules — card still shows locally this session */ }
     };
   }
-  function stepWall(){
+  // which cards this browser has already tended (so one device can't spam a card)
+  function tendedSet(){ try{return new Set(JSON.parse(localStorage.getItem('patio_tended')||'[]'));}catch(e){return new Set();} }
+  function markTended(id){ try{const s=tendedSet();s.add(id);localStorage.setItem('patio_tended',JSON.stringify([...s]));}catch(e){} }
+
+  async function stepWall(){
     stage.innerHTML=`${ticks(7)}<div class="pa-eyebrow">The wall</div><div class="pa-h">Left on the patio</div>
       <p class="pa-say">Tap <b>tend</b> on one that stays with you — and glimpse what they carried.</p>
-      <div class="pa-wall" id="pwall"></div>
-      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pagain">Leave another →</button></div>
-      <p class="pa-note">These live only in your browser for now — the shared wall comes when the patio's fully built.</p>`;
-    const wall=document.getElementById('pwall');
-    WALL.forEach(c=>{const div=document.createElement('div');div.className='pa-wc'+(c.faved?' faved':'');
-      const icons=[...c.items.map(id=>item(id).ico),'🌙'].join(' ');
-      div.innerHTML=`<div class="pa-wbody ${act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div>
-        <div class="pa-wfoot"><span>${esc(c.sign)} ${c.mine?'<span style="color:var(--pa-ember-d)">(you)</span>':''}</span>
-          <button class="pa-tend ${c.faved?'done':''}">✦ ${c.tends}</button></div>
-        <div class="pa-peek" hidden><b>Carried:</b> ${icons} &nbsp; <b>Weathered:</b> ${esc(weath(c.weather).name)}<br>
-          <b>Words in play:</b><br>${c.poolWords.map(w=>``).join('')}</div>`;
-      div.querySelector('.pa-tend').onclick=(e)=>{e.stopPropagation();
-        if(c.faved){c.faved=false;c.tends--;}else{c.faved=true;c.tends++;}stepWall();};
-      div.onclick=()=>{const pk=div.querySelector('.pa-peek');pk.hidden=!pk.hidden;};
-      wall.appendChild(div);});
+      <div class="pa-wall" id="pwall"><p class="pa-note" style="grid-column:1/-1">Gathering the wall…</p></div>
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pagain">Leave another →</button></div>`;
     document.getElementById('pagain').onclick=stepItems;
+
+    // merge: this session's freshly-pinned local cards first, then the shared wall
+    let cards=[...WALL];
+    try {
+      if(window.PatioDB){
+        const remote=await window.PatioDB.load();
+        const localIds=new Set(WALL.filter(c=>c.id).map(c=>c.id));
+        cards=[...WALL, ...remote.filter(r=>!localIds.has(r.id))];
+      }
+    } catch(e){ /* show local + seeds if load fails */ }
+
+    const wall=document.getElementById('pwall');
+    if(!wall) return;
+    wall.innerHTML='';
+    const tended=tendedSet();
+    cards.forEach(c=>{
+      const already = c.id && tended.has(c.id);
+      const div=document.createElement('div');div.className='pa-wc'+((c.faved||already)?' faved':'');
+      const icons=[...(c.items||[]).map(id=>item(id)?item(id).ico:'').filter(Boolean),'🌙'].join(' ');
+      const pool=(c.poolWords||[]).map(w=>`<span class="chip">${esc(typeof w==='string'?w:nounText(w,{cap:true}))}</span>`).join('');
+      div.innerHTML=`<div class="pa-wbody ${act(c.action)&&act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div>
+        <div class="pa-wfoot"><span>${esc(c.sign)} ${c.mine?'<span style="color:var(--pa-ember-d)">(you)</span>':''}</span>
+          <button class="pa-tend ${(c.faved||already)?'done':''}">✦ <span class="tcount">${c.tends||0}</span></button></div>
+        <div class="pa-peek" hidden><b>Carried:</b> ${icons} &nbsp; <b>Weathered:</b> ${weath(c.weather)?esc(weath(c.weather).name):''}<br>
+          <b>Words in play:</b><br>${pool}</div>`;
+      const btn=div.querySelector('.pa-tend');
+      btn.onclick=async (e)=>{
+        e.stopPropagation();
+        if(c.id && tendedSet().has(c.id)) return;          // already tended from this device
+        c.tends=(c.tends||0)+1; c.faved=true;
+        btn.classList.add('done'); btn.querySelector('.tcount').textContent=c.tends;
+        if(c.id){ markTended(c.id); try{ if(window.PatioDB) await window.PatioDB.tend(c.id); }catch(err){} }
+      };
+      div.onclick=()=>{const pk=div.querySelector('.pa-peek');pk.hidden=!pk.hidden;};
+      wall.appendChild(div);
+    });
   }
 
   // (re)start the experience whenever the Patio tab is opened, so it's fresh
