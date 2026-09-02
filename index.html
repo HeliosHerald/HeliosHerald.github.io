@@ -306,6 +306,24 @@
     .tab-patio::before { top: .2rem; bottom: .3rem; }
   }
 
+  /* mobile: show that the tab row scrolls (Patio sits at the far right) */
+  .tabs-wrap { position: relative; }
+  .tabs-fade {
+    display: none; position: absolute; top: 0; right: 0; bottom: 1px;
+    width: 3.5rem; z-index: 4; cursor: pointer;
+    background: linear-gradient(90deg, transparent, var(--limewash) 78%);
+  }
+  .tabs-fade::after {
+    content: '›'; position: absolute; right: .5rem; top: 50%; transform: translateY(-55%);
+    font-family: 'Fraunces', Georgia, serif; font-size: 1.5rem; line-height: 1;
+    color: var(--ember); animation: nudge 1.4s ease-in-out infinite;
+  }
+  @keyframes nudge { 0%,100%{transform:translateY(-55%) translateX(0)} 50%{transform:translateY(-55%) translateX(3px)} }
+  @media (max-width: 46rem) {
+    .tabs-fade.show { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce){ .tabs-fade::after{ animation:none } }
+
   /* ── panels ─────────────────────────────────── */
 
   .panel { padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(4rem, 9vw, 7rem); }
@@ -821,7 +839,7 @@
   }
   .eph-card {
     break-inside: avoid; margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-    border: 1px solid var(--hairline); background: rgba(241,233,218,.14);
+    border: 1px solid #F1E9DA; background: rgba(241,233,218,.14);
     position: relative; overflow: hidden;
     animation: rise .5s cubic-bezier(.2,.7,.3,1) both;
   }
@@ -1288,7 +1306,8 @@
   }
   .lbx-embed li { max-width: 8rem; }
   .lbx-embed p { font-size: .8125rem; line-height: 1.35; margin: .4rem 0 0; }
-  .lbx-note { color: var(--lichen); font-size: .9375rem; margin: 0; }
+  .lbx-embed, .lbx-embed * { color: #F1E9DA !important; }
+  .lbx-note { color: #F1E9DA; font-size: .9375rem; margin: 0; }
 
   /* ── name tag ───────────────────────────────── */
 
@@ -1516,7 +1535,8 @@
     <p class="label">MA Arts Management Student · Washington, DC</p>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="Sections">
+  <div class="tabs-wrap">
+    <div class="tabs" role="tablist" aria-label="Sections">
 
     <button class="tab" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true">
       <!-- campfire -->
@@ -1611,6 +1631,8 @@
     </button>
 
   </div>
+    <div class="tabs-fade" aria-hidden="true"></div>
+  </div>
 </div>
 
 <!-- ═══ HOME ═══════════════════════════════════ -->
@@ -1647,7 +1669,7 @@
     </div>
 
     <section class="manifesto" aria-label="What I believe">
-      <div class="embers" aria-hidden="true"><span class="ember" style="left:24.9%;width:7.8px;height:4.5px;border-radius:41% 42% 44% 47% / 51% 57% 40% 54%;transform:rotate(22deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-17px;--sway:14px;animation-name:rise-ember-sway;animation-duration:5.6s;animation-delay:-3.7s"></span><span class="ember" style="left:5.8%;width:5.1px;height:3.3px;border-radius:52% 43% 48% 43% / 47% 57% 52% 43%;transform:rotate(-33deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:0px;--sway:12px;animation-name:rise-ember;animation-duration:5.2s;animation-delay:-5.2s"></span><span class="ember" style="left:17.1%;width:4.3px;height:3.4px;border-radius:55% 46% 44% 58% / 59% 59% 49% 51%;transform:rotate(14deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:13px;animation-name:rise-ember;animation-duration:4.3s;animation-delay:-5.7s"></span><span class="ember" style="left:81.6%;width:6.0px;height:3.6px;border-radius:44% 51% 56% 49% / 47% 52% 51% 47%;transform:rotate(-39deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-26px;--sway:9px;animation-name:rise-ember;animation-duration:5.0s;animation-delay:-1.6s"></span><span class="ember" style="left:42.4%;width:6.6px;height:3.8px;border-radius:40% 46% 45% 49% / 48% 45% 52% 50%;transform:rotate(-19deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-20px;--sway:12px;animation-name:rise-ember-sway;animation-duration:6.1s;animation-delay:-6.8s"></span><span class="ember" style="left:10.4%;width:6.9px;height:3.9px;border-radius:43% 56% 56% 51% / 49% 60% 44% 42%;transform:rotate(-16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-6px;--sway:12px;animation-name:rise-ember-sway;animation-duration:3.9s;animation-delay:-1.1s"></span><span class="ember" style="left:92.8%;width:4.0px;height:3.0px;border-radius:46% 41% 59% 41% / 50% 50% 50% 53%;transform:rotate(16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-15px;--sway:14px;animation-name:rise-ember-sway;animation-duration:4.3s;animation-delay:-1.5s"></span><span class="ember" style="left:14.0%;width:6.9px;height:4.9px;border-radius:54% 56% 42% 55% / 57% 56% 54% 47%;transform:rotate(-34deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-22px;--sway:13px;animation-name:rise-ember;animation-duration:4.6s;animation-delay:-3.3s"></span><span class="ember" style="left:6.1%;width:5.5px;height:3.6px;border-radius:42% 59% 56% 58% / 51% 52% 50% 52%;transform:rotate(26deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:6px;--sway:15px;animation-name:rise-ember;animation-duration:6.4s;animation-delay:-0.1s"></span><span class="ember" style="left:94.3%;width:4.9px;height:3.1px;border-radius:57% 53% 51% 50% / 54% 56% 49% 43%;transform:rotate(-15deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:5px;--sway:15px;animation-name:rise-ember-sway;animation-duration:5.7s;animation-delay:-2.8s"></span><span class="ember" style="left:39.3%;width:7.7px;height:5.2px;border-radius:51% 59% 58% 51% / 58% 51% 55% 42%;transform:rotate(-6deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:21px;--sway:16px;animation-name:rise-ember;animation-duration:4.5s;animation-delay:-3.7s"></span><span class="ember" style="left:79.9%;width:7.9px;height:4.9px;border-radius:56% 48% 48% 60% / 58% 52% 51% 47%;transform:rotate(-9deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-14px;--sway:14px;animation-name:rise-ember;animation-duration:7.0s;animation-delay:-5.6s"></span><span class="ember" style="left:37.9%;width:7.1px;height:5.3px;border-radius:52% 42% 60% 45% / 58% 46% 44% 40%;transform:rotate(38deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:11px;animation-name:rise-ember-sway;animation-duration:4.6s;animation-delay:-2.0s"></span><span class="ember" style="left:56.1%;width:4.5px;height:2.9px;border-radius:60% 42% 50% 41% / 47% 49% 51% 42%;transform:rotate(-11deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-10px;--sway:9px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-4.5s"></span><span class="ember" style="left:51.8%;width:4.5px;height:3.3px;border-radius:51% 53% 45% 45% / 53% 57% 44% 53%;transform:rotate(-32deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-12px;--sway:8px;animation-name:rise-ember-sway;animation-duration:4.2s;animation-delay:-1.7s"></span><span class="ember" style="left:8.7%;width:6.2px;height:4.6px;border-radius:45% 57% 60% 50% / 54% 52% 55% 43%;transform:rotate(32deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-20px;--sway:13px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-0.6s"></span></div>
+      <div class="embers" aria-hidden="true"><span class="ember" style="left:3%;width:7.8px;height:4.5px;border-radius:41% 42% 44% 47% / 51% 57% 40% 54%;transform:rotate(22deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-17px;--sway:14px;animation-name:rise-ember-sway;animation-duration:5.6s;animation-delay:-3.7s"></span><span class="ember" style="left:3.6%;width:5.1px;height:3.3px;border-radius:52% 43% 48% 43% / 47% 57% 52% 43%;transform:rotate(-33deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:0px;--sway:12px;animation-name:rise-ember;animation-duration:5.2s;animation-delay:-5.2s"></span><span class="ember" style="left:9.1%;width:4.3px;height:3.4px;border-radius:55% 46% 44% 58% / 59% 59% 49% 51%;transform:rotate(14deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:13px;animation-name:rise-ember;animation-duration:4.3s;animation-delay:-5.7s"></span><span class="ember" style="left:19.2%;width:6.0px;height:3.6px;border-radius:44% 51% 56% 49% / 47% 52% 51% 47%;transform:rotate(-39deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-26px;--sway:9px;animation-name:rise-ember;animation-duration:5.0s;animation-delay:-1.6s"></span><span class="ember" style="left:20.2%;width:6.6px;height:3.8px;border-radius:40% 46% 45% 49% / 48% 45% 52% 50%;transform:rotate(-19deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-20px;--sway:12px;animation-name:rise-ember-sway;animation-duration:6.1s;animation-delay:-6.8s"></span><span class="ember" style="left:21.9%;width:6.9px;height:3.9px;border-radius:43% 56% 56% 51% / 49% 60% 44% 42%;transform:rotate(-16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-6px;--sway:12px;animation-name:rise-ember-sway;animation-duration:3.9s;animation-delay:-1.1s"></span><span class="ember" style="left:33.6%;width:4.0px;height:3.0px;border-radius:46% 41% 59% 41% / 50% 50% 50% 53%;transform:rotate(16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-15px;--sway:14px;animation-name:rise-ember-sway;animation-duration:4.3s;animation-delay:-1.5s"></span><span class="ember" style="left:31.2%;width:6.9px;height:4.9px;border-radius:54% 56% 42% 55% / 57% 56% 54% 47%;transform:rotate(-34deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-22px;--sway:13px;animation-name:rise-ember;animation-duration:4.6s;animation-delay:-3.3s"></span><span class="ember" style="left:35.0%;width:5.5px;height:3.6px;border-radius:42% 59% 56% 58% / 51% 52% 50% 52%;transform:rotate(26deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:6px;--sway:15px;animation-name:rise-ember;animation-duration:6.4s;animation-delay:-0.1s"></span><span class="ember" style="left:47.1%;width:4.9px;height:3.1px;border-radius:57% 53% 51% 50% / 54% 56% 49% 43%;transform:rotate(-15deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:5px;--sway:15px;animation-name:rise-ember-sway;animation-duration:5.7s;animation-delay:-2.8s"></span><span class="ember" style="left:46.8%;width:7.7px;height:5.2px;border-radius:51% 59% 58% 51% / 58% 51% 55% 42%;transform:rotate(-6deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:21px;--sway:16px;animation-name:rise-ember;animation-duration:4.5s;animation-delay:-3.7s"></span><span class="ember" style="left:54.8%;width:7.9px;height:4.9px;border-radius:56% 48% 48% 60% / 58% 52% 51% 47%;transform:rotate(-9deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-14px;--sway:14px;animation-name:rise-ember;animation-duration:7.0s;animation-delay:-5.6s"></span><span class="ember" style="left:55.7%;width:7.1px;height:5.3px;border-radius:52% 42% 60% 45% / 58% 46% 44% 40%;transform:rotate(38deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:11px;animation-name:rise-ember-sway;animation-duration:4.6s;animation-delay:-2.0s"></span><span class="ember" style="left:61.7%;width:4.5px;height:2.9px;border-radius:60% 42% 50% 41% / 47% 49% 51% 42%;transform:rotate(-11deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-10px;--sway:9px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-4.5s"></span><span class="ember" style="left:65.8%;width:4.5px;height:3.3px;border-radius:51% 53% 45% 45% / 53% 57% 44% 53%;transform:rotate(-32deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-12px;--sway:8px;animation-name:rise-ember-sway;animation-duration:4.2s;animation-delay:-1.7s"></span><span class="ember" style="left:66.5%;width:6.2px;height:4.6px;border-radius:45% 57% 60% 50% / 54% 52% 55% 43%;transform:rotate(32deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-20px;--sway:13px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-0.6s"></span><span class="ember" style="left:72.0%;width:4.5px;height:3.0px;border-radius:54% 58% 59% 49% / 58% 58% 51% 55%;transform:rotate(6deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-18px;--sway:9px;animation-name:rise-ember;animation-duration:6.7s;animation-delay:-5.8s"></span><span class="ember" style="left:81.8%;width:5.1px;height:3.6px;border-radius:56% 57% 56% 49% / 51% 57% 44% 55%;transform:rotate(20deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-26px;--sway:10px;animation-name:rise-ember-sway;animation-duration:4.3s;animation-delay:-3.0s"></span><span class="ember" style="left:85.2%;width:6.5px;height:3.8px;border-radius:40% 42% 45% 54% / 49% 58% 43% 51%;transform:rotate(24deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:9px;--sway:16px;animation-name:rise-ember;animation-duration:4.0s;animation-delay:-4.5s"></span><span class="ember" style="left:89.2%;width:5.9px;height:3.5px;border-radius:47% 55% 51% 58% / 56% 56% 53% 51%;transform:rotate(40deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:24px;--sway:13px;animation-name:rise-ember-sway;animation-duration:6.5s;animation-delay:-5.5s"></span><span class="ember" style="left:96.2%;width:6.0px;height:4.0px;border-radius:55% 57% 45% 49% / 49% 53% 40% 54%;transform:rotate(-4deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:19px;--sway:9px;animation-name:rise-ember-sway;animation-duration:6.1s;animation-delay:-2.0s"></span><span class="ember" style="left:97%;width:6.0px;height:4.3px;border-radius:50% 44% 58% 43% / 56% 59% 51% 55%;transform:rotate(33deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:12px;--sway:8px;animation-name:rise-ember;animation-duration:5.3s;animation-delay:-4.1s"></span></div>
       <p class="label">What I believe</p>
       <div class="manifesto-body">
         <p>I believe that one day, when our brighter future comes to pass, most Americans will be proud artists. We will show new friends elaborate photo albums; we will mourn our pets through written poetry and song. We will paint, staple, sew, and sing so that we might know a more harmonious country.</p>
@@ -2966,6 +2988,25 @@ function paintAll() {
   close.addEventListener('click',hide);
   modal.addEventListener('click',e=>{if(e.target===modal)hide();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)hide();});
+})();
+</script>
+
+<script>
+(function(){
+  const wrap=document.querySelector('.tabs-wrap');
+  const tabs=document.querySelector('.tabs');
+  const fade=document.querySelector('.tabs-fade');
+  if(!wrap||!tabs||!fade) return;
+  function update(){
+    const scrollable = tabs.scrollWidth - tabs.clientWidth > 4;
+    const atEnd = tabs.scrollLeft + tabs.clientWidth >= tabs.scrollWidth - 4;
+    fade.classList.toggle('show', scrollable && !atEnd);
+  }
+  tabs.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  // tapping the fade nudges the row toward the Patio tab
+  fade.addEventListener('click', ()=>{ tabs.scrollBy({left:200, behavior:'smooth'}); });
+  update(); setTimeout(update, 400);
 })();
 </script>
 </body>
