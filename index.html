@@ -476,10 +476,11 @@
   .ivy-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
   .ivy { overflow: visible; }
-  .leaf-outline { fill: var(--ivy); fill-opacity: .16; stroke: var(--ivy); stroke-width: 1.2; stroke-linejoin: round; }
-  .leaf-vein    { fill: none; stroke: var(--ivy); stroke-width: .9; stroke-linecap: round; opacity: .6; }
-  .stem         { fill: none; stroke: var(--ivy); stroke-width: 1.3; stroke-linecap: round; }
-  .petiole      { fill: none; stroke: var(--ivy); stroke-width: 1.1; stroke-linecap: round; }
+  .ivy { color: var(--ivy); }
+  .leaf-outline { fill: currentColor; fill-opacity: .16; stroke: currentColor; stroke-width: 1.2; stroke-linejoin: round; }
+  .leaf-vein    { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; opacity: .6; }
+  .stem         { fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; }
+  .petiole      { fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; }
   .ask .petiole { stroke: var(--ivy-lt); }
   .tl-new .petiole { stroke: var(--ember); }
 
@@ -499,8 +500,9 @@
 
   /* ivy over the dark panel — lighter so it reads on loam */
   .ask { position: relative; overflow: visible; }
-  .ask .leaf-outline { fill: var(--ivy-lt); fill-opacity: .18; stroke: var(--ivy-lt); }
-  .ask .leaf-vein, .ask .stem { stroke: var(--ivy-lt); }
+  .ask { }
+  .ask .ivy, .ask.ivy { color: var(--ivy-lt); }
+  .ask .leaf-outline { fill-opacity: .18; }
   .ask .sprig { width: 8.5rem; }
 
   /* portfolio plates: ivy creeps in on hover */
@@ -547,8 +549,8 @@
     transition-delay: var(--d, 0s);
   }
   /* newest growth at the tip runs bronze, the way real ivy does */
-  .tl-new .leaf-outline { fill: var(--ember); fill-opacity: .2; stroke: var(--ember); }
-  .tl-new .leaf-vein { stroke: var(--ember); }
+  .tl-new { color: var(--ember); }
+  .tl-new .leaf-outline { fill-opacity: .2; }
 
   /* tendrils also grow on CV rows and ephemera plates */
   .cv-row { position: relative; }
@@ -567,9 +569,10 @@
   .sec-head > *, .intro > * { position: relative; z-index: 1; }
 
   .ghosts {
-    position: absolute; left: -.045em; top: -.34em;
+    position: absolute; left: 0; top: -.34em;
     z-index: 0; pointer-events: none; user-select: none;
     display: flex; flex-direction: column; line-height: .74;
+    padding-left: .08em;
   }
   .ghosts span {
     font-family: 'Fraunces', Georgia, serif;
@@ -766,11 +769,12 @@
     font-style: italic; font-weight: 400;
     letter-spacing: -.015em;
   }
-  .haiku p {
+  .haiku p:not(.haiku-title) {
     margin: 0;
     display: flex; flex-direction: column;
     gap: clamp(.35rem, 1vw, .6rem);
   }
+  p.haiku-title { display:block !important; margin:0 0 1.3rem !important; font-size:clamp(1.7rem,1.3rem + 1.6vw,2.5rem) !important; }
   /* each line is its own block, sized to never wrap on its own */
   .haiku span {
     display: block;
@@ -1011,7 +1015,8 @@
   #panel-patio { --pa-ember:#d97b3f; --pa-ember-d:#b5612c; --pa-fate:#b98cc4;
     --pa-fate-soft:#caa9d1; --pa-free:#63b3a6; --pa-free-lt:#8fd4c8;
     --pa-line:#55604528; --pa-card:#f0e6d2; --pa-dim:#9a8f7c; }
-  .patio-stage { max-width: 40rem; margin: 0 auto; }
+  .patio-stage { max-width: 40rem; margin: 0 auto; position: relative; }
+  .patio-stage .ghosts { left: 0; right: auto; }
   .pa-ticks { display:flex; gap:.4rem; margin-bottom:1.75rem; }
   .pa-tick { height:3px; flex:1; background:var(--hairline); border-radius:2px; transition:background .4s; }
   .pa-tick.on { background:var(--pa-ember); }
@@ -1231,6 +1236,15 @@
   .manifesto-body p { margin: 0 0 1.35rem; }
   .manifesto-body p:last-child { margin-bottom: 0; }
   /* the closing creed, set apart and larger */
+  .mf-underline {
+    background-image: linear-gradient(90deg, rgba(214,210,196,.9), rgba(180,176,162,.7));
+    background-repeat: no-repeat;
+    background-position: 0 92%;
+    background-size: 100% 2px;
+    padding-bottom: 1px;
+  }
+  .mf-cite { font-size:.6em; vertical-align:super; color:#E8B27E; text-decoration:none; margin-left:1px; }
+  .mf-cite:hover { text-decoration:underline; }
   .manifesto-creed {
     margin-top: 1.9rem !important;
     font-weight: 600; font-size: clamp(1.4rem, 1.2rem + 1.2vw, 2rem);
@@ -1238,9 +1252,9 @@
     text-wrap: balance;
   }
   /* faint quiet ivy in one corner — the charm still present, banked low */
-  .manifesto .ivy-mark { position:absolute; right:-8px; bottom:-12px; width:9rem; opacity:.4; z-index:0; }
-  .manifesto .ivy-mark .leaf-outline { stroke:#8aa06a; fill:#8aa06a; fill-opacity:.22; }
-  .manifesto .ivy-mark .leaf-vein, .manifesto .ivy-mark .stem, .manifesto .ivy-mark .petiole { stroke:#9cb07e; }
+  .manifesto .ivy-mark { position:absolute; right:-8px; bottom:-12px; width:9rem; opacity:.85; z-index:0; }
+  .manifesto .ivy-mark { color:#F7EFE0; }
+  .manifesto .ivy-mark .leaf-outline { fill-opacity:.12; }
   @media (max-width: 46rem){ .manifesto .ivy-mark { width:6rem; } }
 
   /* colophon */
@@ -1700,7 +1714,7 @@
       <p class="label">What I believe</p>
       <div class="manifesto-body">
         <p>I believe that one day, when our brighter future comes to pass, most Americans will be proud artists. We will show new friends elaborate photo albums; we will mourn our pets through written poetry and song. We will paint, staple, sew, and sing so that we might know a more harmonious country.</p>
-        <p>Today, fewer than one in five Americans practice art in some meaningful way. I want to make that number higher. The barrier to artistic creation has never been lower, the benefits of arts engagement have never been more proven, human authorship of art has never been more endangered.</p>
+        <p><span class="mf-underline">Today, fewer than one in five Americans practice art in some meaningful way</span><a href="https://www.arts.gov/sites/default/files/SPPA_Comprehensive_Report_FINAL.pdf" target="_blank" rel="noopener" class="mf-cite">1</a>. I want to change that. The barrier to artistic creation has never been lower, the benefits of arts engagement have never been more proven, human authorship of art has never been more endangered.</p>
         <p>Literacy was once a rare skill possessed by only the rich and privileged&mdash;until it was deemed critical social and civic infrastructure. Art must follow a similar trajectory. We must demand art education be a public good, not a private luxury.</p>
         <p class="manifesto-creed">All humans deserve a space to learn, make, and share art.</p>
       </div>
@@ -1736,7 +1750,7 @@
       <div class="ghosts" aria-hidden="true"><span>WORK</span><span>WORK</span><span>WORK</span></div>
       <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>The workbench</p>
       <h2>Things I&rsquo;ve built</h2>
-      <p style="max-width:var(--measure); margin:1rem 0 0; color:var(--lichen);">Each of these started with a question I couldn&rsquo;t stop turning over. They take different shapes&mdash;a correspondence program, a scavenger hunt, a zine&mdash;but they&rsquo;re all after the same thing.</p>
+      <p style="max-width:var(--measure); margin:1rem 0 0; color:#F1E9DA;">Each of these started with a question I couldn&rsquo;t stop turning over. They take different shapes&mdash;a correspondence program, a scavenger hunt, a zine&mdash;but they&rsquo;re all after the same thing.</p>
     </div>
 
     <div class="project-picker" role="list">
@@ -1895,6 +1909,7 @@
             <p>I take the drab original copy home to scan and include in the High Dive. At first I intended for the High Dive to be almost entirely composed of these interviews, but I felt like they needed a reason to exist&mdash;something more. Most editorial techniques would distract or diminish from the original interviews, but I had an idea: what if my written contributions were characters of their own, and what if they responded to the interview in their own way? From there, everything fell into place.</p>
             <p>I hope to publish the first issue in late 2026 / early 2027!</p>
           </div>
+          <ul class="outcomes"><li>12 pages</li><li>Stylized keepsake</li><li>Street interviews</li><li>Creative writing</li><li>Created in Photoshop &amp; Affinity</li></ul>
       </div>
       </div></article>
     </div>
@@ -2060,7 +2075,7 @@
       <div class="ghosts" aria-hidden="true"><span>EPHEMERA</span><span>EPHEMERA</span><span>EPHEMERA</span></div>
       <p class="label"><svg class="leafmark ivy" viewBox="-12 -22.5 24 23" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg>The woodpile</p>
       <h2>Ephemera</h2>
-      <p style="max-width:var(--measure); margin:1rem 0 0; color:var(--lichen);">Poems, photographs, and other small things. This wall reshuffles every time you load the page&mdash;you&rsquo;ll rarely see the same handful twice.</p>
+      <p style="max-width:var(--measure); margin:1rem 0 0; color:#F1E9DA;">Poems, photographs, and other small things. This wall reshuffles every time you load the page&mdash;you&rsquo;ll rarely see the same handful twice.</p>
     </div>
 
     <div class="eph-note">
