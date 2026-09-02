@@ -70,43 +70,23 @@
   /* clay mosaic behind frosted glass — a vague impression, not wallpaper */
   .clay-bg { display:none; }
   body[data-tab="patio"] .clay-bg {
-    display:block; position:fixed; inset:-80px; z-index:0; pointer-events:none;
+    display:block; position:fixed; inset:-120px; z-index:0; pointer-events:none;
     background-image:url("assets/textures/clay-mosaic.svg");
-    background-size:1100px 1100px; background-repeat:repeat;
-    filter: blur(26px) saturate(.85) brightness(.92);
-    opacity:.75;
+    background-size:1200px 1200px; background-repeat:repeat;
+    /* painterly: soft heavy blur + a touch of contrast so colors pool like wet pigment */
+    filter: blur(34px) saturate(1.02) contrast(1.04) brightness(.96);
+    opacity:.8;
   }
   /* the frosted pane: milky veil that sits over the blurred tiles */
   body[data-tab="patio"] .clay-bg::after {
     content:''; position:absolute; inset:0;
+    /* gentle warm wash that unifies the pooled color — like a glaze, not glass */
     background:
-      linear-gradient(180deg, rgba(240,225,205,.14), rgba(111,61,36,.42)),
-      radial-gradient(140% 90% at 50% 0%, rgba(255,240,220,.14), transparent 60%);
-    backdrop-filter: blur(6px);
+      radial-gradient(150% 100% at 50% -10%, rgba(255,236,210,.10), transparent 55%),
+      linear-gradient(180deg, rgba(120,66,40,.18), rgba(90,48,26,.34));
   }
   body[data-tab="patio"]::before { opacity: .30; }
 
-  /* patio: ambient string-lights across the WHOLE viewport, behind all content */
-  .patio-lights { display:none; }
-  body[data-tab="patio"] .patio-lights {
-    display:block; position:fixed; inset:0; z-index:1; overflow:hidden; pointer-events:none;
-  }
-  .patio-lights .halo {
-    position:absolute; border-radius:50%; filter:blur(26px); opacity:.55; mix-blend-mode:screen;
-    animation:glowpulse 5s ease-in-out infinite;
-  }
-  @keyframes glowpulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.85;transform:scale(1.1)} }
-  .patio-lights .swag { position:absolute; left:-2%; width:104%; opacity:.4; }
-  .patio-lights .swag path { fill:none; stroke:rgba(20,12,6,.3); stroke-width:1.5; }
-  /* keep app content above the fixed light layer on the patio */
-  body[data-tab="patio"] .wrap, body[data-tab="patio"] .masthead, body[data-tab="patio"] .tabs { position:relative; z-index:2; }
-  body[data-tab="patio"]::after {
-    content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.25;
-    background-image:
-      repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 6px),
-      repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 7px);
-  }
-  @media (prefers-reduced-motion: reduce){ .patio-lights .halo{ animation:none } }
   body[data-tab="resume"]::before  { opacity: .42; }
   body[data-tab="contact"]::before { opacity: .4; }
   body[data-tab="ephemera"]::before { opacity: .3; }
@@ -850,7 +830,8 @@
   .eph-card:nth-child(6){animation-delay:.25s}
 
   /* image item */
-  .eph-image img { width: 100%; height: auto; display: block; }
+  .eph-image img { width: 100%; height: auto; display: block; object-fit: contain; }
+  .eph-image .eph-kind { color: #1F1B16; }
   .eph-cap {
     padding: .7rem .9rem; font-size: .8125rem; color: var(--lichen);
     display: flex; justify-content: space-between; gap: .75rem;
@@ -1028,7 +1009,8 @@
   .pa-ghost:hover { background:rgba(255,255,255,.05); color:var(--loam); }
   .pa-bar { display:flex; gap:.75rem; align-items:center; margin-top:2rem; flex-wrap:wrap; }
   .pa-bar .sp { flex:1; } .pa-count { font-size:.8rem; color:var(--pa-dim); }
-  .pa-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(8rem,1fr)); gap:.7rem; margin-top:1.5rem; }
+  .pa-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; margin-top:1.5rem; }
+  @media (max-width:30rem){ .pa-grid{ grid-template-columns:repeat(2,1fr); } }
   .pa-pick { appearance:none; cursor:pointer; text-align:left; background:rgba(0,0,0,.15);
     border:1px solid var(--hairline); border-radius:6px; padding:.9rem 1rem; color:var(--loam);
     font-family:inherit; transition:border-color .15s,background .15s; position:relative; }
@@ -1206,6 +1188,14 @@
     12%  { opacity:.95; }
     70%  { opacity:.75; }
     100% { transform:translateY(-260px) translateX(var(--drift,10px)) scale(.35) rotate(60deg); opacity:0; }
+  }
+  @keyframes rise-ember-sway {
+    0%   { transform:translateY(0) translateX(0) scale(1) rotate(0deg); opacity:0; }
+    12%  { opacity:.95; }
+    35%  { transform:translateY(-90px) translateX(calc(var(--sway,10px) * 1)) rotate(20deg); }
+    58%  { transform:translateY(-150px) translateX(calc(var(--sway,10px) * -1)) rotate(-14deg); opacity:.8; }
+    80%  { transform:translateY(-210px) translateX(calc(var(--sway,10px) * 0.6)) rotate(24deg); }
+    100% { transform:translateY(-270px) translateX(var(--drift,10px)) scale(.32) rotate(50deg); opacity:0; }
   }
   @media (prefers-reduced-motion: reduce){ .embers{ display:none; } }
 
@@ -1436,7 +1426,6 @@
 </head>
 <body>
 <div class="clay-bg" aria-hidden="true"></div>
-<div class="patio-lights" aria-hidden="true"><svg class="swag" viewBox="0 0 100 40" preserveAspectRatio="none" style="top:0;height:40vh"><path d="M 2.0,16.0 11.6,17.2 21.2,18.4 30.8,19.2 40.4,19.8 50.0,20.0 59.6,19.8 69.2,19.2 78.8,18.4 88.4,17.2 98.0,16.0" vector-effect="non-scaling-stroke"/></svg><span class="halo" style="left:2.0%;top:16.0vh;width:120px;height:120px;margin-left:-60px;margin-top:-60px;background:radial-gradient(circle,#ffcf87,transparent 66%);animation-delay:-1.6s"></span><span class="halo" style="left:11.6%;top:17.2vh;width:160px;height:160px;margin-left:-80px;margin-top:-80px;background:radial-gradient(circle,#ff9d5c,transparent 66%);animation-delay:-0.8s"></span><span class="halo" style="left:21.2%;top:18.4vh;width:140px;height:140px;margin-left:-70px;margin-top:-70px;background:radial-gradient(circle,#ffe3b0,transparent 66%);animation-delay:-3.3s"></span><span class="halo" style="left:30.8%;top:19.2vh;width:175px;height:175px;margin-left:-87px;margin-top:-87px;background:radial-gradient(circle,#f2843f,transparent 66%);animation-delay:-0.4s"></span><span class="halo" style="left:40.4%;top:19.8vh;width:130px;height:130px;margin-left:-65px;margin-top:-65px;background:radial-gradient(circle,#ffbe7a,transparent 66%);animation-delay:-2.7s"></span><span class="halo" style="left:50.0%;top:20.0vh;width:120px;height:120px;margin-left:-60px;margin-top:-60px;background:radial-gradient(circle,#ffcf87,transparent 66%);animation-delay:-1.8s"></span><span class="halo" style="left:59.6%;top:19.8vh;width:160px;height:160px;margin-left:-80px;margin-top:-80px;background:radial-gradient(circle,#ff9d5c,transparent 66%);animation-delay:-0.3s"></span><span class="halo" style="left:69.2%;top:19.2vh;width:140px;height:140px;margin-left:-70px;margin-top:-70px;background:radial-gradient(circle,#ffe3b0,transparent 66%);animation-delay:-2.5s"></span><span class="halo" style="left:78.8%;top:18.4vh;width:175px;height:175px;margin-left:-87px;margin-top:-87px;background:radial-gradient(circle,#f2843f,transparent 66%);animation-delay:-0.2s"></span><span class="halo" style="left:88.4%;top:17.2vh;width:130px;height:130px;margin-left:-65px;margin-top:-65px;background:radial-gradient(circle,#ffbe7a,transparent 66%);animation-delay:-2.2s"></span><span class="halo" style="left:98.0%;top:16.0vh;width:120px;height:120px;margin-left:-60px;margin-top:-60px;background:radial-gradient(circle,#ffcf87,transparent 66%);animation-delay:-0.3s"></span></div>
 
 <svg class="ivy-defs" aria-hidden="true" focusable="false">
   <defs>
@@ -1658,7 +1647,7 @@
     </div>
 
     <section class="manifesto" aria-label="What I believe">
-      <div class="embers" aria-hidden="true"><span class="ember" style="left:61.3%;width:7.0px;height:5.2px;border-radius:60% 56% 40% 54% / 52% 46% 45% 43%;transform:rotate(7deg);--drift:2px;animation-duration:5.7s;animation-delay:-1.8s"></span><span class="ember" style="left:56.8%;width:4.1px;height:2.5px;border-radius:48% 45% 52% 45% / 47% 49% 54% 44%;transform:rotate(-24deg);--drift:-16px;animation-duration:3.8s;animation-delay:-6.5s"></span><span class="ember" style="left:23.8%;width:7.9px;height:6.1px;border-radius:49% 50% 46% 57% / 51% 50% 46% 52%;transform:rotate(-2deg);--drift:24px;animation-duration:3.9s;animation-delay:-3.1s"></span><span class="ember" style="left:28.3%;width:5.3px;height:4.0px;border-radius:58% 40% 59% 50% / 47% 54% 51% 49%;transform:rotate(21deg);--drift:-2px;animation-duration:6.6s;animation-delay:-1.4s"></span><span class="ember" style="left:20.2%;width:5.0px;height:3.9px;border-radius:51% 52% 40% 57% / 58% 56% 52% 40%;transform:rotate(17deg);--drift:25px;animation-duration:4.0s;animation-delay:-1.4s"></span><span class="ember" style="left:22.1%;width:7.0px;height:5.5px;border-radius:54% 51% 56% 51% / 53% 59% 43% 51%;transform:rotate(-3deg);--drift:-23px;animation-duration:3.9s;animation-delay:-7.1s"></span><span class="ember" style="left:35.3%;width:6.4px;height:5.0px;border-radius:50% 48% 57% 42% / 54% 55% 49% 45%;transform:rotate(-30deg);--drift:-11px;animation-duration:6.3s;animation-delay:-5.4s"></span><span class="ember" style="left:48.5%;width:6.9px;height:3.9px;border-radius:59% 57% 52% 41% / 52% 56% 48% 54%;transform:rotate(13deg);--drift:8px;animation-duration:4.4s;animation-delay:-7.3s"></span><span class="ember" style="left:77.8%;width:5.3px;height:3.2px;border-radius:58% 44% 60% 53% / 48% 50% 53% 51%;transform:rotate(-21deg);--drift:-20px;animation-duration:4.0s;animation-delay:-3.2s"></span><span class="ember" style="left:88.8%;width:6.5px;height:3.9px;border-radius:56% 54% 55% 50% / 60% 53% 49% 55%;transform:rotate(11deg);--drift:18px;animation-duration:7.4s;animation-delay:-0.8s"></span><span class="ember" style="left:52.9%;width:4.7px;height:3.7px;border-radius:50% 45% 42% 55% / 53% 56% 42% 51%;transform:rotate(35deg);--drift:-8px;animation-duration:6.5s;animation-delay:-5.7s"></span><span class="ember" style="left:68.8%;width:5.1px;height:3.4px;border-radius:49% 50% 60% 45% / 45% 60% 48% 50%;transform:rotate(-5deg);--drift:8px;animation-duration:5.7s;animation-delay:-6.1s"></span><span class="ember" style="left:77.4%;width:5.4px;height:3.8px;border-radius:53% 51% 45% 54% / 56% 55% 44% 45%;transform:rotate(-15deg);--drift:-1px;animation-duration:7.1s;animation-delay:-7.0s"></span><span class="ember" style="left:67.6%;width:6.9px;height:5.1px;border-radius:45% 59% 58% 56% / 58% 54% 48% 40%;transform:rotate(-15deg);--drift:8px;animation-duration:4.4s;animation-delay:-3.3s"></span><span class="ember" style="left:24.2%;width:6.7px;height:4.7px;border-radius:41% 55% 47% 45% / 46% 49% 43% 50%;transform:rotate(-17deg);--drift:-5px;animation-duration:5.7s;animation-delay:-4.1s"></span><span class="ember" style="left:36.3%;width:6.7px;height:3.8px;border-radius:46% 47% 51% 40% / 56% 57% 48% 53%;transform:rotate(-26deg);--drift:26px;animation-duration:6.6s;animation-delay:-4.1s"></span></div>
+      <div class="embers" aria-hidden="true"><span class="ember" style="left:24.9%;width:7.8px;height:4.5px;border-radius:41% 42% 44% 47% / 51% 57% 40% 54%;transform:rotate(22deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-17px;--sway:14px;animation-name:rise-ember-sway;animation-duration:5.6s;animation-delay:-3.7s"></span><span class="ember" style="left:5.8%;width:5.1px;height:3.3px;border-radius:52% 43% 48% 43% / 47% 57% 52% 43%;transform:rotate(-33deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:0px;--sway:12px;animation-name:rise-ember;animation-duration:5.2s;animation-delay:-5.2s"></span><span class="ember" style="left:17.1%;width:4.3px;height:3.4px;border-radius:55% 46% 44% 58% / 59% 59% 49% 51%;transform:rotate(14deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:13px;animation-name:rise-ember;animation-duration:4.3s;animation-delay:-5.7s"></span><span class="ember" style="left:81.6%;width:6.0px;height:3.6px;border-radius:44% 51% 56% 49% / 47% 52% 51% 47%;transform:rotate(-39deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-26px;--sway:9px;animation-name:rise-ember;animation-duration:5.0s;animation-delay:-1.6s"></span><span class="ember" style="left:42.4%;width:6.6px;height:3.8px;border-radius:40% 46% 45% 49% / 48% 45% 52% 50%;transform:rotate(-19deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-20px;--sway:12px;animation-name:rise-ember-sway;animation-duration:6.1s;animation-delay:-6.8s"></span><span class="ember" style="left:10.4%;width:6.9px;height:3.9px;border-radius:43% 56% 56% 51% / 49% 60% 44% 42%;transform:rotate(-16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-6px;--sway:12px;animation-name:rise-ember-sway;animation-duration:3.9s;animation-delay:-1.1s"></span><span class="ember" style="left:92.8%;width:4.0px;height:3.0px;border-radius:46% 41% 59% 41% / 50% 50% 50% 53%;transform:rotate(16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-15px;--sway:14px;animation-name:rise-ember-sway;animation-duration:4.3s;animation-delay:-1.5s"></span><span class="ember" style="left:14.0%;width:6.9px;height:4.9px;border-radius:54% 56% 42% 55% / 57% 56% 54% 47%;transform:rotate(-34deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-22px;--sway:13px;animation-name:rise-ember;animation-duration:4.6s;animation-delay:-3.3s"></span><span class="ember" style="left:6.1%;width:5.5px;height:3.6px;border-radius:42% 59% 56% 58% / 51% 52% 50% 52%;transform:rotate(26deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:6px;--sway:15px;animation-name:rise-ember;animation-duration:6.4s;animation-delay:-0.1s"></span><span class="ember" style="left:94.3%;width:4.9px;height:3.1px;border-radius:57% 53% 51% 50% / 54% 56% 49% 43%;transform:rotate(-15deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:5px;--sway:15px;animation-name:rise-ember-sway;animation-duration:5.7s;animation-delay:-2.8s"></span><span class="ember" style="left:39.3%;width:7.7px;height:5.2px;border-radius:51% 59% 58% 51% / 58% 51% 55% 42%;transform:rotate(-6deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:21px;--sway:16px;animation-name:rise-ember;animation-duration:4.5s;animation-delay:-3.7s"></span><span class="ember" style="left:79.9%;width:7.9px;height:4.9px;border-radius:56% 48% 48% 60% / 58% 52% 51% 47%;transform:rotate(-9deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-14px;--sway:14px;animation-name:rise-ember;animation-duration:7.0s;animation-delay:-5.6s"></span><span class="ember" style="left:37.9%;width:7.1px;height:5.3px;border-radius:52% 42% 60% 45% / 58% 46% 44% 40%;transform:rotate(38deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:11px;animation-name:rise-ember-sway;animation-duration:4.6s;animation-delay:-2.0s"></span><span class="ember" style="left:56.1%;width:4.5px;height:2.9px;border-radius:60% 42% 50% 41% / 47% 49% 51% 42%;transform:rotate(-11deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-10px;--sway:9px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-4.5s"></span><span class="ember" style="left:51.8%;width:4.5px;height:3.3px;border-radius:51% 53% 45% 45% / 53% 57% 44% 53%;transform:rotate(-32deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-12px;--sway:8px;animation-name:rise-ember-sway;animation-duration:4.2s;animation-delay:-1.7s"></span><span class="ember" style="left:8.7%;width:6.2px;height:4.6px;border-radius:45% 57% 60% 50% / 54% 52% 55% 43%;transform:rotate(32deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-20px;--sway:13px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-0.6s"></span></div>
       <p class="label">What I believe</p>
       <div class="manifesto-body">
         <p>I believe that one day, when our brighter future comes to pass, most Americans will be proud artists. We will show new friends elaborate photo albums; we will mourn our pets through written poetry and song. We will paint, staple, sew, and sing so that we might know a more harmonious country.</p>
@@ -2033,11 +2022,11 @@
       </button>
     </div>
 
-    <div class="eph-section-label"><span>Verse</span></div>
-    <div class="eph-wall eph-wall-poems" id="eph-wall-poems"></div>
-
     <div class="eph-section-label"><span>Image</span></div>
     <div class="eph-wall" id="eph-wall-photos"></div>
+
+    <div class="eph-section-label"><span>Verse</span></div>
+    <div class="eph-wall eph-wall-poems" id="eph-wall-poems"></div>
 
     <button class="eph-all-btn" id="eph-all" type="button">
       See the whole woodpile
@@ -2060,10 +2049,10 @@
         <h3>The whole woodpile</h3>
         <button class="eph-modal-close" id="eph-modal-close" type="button">Close &times;</button>
       </div>
-      <div class="eph-section-label eph-section-label--dark"><span>Verse</span></div>
-      <div class="eph-wall eph-wall-poems" id="eph-wall-all-poems"></div>
       <div class="eph-section-label eph-section-label--dark"><span>Image</span></div>
       <div class="eph-wall" id="eph-wall-all-photos"></div>
+      <div class="eph-section-label eph-section-label--dark"><span>Verse</span></div>
+      <div class="eph-wall eph-wall-poems" id="eph-wall-all-poems"></div>
     </div>
   </div>
 </div>
@@ -2553,7 +2542,7 @@ const ephemera = [
 ];
 
 const SHOW_POEMS = 2;    // poems shown on the wall each load
-const SHOW_PHOTOS = 4;   // photos shown on the wall each load
+const SHOW_PHOTOS = 6;   // photos shown on the wall each load
 
 const RENDERERS = {
   poem(it) {
@@ -2699,7 +2688,7 @@ function paintAll() {
     const seedCards=EXAMPLES.map(pinnedCardHTML).join('');
     stage.innerHTML=`${ticks(0)}
       <div class="ghosts" aria-hidden="true"><span>PATIO</span><span>PATIO</span><span>PATIO</span></div>
-      <div class="pa-eyebrow">Pull up a bench</div>
+      <div class="pa-eyebrow">Pin your message</div>
       <div class="pa-h">The Patio</div>
       <p class="pa-intro-lede">The Patio is a brief adventure into shortform sentimental writing. You&rsquo;ll pick items and make decisions&mdash;all to create a message that will persist on the patio.</p>
       <div class="pa-corkboard" style="margin-top:1.5rem">
@@ -2780,7 +2769,7 @@ function paintAll() {
       <div class="pa-fate"><div class="pa-fate-nm">${esc(weather.name)}</div><div class="pa-fate-sub">${esc(weather.sub)}</div></div>
       <p class="pa-resp-note">You didn't choose this. You did choose how you met it.</p>
       <div class="pa-resp-row" id="presp"></div>
-      <div class="pa-bar"><span class="sp"></span><button class="pa-btn" id="pnext" disabled>Choose your telling →</button></div>`;
+      <div class="pa-bar"><button class="pa-btn pa-ghost" id="pback">← Reach again</button><span class="sp"></span><button class="pa-btn" id="pnext" disabled>Choose your telling →</button></div>`;
     const r=document.getElementById('presp');
     weather.verbs.forEach(v=>{const b=document.createElement('button');b.className='pa-resp';b.textContent=v;
       b.onclick=()=>{response=v;[...r.children].forEach(c=>c.setAttribute('aria-pressed','false'));
