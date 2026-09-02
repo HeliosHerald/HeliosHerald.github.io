@@ -2865,6 +2865,8 @@ function paintAll() {
       setTimeout(()=>document.getElementById('prevbar').style.opacity='',550);
     },700);
     document.getElementById('ptowall').onclick=async ()=>{
+      const btn=document.getElementById('ptowall');
+      btn.disabled=true; btn.textContent='Pinning…';
       // build a storable card (poolWords -> plain strings; body spans kept as-is)
       const card={
         action:action.id,
@@ -2875,13 +2877,16 @@ function paintAll() {
         poolWords: pool.map(w=>nounText(w,{cap:true}))
       };
       const local={...card,tends:0,mine:true};
-      // optimistic: show immediately, then persist
+      // 1) persist FIRST so we capture the id and confirm the save
+      try {
+        if(window.PatioDB){ local.id=await window.PatioDB.pin(card); }
+      } catch(e){
+        console.error('Patio pin failed:',e);   // surface real errors instead of hiding them
+      }
+      // 2) then show the wall with our new card on top
       WALL.unshift(local);
       chosen=[];pool=[];noun=null;weather=null;response=null;action=null;freeWord='';
       stepWall();
-      try {
-        if(window.PatioDB){ const id=await window.PatioDB.pin(card); local.id=id; }
-      } catch(e){ /* offline / rules — card still shows locally this session */ }
     };
   }
   // which cards this browser has already tended (so one device can't spam a card)
