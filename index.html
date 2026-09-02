@@ -2691,18 +2691,36 @@ function paintAll() {
      sign:'— [name]'},
   ];
 
+  function pinnedCardHTML(c){
+    return `<div class="pa-pinned"><div class="pa-pinned-body ${act(c.action)&&act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div><div class="pa-pinned-sign">${esc(c.sign)}</div></div>`;
+  }
   function stepEnter(){
-    const cards=EXAMPLES.map(c=>`<div class="pa-pinned"><div class="pa-pinned-body ${act(c.action)&&act(c.action).paint?'paint':''}">${bodyHtml(c.body)}</div><div class="pa-pinned-sign">${esc(c.sign)}</div></div>`).join('');
+    // start with the seeded examples so the board is never empty while loading
+    const seedCards=EXAMPLES.map(pinnedCardHTML).join('');
     stage.innerHTML=`${ticks(0)}
       <div class="ghosts" aria-hidden="true"><span>PATIO</span><span>PATIO</span><span>PATIO</span></div>
       <div class="pa-eyebrow">Pull up a bench</div>
       <div class="pa-h">The Patio</div>
       <p class="pa-intro-lede">The Patio is a brief adventure into shortform sentimental writing. You&rsquo;ll pick items and make decisions&mdash;all to create a message that will persist on the patio.</p>
       <div class="pa-corkboard" style="margin-top:1.5rem">
-        <div class="pa-board-grid">${cards}</div>
+        <div class="pa-board-grid" id="pa-landing-board">${seedCards}</div>
       </div>
       <div class="pa-bar"><button class="pa-btn" id="pgo">Leave one yourself →</button></div>`;
     document.getElementById('pgo').onclick=stepItems;
+    // then pull the real, accumulating wall onto the landing board
+    (async()=>{
+      try{
+        if(!window.PatioDB) return;
+        const remote=await window.PatioDB.load();
+        if(!remote.length) return;
+        const board=document.getElementById('pa-landing-board');
+        if(!board) return;                       // user already moved on
+        // show newest real cards; if few exist, pad with seed examples
+        let html=remote.slice(0,9).map(pinnedCardHTML).join('');
+        if(remote.length<3) html += EXAMPLES.slice(0, 3-remote.length).map(pinnedCardHTML).join('');
+        board.innerHTML=html;
+      }catch(e){ /* keep the seed examples if load fails */ }
+    })();
   }
   function stepItems(){
     stage.innerHTML=`${ticks(1)}<div class="pa-eyebrow">What you carry — choose ${MIN}</div>
