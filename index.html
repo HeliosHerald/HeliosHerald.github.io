@@ -796,6 +796,8 @@
   }
 
   .bio-full { max-width: 44rem; }
+  .bio-lead { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+  .bio-lead .bio-roles { font-size: 1.0625rem; color: var(--loam); font-weight: 500; max-width: 42rem; }
 
   /* ── project case studies ───────────────────── */
 
@@ -974,6 +976,35 @@
     animation: rise .5s cubic-bezier(.2,.7,.3,1) both;
   }
   .story-body .catalyst { margin-bottom: 1.6rem; }
+
+  /* project title row with a tacked collaboration card */
+  .cs-titlerow {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1.5rem; flex-wrap: wrap;
+  }
+  .collab-card {
+    position: relative; flex: none;
+    background: #F4ECDC; border: 1px solid rgba(31,27,22,.14); border-radius: 5px;
+    padding: .85rem 1.1rem .8rem; max-width: 15rem;
+    transform: rotate(2deg);
+    box-shadow: 0 8px 20px -10px rgba(31,27,22,.5);
+    margin-top: .3rem;
+  }
+  .collab-card .collab-label {
+    display: block; font-family: 'Karla', sans-serif;
+    font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: #6b5847; margin-bottom: .5rem;
+  }
+  .collab-card img { display: block; width: 100%; max-width: 12rem; height: auto; }
+  .collab-pin {
+    position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+    width: 13px; height: 13px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 32%, #6a3fa0, #3a1f5e 65%, #23123c);
+    box-shadow: 0 3px 6px -2px rgba(0,0,0,.5);
+  }
+  @media (max-width: 40rem) {
+    .collab-card { transform: rotate(1deg); max-width: 13rem; }
+  }
 
   /* ── case-study photo gallery ───────────────── */
   .cs-gallery {
@@ -1697,7 +1728,14 @@
       <div class="ghosts" aria-hidden="true"><span>ANIMATOR</span><span>ANIMATOR</span><span>ANIMATOR</span></div>
       <p class="label" style="margin-bottom:1.1rem;">Making ground where strangers become neighbors</p>
       <h1>Arts manager and cultural animator.</h1>
-      <p class="sub">Handwritten letters, hidden clues, street interviews. I bridge gaps and create connections through public programming&mdash;every neighborhood has hidden potential, it just needs a reason to bloom.</p>
+      <p class="sub">Handwritten letters, hidden clues, street interviews &mdash; I bridge gaps and create connections through public programming. Every neighborhood has hidden potential; it just needs a reason to bloom.</p>
+    </div>
+
+    <div class="bio-full bio-lead">
+      <div class="bio">
+        <p class="lede" style="margin:0 0 1rem;">Transforming art from something we see to something we&nbsp;do.</p>
+        <p class="bio-roles">I&rsquo;m a second-year MA student in Arts Management at American University, where I am co-president of the Emerging Arts Leaders Society. I&rsquo;m Program Coordinator at the DC Arts Center in Adams Morgan, where I built and run the AdMo Pen Pals Project.</p>
+      </div>
     </div>
 
     <div class="portrait-haiku">
@@ -1715,13 +1753,7 @@
       </div>
     </div>
 
-    <div class="bio-full">
-      <div class="bio">
-        <p class="label" style="margin-bottom:.7rem;">About</p>
-        <p class="lede" style="margin:0 0 1.25rem;">Transforming art from something we see to something we&nbsp;do.</p>
-        <p>I&rsquo;m a second-year MA student in Arts Management at American University, where I am co-president of the Emerging Arts Leaders Society. I&rsquo;m Program Coordinator at the DC Arts Center in Adams Morgan, where I built and run the AdMo Pen Pals Project.</p>
-      </div>
-    </div>
+
 
     <section class="manifesto" aria-label="What I believe">
       <div class="embers" aria-hidden="true"><span class="ember" style="left:3%;width:7.8px;height:4.5px;border-radius:41% 42% 44% 47% / 51% 57% 40% 54%;transform:rotate(22deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-17px;--sway:14px;animation-name:rise-ember-sway;animation-duration:5.6s;animation-delay:-3.7s"></span><span class="ember" style="left:3.6%;width:5.1px;height:3.3px;border-radius:52% 43% 48% 43% / 47% 57% 52% 43%;transform:rotate(-33deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:0px;--sway:12px;animation-name:rise-ember;animation-duration:5.2s;animation-delay:-5.2s"></span><span class="ember" style="left:9.1%;width:4.3px;height:3.4px;border-radius:55% 46% 44% 58% / 59% 59% 49% 51%;transform:rotate(14deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:13px;animation-name:rise-ember;animation-duration:4.3s;animation-delay:-5.7s"></span><span class="ember" style="left:19.2%;width:6.0px;height:3.6px;border-radius:44% 51% 56% 49% / 47% 52% 51% 47%;transform:rotate(-39deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-26px;--sway:9px;animation-name:rise-ember;animation-duration:5.0s;animation-delay:-1.6s"></span><span class="ember" style="left:20.2%;width:6.6px;height:3.8px;border-radius:40% 46% 45% 49% / 48% 45% 52% 50%;transform:rotate(-19deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-20px;--sway:12px;animation-name:rise-ember-sway;animation-duration:6.1s;animation-delay:-6.8s"></span><span class="ember" style="left:21.9%;width:6.9px;height:3.9px;border-radius:43% 56% 56% 51% / 49% 60% 44% 42%;transform:rotate(-16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-6px;--sway:12px;animation-name:rise-ember-sway;animation-duration:3.9s;animation-delay:-1.1s"></span><span class="ember" style="left:33.6%;width:4.0px;height:3.0px;border-radius:46% 41% 59% 41% / 50% 50% 50% 53%;transform:rotate(16deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-15px;--sway:14px;animation-name:rise-ember-sway;animation-duration:4.3s;animation-delay:-1.5s"></span><span class="ember" style="left:31.2%;width:6.9px;height:4.9px;border-radius:54% 56% 42% 55% / 57% 56% 54% 47%;transform:rotate(-34deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-22px;--sway:13px;animation-name:rise-ember;animation-duration:4.6s;animation-delay:-3.3s"></span><span class="ember" style="left:35.0%;width:5.5px;height:3.6px;border-radius:42% 59% 56% 58% / 51% 52% 50% 52%;transform:rotate(26deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:6px;--sway:15px;animation-name:rise-ember;animation-duration:6.4s;animation-delay:-0.1s"></span><span class="ember" style="left:47.1%;width:4.9px;height:3.1px;border-radius:57% 53% 51% 50% / 54% 56% 49% 43%;transform:rotate(-15deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:5px;--sway:15px;animation-name:rise-ember-sway;animation-duration:5.7s;animation-delay:-2.8s"></span><span class="ember" style="left:46.8%;width:7.7px;height:5.2px;border-radius:51% 59% 58% 51% / 58% 51% 55% 42%;transform:rotate(-6deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:21px;--sway:16px;animation-name:rise-ember;animation-duration:4.5s;animation-delay:-3.7s"></span><span class="ember" style="left:54.8%;width:7.9px;height:4.9px;border-radius:56% 48% 48% 60% / 58% 52% 51% 47%;transform:rotate(-9deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-14px;--sway:14px;animation-name:rise-ember;animation-duration:7.0s;animation-delay:-5.6s"></span><span class="ember" style="left:55.7%;width:7.1px;height:5.3px;border-radius:52% 42% 60% 45% / 58% 46% 44% 40%;transform:rotate(38deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-23px;--sway:11px;animation-name:rise-ember-sway;animation-duration:4.6s;animation-delay:-2.0s"></span><span class="ember" style="left:61.7%;width:4.5px;height:2.9px;border-radius:60% 42% 50% 41% / 47% 49% 51% 42%;transform:rotate(-11deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-10px;--sway:9px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-4.5s"></span><span class="ember" style="left:65.8%;width:4.5px;height:3.3px;border-radius:51% 53% 45% 45% / 53% 57% 44% 53%;transform:rotate(-32deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-12px;--sway:8px;animation-name:rise-ember-sway;animation-duration:4.2s;animation-delay:-1.7s"></span><span class="ember" style="left:66.5%;width:6.2px;height:4.6px;border-radius:45% 57% 60% 50% / 54% 52% 55% 43%;transform:rotate(32deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:-20px;--sway:13px;animation-name:rise-ember-sway;animation-duration:6.7s;animation-delay:-0.6s"></span><span class="ember" style="left:72.0%;width:4.5px;height:3.0px;border-radius:54% 58% 59% 49% / 58% 58% 51% 55%;transform:rotate(6deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-18px;--sway:9px;animation-name:rise-ember;animation-duration:6.7s;animation-delay:-5.8s"></span><span class="ember" style="left:81.8%;width:5.1px;height:3.6px;border-radius:56% 57% 56% 49% / 51% 57% 44% 55%;transform:rotate(20deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:-26px;--sway:10px;animation-name:rise-ember-sway;animation-duration:4.3s;animation-delay:-3.0s"></span><span class="ember" style="left:85.2%;width:6.5px;height:3.8px;border-radius:40% 42% 45% 54% / 49% 58% 43% 51%;transform:rotate(24deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:9px;--sway:16px;animation-name:rise-ember;animation-duration:4.0s;animation-delay:-4.5s"></span><span class="ember" style="left:89.2%;width:5.9px;height:3.5px;border-radius:47% 55% 51% 58% / 56% 56% 53% 51%;transform:rotate(40deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:24px;--sway:13px;animation-name:rise-ember-sway;animation-duration:6.5s;animation-delay:-5.5s"></span><span class="ember" style="left:96.2%;width:6.0px;height:4.0px;border-radius:55% 57% 45% 49% / 49% 53% 40% 54%;transform:rotate(-4deg);background:radial-gradient(60% 60% at 45% 40%,#ffe0ad,#ec8a3e 55%,rgba(200,80,30,.5) 80%,transparent 100%);--drift:19px;--sway:9px;animation-name:rise-ember-sway;animation-duration:6.1s;animation-delay:-2.0s"></span><span class="ember" style="left:97%;width:6.0px;height:4.3px;border-radius:50% 44% 58% 43% / 56% 59% 51% 55%;transform:rotate(33deg);background:radial-gradient(60% 60% at 45% 40%,#ffb27a,#e0542a 50%,rgba(150,40,20,.55) 80%,transparent 100%);--drift:12px;--sway:8px;animation-name:rise-ember;animation-duration:5.3s;animation-delay:-4.1s"></span></div>
@@ -1729,7 +1761,7 @@
       <div class="manifesto-body">
         <p>I believe that one day, when our brighter future comes to pass, most Americans will be proud artists. We will show new friends elaborate photo albums; we will mourn our pets through written poetry and song. We will paint, staple, sew, and sing so that we might know a more harmonious country.</p>
         <p><span class="mf-underline">Today, fewer than one in five Americans practice art in some meaningful way</span><a href="https://www.arts.gov/sites/default/files/SPPA_Comprehensive_Report_FINAL.pdf" target="_blank" rel="noopener" class="mf-cite">1</a>. I want to change that. The barrier to artistic creation has never been lower, the benefits of arts engagement have never been more proven, human authorship of art has never been more endangered.</p>
-        <p>Literacy was once a rare skill possessed by only the rich and privileged&mdash;until it was deemed critical social and civic infrastructure. Art must follow a similar trajectory. We must demand art education be a public good, not a private luxury.</p>
+        <p>Literacy was once a rare skill possessed by only the rich and privileged&mdash;until it was deemed critical civic infrastructure. Art must follow a similar trajectory. We must demand art education be a public good, not a private luxury.</p>
         <p class="manifesto-creed">All humans deserve a space to learn, make, and share art.</p>
       </div>
       <svg class="ivy-mark ivy" viewBox="-26 -18 100 88" fill="none" aria-hidden="true" focusable="false"><use href="#ivy-sprig"/></svg>
@@ -1814,8 +1846,17 @@
         <span class="label">DC Arts Center, AdMo</span>
       </div>
       <div>
-        <h3>AdMo Pen Pals</h3>
-        <p class="entry-tagline">Creating connection through written correspondence.</p>
+        <div class="cs-titlerow">
+          <div>
+            <h3>AdMo Pen Pals</h3>
+            <p class="entry-tagline">Creating connection through written correspondence.</p>
+          </div>
+          <div class="collab-card" aria-label="In collaboration with the DC Arts Center">
+            <span class="collab-pin" aria-hidden="true"></span>
+            <span class="collab-label">In collaboration with</span>
+            <img src="assets/logos/dcac-logo.png" alt="The DC Arts Center">
+          </div>
+        </div>
         <div class="catalyst">
           <span class="label">The catalyst question</span>
           <p>How can I connect with my neighbors through writing?</p>
@@ -1834,8 +1875,7 @@
         
         
       </div>
-        <button class="story-toggle" aria-expanded="false" data-story="0">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="story-body" id="story-0" hidden>
+        <div class="story-body" id="story-0">
         <div class="entry-body">
             <p>The DC Arts Center Pen Pal Project is a local pen pal initiative that seeks to keep the art of correspondence alive by creating and sustaining friendships and dialogue in Adams Morgan. The local aspect is crucial; all participants have a relationship with the neighborhood. Most modes of correspondence today encourage distance&mdash;both personal and physical. The pen pal project closes that distance. Distance is not always bad, but we have enough of it. It&rsquo;s time for something that asks us to be earnest, to be real.</p>
             <p>Writing pen-to-paper encourages people to think differently, to share sincerely, to be intentional. To connect with a stranger and wait patiently for a response&mdash;that is rare too. The benefits of having a pen pal have long been known, but opportunities to participate are infrequent.</p>
@@ -1881,8 +1921,7 @@
         
         
       </div>
-        <button class="story-toggle" aria-expanded="false" data-story="1">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="story-body" id="story-1" hidden>
+        <div class="story-body" id="story-1">
         <div class="entry-body">
             <p>In a moment of intense hardship, head in my hands, I wondered: how did the knights of yore find their strength? Belief in divinity helped, but there was another thing: fellowship. They shared burdens, wisdom, meals and ordeals. I saw genuine value in that ancient framework, and besides, knights are awesome. I resolved to build a quest that encourages collaboration and connection culminating in a roundtable seminar.</p>
             <p>I knew that the core model would be that of a scavenger hunt around the neighborhood. I took a walk around Adams Morgan and scouted six locations&mdash;spots where I could hide a sticker. After that, a flurry of iteration and experimentation had begun. I had decided that I wanted NFC technology to be the engine of the hunt&mdash;the same technology behind tap-to-pay. NFC stickers are very cheap, and when tapped with a phone they can transfer a link, just like a QR code. Stickers plus NFC created a discreet way of adhering interactable clues to walls.</p>
@@ -1925,8 +1964,7 @@
         
           <ul class="outcomes"><li>12 pages</li><li>Stylized keepsake</li><li>Street interviews</li><li>Creative writing</li><li>Created in Photoshop &amp; Affinity</li></ul>
       </div>
-        <button class="story-toggle" aria-expanded="false" data-story="2">Read the full story <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="story-body" id="story-2" hidden>
+        <div class="story-body" id="story-2">
         <div class="entry-body">
             <p>For a long time I wanted to make a zine, but I wasn&rsquo;t interested in producing something that only platformed my voice. I sat on this for a while before a different idea came to me: a system for performing memorable street interviews with strangers. The product of those interviews would become the foundation for the zine, and various fictional voices&mdash;written by me&mdash;would become the other half of each spread.</p>
             <p>The process is straightforward but unique: I approach a stranger and ask them if they&rsquo;d be interested in a one-question interview for the High Dive. If they say yes, I begin by asking them to choose an object from their bag to be the object of the interview. Sometimes I help them decide what object to talk about.</p>
@@ -2004,26 +2042,6 @@
     </div>
 
     <div class="cv-block">
-      <span class="label">Independent projects</span>
-      <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
-        <span class="label" style="padding-top:.25rem;">Apr – Jul 2026</span>
-        <div>
-          <p class="cv-role">Rove 54</p>
-          <p class="cv-org">Creator · Washington, DC</p>
-          <p class="cv-desc">Designed and beta-tested a group scavenger hunt across Adams Morgan — six hidden sticker seals found by riddle and printed field guide. Built the site at rove54.quest with NFC-linked location pages and analytics, produced copper tags and coins, and curated participant-authored proverbs for each site.</p>
-        </div>
-      </div>
-      <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-7"/></svg></div>
-        <span class="label" style="padding-top:.25rem;">In production</span>
-        <div>
-          <p class="cv-role">The High Dive</p>
-          <p class="cv-org">Creator & Editor · Washington, DC</p>
-          <p class="cv-desc">A street-interview zine built on a carbon-copy paper format: strangers answer one question about an object they're carrying, and leave with a designed keepsake. Directing all editorial, design, and print decisions.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="cv-block">
       <span class="label">Leadership & service</span>
       <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-7"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg></div>
         <span class="label" style="padding-top:.25rem;">2025 – present</span>
@@ -2050,6 +2068,28 @@
         </div>
       </div>
     </div>
+
+    <div class="cv-block">
+      <span class="label">Independent projects</span>
+      <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-8"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg></div>
+        <span class="label" style="padding-top:.25rem;">Apr – Jul 2026</span>
+        <div>
+          <p class="cv-role">Rove 54</p>
+          <p class="cv-org">Creator · Washington, DC</p>
+          <p class="cv-desc">Designed and beta-tested a group scavenger hunt across Adams Morgan — six hidden sticker seals found by riddle and printed field guide. Built the site at rove54.quest with NFC-linked location pages and analytics, produced copper tags and coins, and curated participant-authored proverbs for each site.</p>
+        </div>
+      </div>
+      <div class="cv-row"><div class="tendril" aria-hidden="true"><svg class="tendril-stem" viewBox="0 0 1000 24" preserveAspectRatio="none" fill="none"><path d="M0.0 13.0 C120.0 7.0 240.0 18.0 360.0 12.0 C480.0 6.0 600.0 17.0 720.0 11.0 C840.0 5.0 920.0 15.0 1000.0 10.0"/></svg><svg class="tl ivy" style="left:6.8%;top:-14.8px;--r:-30deg;--d:0.05s;width:26.0px;height:26.0px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl ivy" style="left:20.2%;top:-4.7px;--r:215deg;--d:0.14s;width:17.7px;height:17.7px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:33.8%;top:-11.0px;--r:-26deg;--d:0.24s;width:23.9px;height:23.9px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-6"/></svg><svg class="tl ivy" style="left:47.2%;top:-4.8px;--r:219deg;--d:0.33s;width:15.1px;height:15.1px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-3"/></svg><svg class="tl ivy" style="left:60.8%;top:-14.9px;--r:-33deg;--d:0.43s;width:27.6px;height:27.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-1"/></svg><svg class="tl ivy" style="left:74.2%;top:-10.7px;--r:206deg;--d:0.52s;width:20.8px;height:20.8px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-4"/></svg><svg class="tl tl-new ivy" style="left:85.8%;top:-6.9px;--r:-25deg;--d:0.60s;width:16.6px;height:16.6px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-2"/></svg><svg class="tl tl-new ivy" style="left:95.5%;top:-14.0px;--r:216deg;--d:0.67s;width:25.5px;height:25.5px" viewBox="-13 -23.5 26 23.5" fill="none" aria-hidden="true" focusable="false"><use href="#lf-7"/></svg></div>
+        <span class="label" style="padding-top:.25rem;">In production</span>
+        <div>
+          <p class="cv-role">The High Dive</p>
+          <p class="cv-org">Creator & Editor · Washington, DC</p>
+          <p class="cv-desc">A street-interview zine built on a carbon-copy paper format: strangers answer one question about an object they're carrying, and leave with a designed keepsake. Directing all editorial, design, and print decisions.</p>
+        </div>
+      </div>
+    </div>
+
+    
 
     <div class="cv-block">
       <span class="label">Education</span>
@@ -2376,14 +2416,6 @@
 
   cards.forEach(card => {
     card.addEventListener('click', () => open(card.dataset.open, card));
-  });
-  document.querySelectorAll('[data-story]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body = document.getElementById('story-' + btn.dataset.story);
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      if (body) body.hidden = open;
-    });
   });
   document.querySelectorAll('[data-close]').forEach(btn => {
     btn.addEventListener('click', () => {
