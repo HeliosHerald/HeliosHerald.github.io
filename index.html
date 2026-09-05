@@ -1075,7 +1075,7 @@
   .pa-tick { height:3px; flex:1; background:var(--hairline); border-radius:2px; transition:background .4s; }
   .pa-tick.on { background:var(--pa-ember); }
   .pa-eyebrow { font-size:.68rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
-    color:var(--pa-ember); margin-bottom:.7rem; }
+    color:#F1E9DA; margin-bottom:.7rem; }
   .pa-h { font-family:'Fraunces',Georgia,serif; font-variation-settings:'SOFT' 30,'WONK' 1,'opsz' 90;
     font-weight:600; line-height:1.06; letter-spacing:-.02em; font-size:clamp(1.6rem,4.5vw,2.4rem); margin-bottom:.3rem; }
   .pa-say { color:var(--lichen); margin-top:.6rem; max-width:32rem; }
@@ -2483,6 +2483,7 @@ const ephemera = [
   { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115618.png', alt:'' },
   { type:'image', src:'assets/ephemera/Screenshot%202026-08-29%20115631.png', alt:'' },
 
+  { type:'poem', title:'Testament of old stone', text:'Still for a sentry. Trembles within\n\nFamiliar rain\n\nBuffeting breath\n\nBellies ruptured at last.\n\nEverything spills\n\nslowly it goes.\n\nThe light may never come back.' },
   // add poems, quotes, or new media types here ↓
 ];
 
@@ -2656,10 +2657,10 @@ function paintAll() {
       <div class="pa-eyebrow">Pin your message</div>
       <div class="pa-h">The Patio</div>
       <p class="pa-intro-lede">The Patio is a brief adventure into shortform sentimental writing. You&rsquo;ll pick items and make decisions&mdash;all to create a message that will persist on the patio.</p>
-      <div class="pa-corkboard" style="margin-top:1.5rem">
+      <div class="pa-bar" style="margin-top:1.5rem"><button class="pa-btn" id="pgo">Leave one yourself →</button></div>
+      <div class="pa-corkboard" style="margin-top:1.75rem">
         <div class="pa-board-grid" id="pa-landing-board">${seedCards}</div>
-      </div>
-      <div class="pa-bar"><button class="pa-btn" id="pgo">Leave one yourself →</button></div>`;
+      </div>`;
     document.getElementById('pgo').onclick=stepItems;
     // then pull the real, accumulating wall onto the landing board
     (async()=>{
@@ -2741,6 +2742,7 @@ function paintAll() {
       b.onclick=()=>{response=v;[...r.children].forEach(c=>c.setAttribute('aria-pressed','false'));
         b.setAttribute('aria-pressed','true');document.getElementById('pnext').disabled=false;};
       r.appendChild(b);});
+    document.getElementById('pback').onclick=stepWeather;
     document.getElementById('pnext').onclick=stepAction;
   }
   function stepAction(){
